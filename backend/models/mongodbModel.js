@@ -37,6 +37,10 @@ export const Inventory = mongoose.model('Item', inventorySchema);
 
 const userSchema = new mongoose.Schema({
     
+    _id: {
+        type: String,
+        required: true
+    },
     username: {
         type: String,
         required: true
@@ -73,7 +77,10 @@ export const User = mongoose.model('Item', userSchema);
 // description: Brief description of the food category
 
 const foodCategorySchema = new mongoose.Schema({
-    
+    _id: {
+        type: String,
+        required: true
+    },
     categoryName: {
         type: String,
         required: true
@@ -101,15 +108,15 @@ export const foodCategory = mongoose.model('Item', foodCategorySchema);
 
 const foodItemSchema = new mongoose.Schema({
     
-
+    _id: {
+        type: String,
+        required: true
+    },
     restaurantId: {
         type: String,
         required: true
     },
-    restaurantName: {
-        type: String,
-        required: true
-    },
+
     foodCategoryId: {
         type: String,
         required: true
@@ -159,6 +166,10 @@ export const FoodItem = mongoose.model('Item', foodItemSchema);
 
 const transactionLogSchema = new mongoose.Schema({
     
+    _id: {
+        type: String,
+        required: true
+    },
     restaurantId: {
         type: String,
         required: true
