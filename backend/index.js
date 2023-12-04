@@ -3,6 +3,7 @@ import { PORT , mongodbURL} from "./config.js";
 import mongoose from "mongoose";
 import { Inventory } from "./models/mongodbModel.js";
 import routes from "./routes/routes.js";
+import foodItemsRoutes from "./routes/foodItems";
 import cors from 'cors';
 
 const app = express();
@@ -23,6 +24,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/inventory', routes);
+app.use('/fooditems', foodItemsRoutes);
 
 mongoose
     .connect(mongodbURL)
