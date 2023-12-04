@@ -20,6 +20,6 @@ const foodCategorySchema = new mongoose.Schema({
     
 });
 
-export const foodCategory = mongoose.model('Item', foodCategorySchema);
+export const foodCategory = mongoose.model('FoodCategory', foodCategorySchema);
 
 //???
