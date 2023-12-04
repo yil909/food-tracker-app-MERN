@@ -1,12 +1,13 @@
 import express from 'express';
 import { Inventory } from "../models/mongodbModel.js";
+import {createInventory, getAllInventory} from '../controller/inventoryController.js';
 
 const router = express.Router();
 
 //route to get all inventory
 router.get('/', async (request, response) => {
     try {
-        const inventory = await Inventory.find({});
+        const inventory = await getAllInventory();
 
         return response.status(200).json({
             inventory,
@@ -40,7 +41,7 @@ router.post('/', async (req, res) => {
             expDate: req.body.expDate
         };
 
-        const inventory = await Inventory.create(newInventory);
+        const inventory = await createInventory(newInventory);
 
         return res.status(201).send(inventory);
     } catch (error) {
