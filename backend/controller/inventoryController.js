@@ -1,4 +1,4 @@
-import { Inventory } from "../models/InventoryModel.js";
+import { Inventory } from "../models/mongodbModel.js";
 
 export async function getAllInventory (){
     const inventory = await Inventory.find({});
