@@ -10,4 +10,28 @@ export async function createInventory(newInventory){
     return result;
 }
 
+export async function updateInventory (id, updateData){
+    try {
+        const result = await Inventory.findByIdAndUpdate(id, updateData, { new: true });
+        if (!result) {
+            throw new Error('Record not found');
+        }
+        return result;
+    } catch (error) {
+        console.error(error.message);
+        throw error; // Rethrow the error to be handled by the caller
+    }
+}
 
+export async function deleteInventory(id) {
+    try {
+        const result = await Inventory.findByIdAndDelete(id);
+        if (!result) {
+            throw new Error('Record not found');
+        }
+        return result;
+    } catch (error) {
+        console.error(error.message);
+        throw error; // Rethrow the error to be handled by the caller
+    }
+}
