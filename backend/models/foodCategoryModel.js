@@ -1,19 +1,4 @@
 import mongoose from "mongoose";
-<<<<<<< HEAD
-
-const foodCategorySchema = new mongoose.Schema({
-  categoryName: {
-    type: String,
-    required: true
-  },
-  description: {
-    type: String,
-    required: true
-  }
-});
-
-export const FoodCategory = mongoose.model('FoodCategory', foodCategorySchema);
-=======
 // FoodCategories:
 // _id: Unique identifier for each food category (MongoDB's ObjectID)
 // categoryName: Name of the food category (e.g., Meat, Dairy, Vegetables etc.)
@@ -35,7 +20,5 @@ const foodCategorySchema = new mongoose.Schema({
     
 });
 
-export const foodCategory = mongoose.model('Item', foodCategorySchema);
+export const FoodCategoryModel = mongoose.model('FoodCategory', foodCategorySchema);
 
-//???
->>>>>>> main
