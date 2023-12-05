@@ -1,6 +1,10 @@
 import express from 'express';
+<<<<<<< Updated upstream
 import { Inventory } from "../models/mongodbModel.js";
 import {createInventory, getAllInventory} from '../controller/inventoryController.js';
+=======
+import {createInventory, getAllInventory, updateInventory, deleteInventory} from '../controller/inventoryController.js';
+>>>>>>> Stashed changes
 
 const router = express.Router();
 
