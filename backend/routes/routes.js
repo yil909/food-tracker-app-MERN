@@ -1,10 +1,5 @@
 import express from 'express';
-<<<<<<< Updated upstream
-import { Inventory } from "../models/mongodbModel.js";
-import {createInventory, getAllInventory} from '../controller/inventoryController.js';
-=======
 import {createInventory, getAllInventory, updateInventory, deleteInventory} from '../controller/inventoryController.js';
->>>>>>> Stashed changes
 
 const router = express.Router();
 
@@ -57,50 +52,37 @@ router.post('/', async (req, res) => {
 // Route for Update
 router.put('/:id', async (req, res) => {
     try {
-        if (
-            !req.body.category ||
-            !req.body.price ||
-            !req.body.item ||
-            !req.body.weight ||
-            !req.body.expDate
-        ) {
-            return res.status(400).send({
-                message: 'Send all required fields',
-            });
+        const requiredFields = ['category', 'price', 'item', 'weight', 'expDate'];
+        for (const field of requiredFields) {
+            if (!req.body[field]) {
+                return res.status(400).send({ message: `Missing required field: ${field}` });
+            }
         }
 
         const { id } = req.params;
+        const updateData = req.body;
 
-        const result = await Inventory.findByIdAndUpdate(id, req.body);
+        const result = await updateInventory(id, updateData);
 
-        if (!result) {
-            return res.status(404).json({ message: 'Record not found' });
-        }
-
-        return res.status(200).send({ message: 'Inventory updated successfully' });
+        return res.status(200).send({ message: 'Inventory updated successfully', updatedRecord: result });
     } catch (error) {
         console.log(error.message);
-        res.status(500).send({ message: error.message });
+        res.status(error.message === 'Record not found' ? 404 : 500).send({ message: error.message });
     }
 });
 
 // Route for Delete
 router.delete('/:id', async (req, res) => {
     try {
-        const { id } = request.params;
+        const { id } = req.params;
 
-        const result = await Inventory.findByIdAndDelete(id);
-
-        if (!result) {
-            return res.status(404).json({ message: 'Record not found' });
-        }
+        await deleteInventory(id);
 
         return res.status(200).send({ message: 'Deleted successfully' });
     } catch (error) {
         console.log(error.message);
-        res.status(500).send({ message: error.message });
+        res.status(error.message === 'Record not found' ? 404 : 500).send({ message: error.message });
     }
 });
-
 
 export default router;

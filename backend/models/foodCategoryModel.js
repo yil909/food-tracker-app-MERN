@@ -20,9 +20,5 @@ const foodCategorySchema = new mongoose.Schema({
     
 });
 
-<<<<<<< Updated upstream
-export const FoodCategory = mongoose.model('FoodCategory', foodCategorySchema);
-
-=======
 export const FoodCategory = mongoose.model('FoodCategories', foodCategorySchema);
->>>>>>> Stashed changes
+
