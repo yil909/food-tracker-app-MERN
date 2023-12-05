@@ -7,7 +7,7 @@ const Inventory = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:5555/inventory');
+                const response = await axios.get('http://localhost:5555/foodCat');
                 console.log(response.data); // Log the response data
                 if (response.data && Array.isArray(response.data.inventory)) {
                     setInventory(response.data.inventory); // Set to the array inside the response

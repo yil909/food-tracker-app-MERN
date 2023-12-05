@@ -1,5 +1,4 @@
 import express from 'express';
-import { Inventory } from "../models/mongodbModel.js";
 import {createInventory, getAllInventory, updateInventory, deleteInventory} from '../controller/inventoryController.js';
 
 const router = express.Router();
