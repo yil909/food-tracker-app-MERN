@@ -1,13 +1,8 @@
 import express from "express";
 import { PORT , mongodbURL} from "./config.js";
 import mongoose from "mongoose";
-<<<<<<< Updated upstream
-import { Inventory } from "./models/mongodbModel.js";
-import routes from "./routes/routes.js";
-import foodItemsRoutes from "./routes/foodItems";
-=======
-import routes from "./routes/api/foodItemRoutes.js";
->>>>>>> Stashed changes
+import foodItemroutes from "./routes/api/foodItemRoutes.js";
+
 import cors from 'cors';
 
 const app = express();
@@ -27,12 +22,9 @@ app.get('/', (req, res) => {
     return res.status(234).send('MERN')
 });
 
-<<<<<<< Updated upstream
-app.use('/inventory', routes);
-app.use('/fooditems', foodItemsRoutes);
-=======
-app.use('/foodCategories', routes);
->>>>>>> Stashed changes
+
+app.use('/foodCategories', foodItemroutes);
+
 
 mongoose
     .connect(mongodbURL)
