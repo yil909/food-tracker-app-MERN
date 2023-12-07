@@ -1,39 +1,30 @@
 import express from "express";
-import { PORT , mongodbURL} from "./config.js";
-import mongoose from "mongoose";
-import foodItemroutes from "./routes/api/foodItemRoutes.js";
+import { PORT } from "./config.js";
+import cors from "cors";
+import foodItemRouter from "./routes/api/foodItemRoutes.js";
 
-import cors from 'cors';
-
+// Setup Express
 const app = express();
 app.use(express.json());
-//app.use(cors());
 
-// Enable CORS
+// Enable CORS (use cors middleware before defining routes)
 app.use(cors({
     origin: 'http://localhost:5173', // Update with your frontend URL
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type'],
 }));
 
-
+// Routes
 app.get('/', (req, res) => {
-    console.log(req)
-    return res.status(234).send('MERN')
+    console.log(req);
+    return res.status(234).send('MERN');
 });
 
+// Setup our routes
+app.use(foodItemRouter);
 
-app.use('/foodCategories', foodItemroutes);
 
-
-mongoose
-    .connect(mongodbURL)
-    .then(() => {
-        console.log('App connected to database');
-        app.listen(PORT, () => {
-            console.log(`App is listening to port: ${PORT}`);
-        });
-    })
-    .catch((error) => {
-        console.log(error);
-    });
+// Start the server running.
+app.listen(PORT, function () {
+    console.log(`App listening on port ${PORT}!`);
+});

@@ -1,21 +1,17 @@
 import express from 'express';
-import {getAllFoodCategory} from '../../controller/foodCategoryController.js';
+import { getAllFoodItem } from '../../modules/inventory-dao.js';
 
 const router = express.Router();
 
-//route to get all inventory
-router.get('/', async (request, response) => {
-    try {
-        const foodCat = await getAllFoodCategory();
-
-        return response.status(200).json({
-            foodCat,
-            }
-        );
-    } catch (error) {
-        console.log(error.message);
-        response.status(500).send({ message: error.message });
-    }
+// Route to get all food items
+router.get('/fooditems', async (req, res) => {
+  try {
+    const foodItems = await getAllFoodItem();
+    res.json(foodItems);
+  } catch (error) {
+    console.error('Error retrieving food items:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
 export default router;

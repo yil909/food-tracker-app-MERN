@@ -1,5 +1,5 @@
-const SQL = require("sql-template-strings");
-const dbPromise = require("./database.js");
+import SQL from 'sql-template-strings';
+import { openDatabase } from './database.js'; 
 
 // async function getAuthorByArticleId(id){
 //
@@ -13,3 +13,13 @@ const dbPromise = require("./database.js");
 //     return author;
 //
 // }
+async function getAllFoodItem() {
+  const db = await openDatabase();
+  const fooditems = await db.all(SQL`
+    select itemid, name, quantity from fooditem
+    `);
+    console.log('Food Items: ' + fooditems);
+    return fooditems;
+}
+
+export { getAllFoodItem };

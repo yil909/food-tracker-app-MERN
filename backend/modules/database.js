@@ -1,10 +1,11 @@
-const sqlite = require("sqlite");
-const sqlite3 = require("sqlite3");
-const dbPromise = sqlite.open({
-    filename: "./project-database.db",
+import sqlite3 from 'sqlite3'
+import { open } from 'sqlite'
+
+// you would have to import / invoke this in another file
+export async function openDatabase () {
+  return open({
+    filename: './sql/project-database.db',
     driver: sqlite3.Database
-}).then(async function (db) {
-    await db.run("pragma foreign_keys=true");
-    return db;
-});
-module.exports = dbPromise;
+  })
+}
+
