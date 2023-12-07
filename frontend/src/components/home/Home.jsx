@@ -1,7 +1,7 @@
 
 import React from "react";
 import LeftNavBar from "../common/LeftNavBar.jsx";
-import FoodItemList from "../pages/FoodItemList.jsx";
+import FoodItemDisplay from "../pages/FoodItemDisplay.jsx";
 
 
 const Home = () => {
@@ -9,7 +9,7 @@ const Home = () => {
         <>
 
             <LeftNavBar />
-            <FoodItemList />
+            <FoodItemDisplay />
         </>
     );
 }
