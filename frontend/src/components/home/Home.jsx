@@ -7,7 +7,6 @@ import FoodItemDisplay from "../pages/FoodItemDisplay.jsx";
 const Home = () => {
     return (
         <>
-
             <LeftNavBar />
             <FoodItemDisplay />
         </>
