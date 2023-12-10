@@ -1,0 +1,65 @@
+.left-nav-bar {
+  width: 240px; /* Adjust width as needed */
+  height: 100%; /* Full height of the viewport */
+  background-color: #FAFAFA; /* Light grey background */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.logo-image {
+  width: 50px; /* Adjust as needed */
+  margin-right: 10px; /* Adjust spacing between logo and text */
+}
+
+.logo-text {
+  font-size: 20px; /* Adjust as needed */
+  color: #0A653A; /* Match the text color to the logo color */
+}
+
+.nav-list {
+  list-style-type: none; /* Remove default list styling */
+  padding: 0; /* Remove default padding */
+  margin: 0; /* Remove default margin */
+}
+
+.nav-item {
+  margin-bottom: 20px; /* Space between nav items */
+}
+
+ /* Remove underlines from links and set default color */
+.nav-link {
+  text-decoration: none;
+  color: #555; /* Default text color */
+  display: flex;
+  align-items: bottom;
+  gap: 10px; /* Space between icon and text */
+  font-weight: 500;
+  font-size: 35;
+  transition: color 0.2s, background-color 0.3s; /* Transition for color and background */
+  padding: 10px; /* Padding inside the link for larger clickable area */
+  width: 100%; /* Ensure the background color fills to the full width of the nav bar */
+  box-sizing: border-box; /* Ensures padding is included in width */
+}
+
+/* Hover effect for the list item */
+.nav-item:hover {
+  background-color: #E8E8E8; /* Light grey background color when hovered */
+}
+
+/* Hover effect to change text and icon color */
+.nav-item:hover .nav-link,
+.nav-item:hover .anticon {
+  color: #0A653A; /* Text/icon color when hovered (green) */
+}
+
+.nav-item:nth-last-child(3) {
+  margin-bottom: 200px; 
+}
+
+
