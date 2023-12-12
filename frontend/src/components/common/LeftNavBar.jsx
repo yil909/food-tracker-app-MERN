@@ -11,7 +11,7 @@ const LeftNavBar = () =>{
                     <Link to="/">Inventory</Link>
                 </li>
                 <li>
-                    <Link to="/">Reports</Link>
+                    <Link to="/report">Reports</Link>
                 </li>
                 <li>
                     <Link to="/">Notice</Link>
