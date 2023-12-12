@@ -1,0 +1,83 @@
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .icon {
+    width: 400px; /* 增大图标大小 */
+    height: 400px;
+    position: absolute;
+    top: 50%; /* 定位到屏幕中央 */
+    left: calc(50% - 400px); /* 根据登录表单和图标大小调整 */
+    transform: translate(-20%, -30%); /* 确保图标居中 */
+    margin-right: 200px; /* 与登录内容的间距 */
+}
+  
+  .register-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 400px;
+    margin-left: 200px;
+  }
+  
+  .register-form {
+    width: 100%;
+    padding: 10px;
+  }
+  
+  .register-form h2 {
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .register-button {
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .register-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .login-link {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .login-link a {
+    color: #007bff;
+  }
+  
+  .small-icon-and-welcome {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1px;
+  }
+  
+  .small-icon-and-welcome img {
+    width: 40px;
+    height: 40px;
+  }
