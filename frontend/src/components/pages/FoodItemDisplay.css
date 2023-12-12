@@ -1,0 +1,169 @@
+/* Title style for the inventory section */
+.inventory-title {
+  /* font-size: 24px; */
+  color: #333;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+/* Flexbox layout for the inventory statistics */
+.inventory-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+/* Basic style for each stat box with flexible space distribution */
+.stat-box {
+  flex: 1;
+  margin: 0 10px;
+  padding: 20px;
+  background: #FFFFFF;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Specific color styles for different categories of stat boxes */
+.stat-box.categories {
+  border-left: 4px solid #4CAF50;
+}
+.stat-box.total-items {
+  border-left: 4px solid #2196F3;
+}
+.stat-box.used-items {
+  border-left: 4px solid #FFC107;
+}
+.stat-box.high-risk {
+  border-left: 4px solid #F44336;
+  background-color: #ffebee;
+}
+
+/* Heading and number styles within stat boxes */
+.stat-box h3 {
+  font-size: 16px;
+  margin: 0;
+  margin-bottom: 8px;
+}
+.stat-box span {
+  font-size: 32px;
+  font-weight: bold;
+}
+.stat-box .subtext {
+  font-size: 12.8px;
+}
+
+/* Style adjustments for the food items section */
+.food-items-section {
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+/* Flexbox layout for the section header */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Style for action buttons in the section header */
+.header-buttons button {
+  margin-right: 10px;
+  padding: 10px 25px;
+  font-size: 14px;
+  background-color: #e7e7e7;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Full width table with collapsed borders */
+.food-items-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Style for table header */
+.food-items-table thead {
+  background-color: #f5f5f5;
+}
+
+/* Add a thin grey line under each row */
+.food-items-table tr {
+  border-bottom: 1px solid #ccc; /* Grey line */
+}
+
+/* Mouse hover effect */
+.food-items-table tr:hover {
+  background-color: #f5f5f5; /* Background color on hover */
+}
+
+/* Text alignment and padding for table cells */
+.food-items-table th, .food-items-table td {
+  text-align: center;
+  padding: 8px;
+}
+
+/* Sticky header for table columns */
+.food-items-table th {
+  position: sticky;
+  top: 0;
+}
+
+/* Flexbox layout for pagination controls */
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+}
+
+/* Style for pagination buttons */
+.previous-button, .next-button {
+  padding: 5px 15px;
+  width: 80px; 
+  height: 35px; 
+  font-size: 14px;
+  background-color: #e7e7e7;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Centered page information text */
+.page-info {
+  /* flex-grow: 1; */
+  text-align: center;
+}
+
+/* Style for the 'Edit Selected' button */
+.edit-selected-button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Hover effect for the 'Edit Selected' button */
+.edit-selected-button:hover {
+  background-color: #367c39;
+}
+
+/* Style for checkbox column header, hidden by default */
+.checkbox-header {
+  width: 30px; /* Adjust width based on checkbox size */
+  visibility: hidden; /* Hidden but space is retained */
+}
+
+/* Style for checkbox in editing mode */
+.editing .food-items-table td input[type="checkbox"] {
+  display: inline-block; /* Visible only in editing mode */
+}

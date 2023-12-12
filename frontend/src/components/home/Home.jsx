@@ -9,8 +9,7 @@ import ReportPage from "../pages/report_page/ReportPage.jsx";
 const Home = () => {
     return (
         <>
-
-            <LeftNavBar />
+            {/* <LeftNavBar /> */}
             <FoodItemDisplay />
 
         </>

@@ -4,9 +4,9 @@ import { openDatabase } from './database.js';
 async function getAllFoodItem() {
   const db = await openDatabase();
   const fooditems = await db.all(SQL`
-    select itemid, name, quantity from fooditem
+    select * from fooditem
     `);
-    console.log('Food Items: ' + fooditems);
+    //console.log('Food Items: ' + fooditems);
     return fooditems;
 }
 

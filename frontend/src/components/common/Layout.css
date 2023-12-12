@@ -1,0 +1,57 @@
+.layout {
+    display: flex;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    margin-left: 10px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+/* Style for the search bar */
+.search-bar {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 20px; /* Space to the right of the search bar */
+    width: 100%; /* Full width of its container */
+    max-width: 300px; /* Optional: maximum width of the search bar */
+}
+
+
+/* Header icons for notifications and user profile */
+.header-icons {
+    display: flex;
+    align-items: center;
+}
+
+/* Bell icon for notifications */
+.bell-icon {
+    font-size: 24px; /* Adjust icon size */
+    cursor: pointer;
+    margin-right: 15px;
+    color: grey; 
+    transition: color 0.1s; 
+}
+
+.bell-icon:hover {
+    color: green; 
+}
+
+.user-restaurant {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+

@@ -1,0 +1,54 @@
+/* Main content styling */
+.guide-content {
+    background-color: #FFFFFF;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-left: 10px; /* Center align the frame */
+    margin-top: 10px; /* Center align the frame */
+}
+
+/* Title of the content area */
+.content-title {
+    margin-bottom: 24px;
+}
+
+/* Individual guide cards */
+.guide-card {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    background-color: #f0f2f5;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    cursor: pointer; /* Indicates the card is clickable */
+}
+
+/* Icons in guide cards */
+.icon {
+    margin-right: 16px;
+    font-size: 22px; /* Adjust icon size */
+}
+
+/* See All button */
+.see-all-btn {
+    background: none;
+    border: none;
+    color: #1890ff;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 14px;
+    text-align: left;
+}
+
+/* Content that shows when See All is clicked */
+.details-content {
+    padding-top: 10px;
+    border-top: 1px solid #f0f0f0;
+    margin-top: 10px;
+}
+
+/* FAQ section at the bottom */
+.faq-section {
+    padding-top: 20px;
+}
