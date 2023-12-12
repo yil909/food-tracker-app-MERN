@@ -7,6 +7,9 @@ import LeftNavBar from "./components/common/LeftNavBar.jsx";
 import Guide from './components/pages/Guide.jsx';
 import Contact from './components/pages/Contact.jsx'; 
 import FoodItemDisplay from './components/pages/FoodItemDisplay.jsx';
+import Login from './components/pages/Login/Login.jsx';
+import Register from './components/pages/Login/Register.jsx'
+
 
 function App() {
   return (
@@ -15,6 +18,8 @@ function App() {
         <Route path='/guide' element={<Guide />}></Route>
         <Route path='/contact' element={<Contact />}></Route> 
         <Route path='/inventory' element={<FoodItemDisplay />}></Route>
+        <Route path='/login' element={<Login />}></Route>
+        <Route path='/register' element={<Register/>}></Route>
     </Routes>
   )
 }
