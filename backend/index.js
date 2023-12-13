@@ -3,6 +3,7 @@ import { PORT } from "./config.js";
 import cors from "cors";
 import foodItemRouter from "./routes/api/foodItemRoutes.js";
 import foodCatRouter from "./routes/api/foodCategoryRoutes.js";
+import transactionLogRouter from "./routes/api/transactionLogRoutes.js";
 
 // Setup Express
 const app = express();
@@ -23,7 +24,11 @@ app.get('/', (req, res) => {
 
 // Setup our routes
 app.use(foodItemRouter);
+
 app.use(foodCatRouter);
+
+app.use(transactionLogRouter);
+
 
 
 // Start the server running.

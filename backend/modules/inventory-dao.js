@@ -188,3 +188,15 @@ async function getAllFoodCategory() {
   return foodcategories;
 }
 export { getAllFoodCategory };
+
+async function getFoodItemWithAllColumn(){
+  const db = await openDatabase();
+  const allFoodItems = await db.all(SQL`
+    select * from fooditem
+  `);
+  return allFoodItems;
+}
+export {
+  getFoodItemWithAllColumn
+};
+

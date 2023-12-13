@@ -73,6 +73,7 @@ const LeftNavBar = () => {
       </ul>
     </nav>
   );
+
 }
 
 export default LeftNavBar;
