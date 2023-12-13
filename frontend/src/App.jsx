@@ -6,7 +6,7 @@ import Home from "./components/home/Home.jsx";
 import LeftNavBar from "./components/common/LeftNavBar.jsx";
 import Guide from './components/pages/Guide.jsx';
 import Contact from './components/pages/Contact.jsx'; 
-import FoodItemDisplay from './components/pages/FoodItemDisplay.jsx';
+import FoodItemDisplay from './components/pages/Inventory/FoodItemDisplay.jsx';
 
 function App() {
   return (

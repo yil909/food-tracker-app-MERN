@@ -1,5 +1,5 @@
-import SQL from 'sql-template-strings';
-import { openDatabase } from './database.js'; 
+import SQL from "sql-template-strings";
+import { openDatabase } from "./database.js";
 
 // async function getAuthorByArticleId(id){
 //
@@ -13,13 +13,178 @@ import { openDatabase } from './database.js';
 //     return author;
 //
 // }
-async function getAllFoodItem() {
+async function getFoodItemByUserId(id) {
   const db = await openDatabase();
   const fooditems = await db.all(SQL`
-    select * from fooditem
-    `);
-    //console.log('Food Items: ' + fooditems);
-    return fooditems;
+  SELECT
+  fi.itemid,
+  fi.userid,
+  fi.name,
+  fi.quantity,
+  fi.unit,
+  fi.timestamp,
+  fi.batchnumber,
+  COALESCE(t.newexpirydate, fi.expirydate) AS expiryDate,
+  round(fi.pricePerUnit) AS pricePerUnit,
+  fi.foodcategoryid,
+  fc.categoryname,
+  fc.description,
+  round(julianday(COALESCE(t.newexpirydate, fi.expirydate)) - julianday('now')) AS daysUntilExpiry,
+  SUM(CASE WHEN t.act = 'USE' THEN t.quantity ELSE 0 END) AS usedQuantity,
+  SUM(CASE WHEN t.act = 'WASTE' THEN t.quantity ELSE 0 END) AS wastedQuantity,
+  (fi.quantity - SUM(CASE WHEN t.act IN ('WASTE', 'USE') THEN t.quantity ELSE 0 END)) AS remainingQuantity
+FROM fooditem fi
+LEFT JOIN transactionlog t ON fi.itemid = t.fooditemid
+LEFT JOIN foodcategory fc on fi.foodCategoryid = fc.categoryid
+WHERE fi.userid = ${id}
+GROUP BY fi.itemid, fc.categoryname
+ORDER BY daysUntilExpiry;
+ `);
+  return fooditems;
 }
+//--and fi.userid = ${id};
+export { getFoodItemByUserId };
 
-export { getAllFoodItem };
+async function getFoodMetricByUserId(id) {
+  const db = await openDatabase();
+  const foodmetrics = await db.all(SQL`
+  SELECT
+  (SELECT count(distinct foodCategoryid) FROM fooditem WHERE userid = ${id}) AS categories,
+  (SELECT SUM(quantity) FROM fooditem WHERE userid = ${id}) AS totalItems,
+  (SELECT SUM(CASE WHEN act = 'USE' THEN quantity ELSE 0 END) FROM transactionlog WHERE timestamp >= date('now', '-7 days') AND userid = ${id}) AS used,
+  (SELECT SUM(CASE WHEN act = 'WASTE' THEN quantity ELSE 0 END) FROM transactionlog WHERE timestamp >= date('now', '-7 days') AND userid = ${id}) AS wasted,
+  (SELECT SUM(CASE WHEN expirydate < date('now') THEN quantity ELSE 0 END) FROM fooditem where userid = ${id}) AS expired,
+  (SELECT SUM(CASE WHEN expirydate <= date('now', '+28 days') 
+  AND quantity > 0 THEN quantity ELSE 0 END) FROM fooditem WHERE userid = ${id} ) AS highRisk;
+ `);
+  return foodmetrics;
+}
+//--and fi.userid = ${id};
+export { getFoodMetricByUserId };
+
+async function updateFoodItem(id, updatedFoodItem) {
+  const db = await openDatabase();
+  const result = await db.run(SQL`
+    UPDATE fooditem
+    SET name = ${updatedFoodItem.name},
+        quantity = ${updatedFoodItem.quantity},
+        unit = ${updatedFoodItem.unit},
+        pricePerUnit = ${updatedFoodItem.pricePerUnit},
+        expirydate = ${updatedFoodItem.expiryDate},
+        foodCategoryid = ${updatedFoodItem.foodCategoryid},
+        timestamp = DATETIME('now')
+    WHERE itemid = ${id}`);
+
+  console.log(`${result.changes} rows were updated.`);
+}
+export { updateFoodItem };
+
+async function createTransLog(foodstatus, updatedFoodItem) {
+  const db = await openDatabase();
+  const result = await db.run(SQL`
+    INSERT INTO transactionlog (
+      userid,
+      foodItemid,
+      quantity,
+      unit,
+      priceperunit,
+      timestamp,
+      act,
+      newexpirydate
+    )
+    VALUES (
+      ${updatedFoodItem.userid},
+      ${updatedFoodItem.itemid},
+      ${updatedFoodItem.quantity},
+      ${updatedFoodItem.unit},
+      ${updatedFoodItem.pricePerUnit},
+      DATETIME('now'),
+      ${updatedFoodItem.foodstatus},
+      ${updatedFoodItem.expirydate})`);
+
+  // Get the auto-generated ID value, and assign it to the user id.
+  console.log("trans id: " + result.lastID);
+  console.log(`${result.changes} rows were updated.`);
+}
+export { createTransLog };
+
+async function createFoodItem(newFoodItem) {
+  const db = await openDatabase();
+
+  // Get the current date in the format YYYY-MM-DD
+  const currentDate = new Date().toISOString().split("T")[0];
+
+  // Get the maximum batch number for the same day and foodCategoryid
+  const maxBatchNumberResult = await db.get(SQL`
+    SELECT MAX(CAST(SUBSTR(batchnumber, 3) AS INTEGER)) as maxBatchNumber
+    FROM fooditem
+    WHERE userid = ${newFoodItem.userid}
+      AND foodCategoryid = ${newFoodItem.foodCategoryid}
+      AND DATE(timestamp) = ${currentDate}
+  `);
+
+  // Extract the maximum batch number and increment it
+  let newBatchNumber = 1;
+  if (maxBatchNumberResult && maxBatchNumberResult.maxBatchNumber) {
+    newBatchNumber = Math.min(
+      parseInt(maxBatchNumberResult.maxBatchNumber) + 1,
+      999
+    );
+  }
+
+  // Format the batch number as "BN001", "BN002", etc.
+  const formattedBatchNumber = `BN${newBatchNumber
+    .toString()
+    .padStart(3, "0")}`;
+
+  const result = await db.run(SQL`
+    INSERT INTO fooditem (
+      userid,
+      foodCategoryid,
+      name,
+      quantity,
+      unit,
+      pricePerUnit,
+      timestamp,
+      batchnumber,
+      expirydate
+    )
+    VALUES (
+      ${newFoodItem.userid},
+      ${newFoodItem.foodCategoryid},
+      ${newFoodItem.name},
+      ${newFoodItem.quantity},
+      ${newFoodItem.unit},
+      round(${newFoodItem.price / newFoodItem.quantity}),
+      DATETIME('now'),
+      ${formattedBatchNumber},
+      ${newFoodItem.expiryDate}
+    )
+  `);
+
+  // Get the auto-generated ID value and assign it to the user id.
+  console.log("New item id: " + result.lastID);
+  console.log(`${result.changes} rows were updated.`);
+
+  const addLogData = {
+    userid: newFoodItem.userid,
+    itemid: result.lastID,
+    quantity: newFoodItem.quantity,
+    unit: newFoodItem.unit,
+    foodstatus: "ADD",
+    expirydate: newFoodItem.expiryDate,
+    pricePerUnit: round(newFoodItem.price / newFoodItem.quantity),
+  };
+  createTransLog("ADD", addLogData);
+}
+export { createFoodItem };
+
+async function getAllFoodCategory() {
+  const db = await openDatabase();
+  const foodcategories = await db.all(SQL`
+  SELECT fc.categoryid, fc.categoryname, fc.description
+  FROM foodcategory fc; 
+ `);
+  return foodcategories;
+}
+export { getAllFoodCategory };
