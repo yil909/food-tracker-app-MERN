@@ -8,11 +8,9 @@ import ReportPage from "./components/pages/report_page/ReportPage.jsx";
 import LeftNavBar from "./components/common/LeftNavBar.jsx";
 import Guide from './components/pages/Guide.jsx';
 import Contact from './components/pages/Contact.jsx'; 
-import FoodItemDisplay from './components/pages/FoodItemDisplay.jsx';
+import FoodItemDisplay from './components/pages/Inventory/FoodItemDisplay.jsx';
 import Login from './components/pages/Login/Login.jsx';
 import Register from './components/pages/Login/Register.jsx'
-
-
 
 function App() {
   return (
