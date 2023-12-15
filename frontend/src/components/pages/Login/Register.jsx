@@ -23,11 +23,11 @@ function Register() {
       <div className="register-content">
         <div className="small-icon-and-welcome">
           <img src={logoIcon} alt="Small Icon" />
-          <h2>Welcome to Food Waste Tracker! </h2>
+          <h2>Come on! Join Us! </h2>
         </div>
         <form className="register-form" onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="name">Name:</label>
+            <label htmlFor="name">Name</label>
             <input
               type="text"
               id="name"
@@ -37,7 +37,7 @@ function Register() {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="password">Password:</label>
+            <label htmlFor="password">Password</label>
             <input
               type="password"
               id="password"
@@ -48,7 +48,7 @@ function Register() {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="restaurantName">Restaurant Name:</label>
+            <label htmlFor="restaurantName">Restaurant Name</label>
             <input
               type="text"
               id="restaurantName"
@@ -58,7 +58,7 @@ function Register() {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="address">Address:</label>
+            <label htmlFor="address">Address</label>
             <input
               type="text"
               id="address"
@@ -68,7 +68,7 @@ function Register() {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="city">City:</label>
+            <label htmlFor="city">City</label>
             <input
               type="text"
               id="city"
@@ -78,7 +78,7 @@ function Register() {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="contact">Contact:</label>
+            <label htmlFor="contact">Contact</label>
             <input
               type="text"
               id="contact"
