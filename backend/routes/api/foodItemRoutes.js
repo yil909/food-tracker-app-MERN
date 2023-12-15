@@ -5,8 +5,8 @@ import {
   createFoodItem,
   createTransLog,
   getFoodMetricByUserId,
+  getFoodItemWithAllColumn
 } from "../../modules/inventory-dao.js";
-import {getFoodItemWithAllColumn} from '../../modules/inventory-dao.js';
 import {getItemWithCategoryName} from "../../modules/report-dao.js";
 
 
