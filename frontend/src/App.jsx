@@ -10,13 +10,14 @@ import Guide from './components/pages/Guide.jsx';
 import Contact from './components/pages/Contact.jsx'; 
 import FoodItemDisplay from './components/pages/Inventory/FoodItemDisplay.jsx';
 import Login from './components/pages/Login/Login.jsx';
-import Register from './components/pages/Login/Register.jsx'
+import Register from './components/pages/Login/Register.jsx';
+import Dashboard from './components/pages/Dashboard/dashboard.jsx';
 
 function App() {
   return (
 
     <Routes>
-        <Route path='/' element={<Home />}></Route>
+        <Route path='/' element={<Dashboard />}></Route>
         <Route path='/guide' element={<Guide />}></Route>
         <Route path='/contact' element={<Contact />}></Route> 
         <Route path='/inventory' element={<FoodItemDisplay />}></Route>

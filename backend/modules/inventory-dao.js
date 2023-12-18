@@ -25,14 +25,14 @@ async function getFoodItemByUserId(id) {
   fi.timestamp,
   fi.batchnumber,
   COALESCE(t.newexpirydate, fi.expirydate) AS expiryDate,
-  round(fi.pricePerUnit) AS pricePerUnit,
+  round(fi.pricePerUnit,2) AS pricePerUnit,
   fi.foodcategoryid,
   fc.categoryname,
   fc.description,
   round(julianday(COALESCE(t.newexpirydate, fi.expirydate)) - julianday('now')) AS daysUntilExpiry,
-  SUM(CASE WHEN t.act = 'USE' THEN t.quantity ELSE 0 END) AS usedQuantity,
-  SUM(CASE WHEN t.act = 'WASTE' THEN t.quantity ELSE 0 END) AS wastedQuantity,
-  (fi.quantity - SUM(CASE WHEN t.act IN ('WASTE', 'USE') THEN t.quantity ELSE 0 END)) AS remainingQuantity
+  round(SUM(CASE WHEN t.act = 'USE' THEN t.quantity ELSE 0 END),2) AS usedQuantity,
+  round(SUM(CASE WHEN t.act = 'WASTE' THEN t.quantity ELSE 0 END),2) AS wastedQuantity,
+  round((fi.quantity - SUM(CASE WHEN t.act IN ('WASTE', 'USE') THEN t.quantity ELSE 0 END)),2) AS remainingQuantity
 FROM fooditem fi
 LEFT JOIN transactionlog t ON fi.itemid = t.fooditemid
 LEFT JOIN foodcategory fc on fi.foodCategoryid = fc.categoryid
@@ -50,12 +50,11 @@ async function getFoodMetricByUserId(id) {
   const foodmetrics = await db.all(SQL`
   SELECT
   (SELECT count(distinct foodCategoryid) FROM fooditem WHERE userid = ${id}) AS categories,
-  (SELECT SUM(quantity) FROM fooditem WHERE userid = ${id}) AS totalItems,
-  (SELECT SUM(CASE WHEN act = 'USE' THEN quantity ELSE 0 END) FROM transactionlog WHERE timestamp >= date('now', '-7 days') AND userid = ${id}) AS used,
-  (SELECT SUM(CASE WHEN act = 'WASTE' THEN quantity ELSE 0 END) FROM transactionlog WHERE timestamp >= date('now', '-7 days') AND userid = ${id}) AS wasted,
-  (SELECT SUM(CASE WHEN expirydate < date('now') THEN quantity ELSE 0 END) FROM fooditem where userid = ${id}) AS expired,
-  (SELECT SUM(CASE WHEN expirydate <= date('now', '+28 days') 
-  AND quantity > 0 THEN quantity ELSE 0 END) FROM fooditem WHERE userid = ${id} ) AS highRisk;
+  (SELECT round(SUM(quantity),2) FROM fooditem WHERE userid = ${id}) AS totalItems,
+  (SELECT round(SUM(CASE WHEN act = 'USE' THEN quantity ELSE 0 END),2) FROM transactionlog WHERE timestamp >= date('now', '-7 days') AND userid = ${id}) AS used,
+  (SELECT round(SUM(CASE WHEN act = 'WASTE' THEN quantity ELSE 0 END),2) FROM transactionlog WHERE timestamp >= date('now', '-7 days') AND userid = ${id}) AS wasted,
+  (SELECT round(SUM(CASE WHEN expirydate < date('now') THEN quantity ELSE 0 END),2) FROM fooditem WHERE userid = ${id}) AS expired,
+  (SELECT round(SUM(CASE WHEN expirydate <= date('now', '+28 days') AND quantity > 0 THEN quantity ELSE 0 END),2) FROM fooditem WHERE userid = ${id}) AS highRisk;
  `);
   return foodmetrics;
 }
@@ -189,14 +188,44 @@ async function getAllFoodCategory() {
 }
 export { getAllFoodCategory };
 
-async function getFoodItemWithAllColumn(){
+async function getWasteByCategory(id) {
+  const db = await openDatabase();
+  const wastecategories = await db.all(SQL`
+  SELECT
+  fc.categoryname,
+  SUM( t.quantity) AS wastedQuantity
+  FROM fooditem fi
+  LEFT JOIN transactionlog t ON fi.itemid = t.fooditemid
+  LEFT JOIN foodcategory fc on fi.foodCategoryid = fc.categoryid
+  WHERE fi.userid = ${id}
+  AND t.act = 'WASTE'
+  GROUP BY fc.categoryname;
+ `);
+  return wastecategories;
+}
+export { getWasteByCategory };
+
+async function getUsageWasteOverTime(id) {
+  const db = await openDatabase();
+  const usageWaste = await db.all(SQL`
+  SELECT
+  strftime('%Y-%m', timestamp) AS month,
+  SUM(CASE WHEN act = 'USE' THEN quantity ELSE 0 END) AS used,
+  SUM(CASE WHEN act = 'WASTE' THEN quantity ELSE 0 END) AS wasted
+  FROM transactionlog
+  WHERE userid = ${id} 
+  GROUP BY month
+  ORDER BY month;
+ `);
+  return usageWaste;
+}
+export { getUsageWasteOverTime };
+
+async function getFoodItemWithAllColumn() {
   const db = await openDatabase();
   const allFoodItems = await db.all(SQL`
     select * from fooditem
   `);
   return allFoodItems;
 }
-export {
-  getFoodItemWithAllColumn
-};
-
+export { getFoodItemWithAllColumn };

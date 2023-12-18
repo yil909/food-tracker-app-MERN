@@ -4,6 +4,8 @@ import axios from "axios";
 function useFoodItem() {
   const [foodItem, setFoodItem] = useState([]);
   const [foodMetric, setFoodMetric] = useState([]);
+  const [wasteMetric, setWasteMetric] = useState([]);
+  const [usageWasteData, setUsageWasteData] = useState([]);
 
   const getFoodItem = async () => {
     try {
@@ -22,6 +24,28 @@ function useFoodItem() {
       //console.log(JSON.stringify(foodMetric, null, 2));
     } catch (error) {
       console.error("Error fetching FoodMetric data:", error);
+    }
+  };
+
+  const getWasteMetric = async () => {
+    try {
+      const response = await axios.get("http://localhost:5555/wastemetrics");
+      setWasteMetric(response.data);
+      //console.log("Hello world!");
+      //console.log(JSON.stringify(wasteMetric, null, 2));
+    } catch (error) {
+      console.error("Error fetching WasteMetric data:", error);
+    }
+  };
+
+  const getUsageWasteData = async () => {
+    try {
+      const response = await axios.get("http://localhost:5555/usagewaste");
+      setUsageWasteData(response.data);
+      console.log("Hello world 2!");
+      console.log(JSON.stringify(usageWasteData, null, 2));
+    } catch (error) {
+      console.error("Error fetching usageWaste data:", error);
     }
   };
 
@@ -72,11 +96,15 @@ function useFoodItem() {
   return {
     foodItem,
     foodMetric,
+    wasteMetric,
+    usageWasteData,
     getFoodItem,
     updateFoodItem,
     createFoodItem,
     createTransLog,
     getFoodMetric,
+    getWasteMetric,
+    getUsageWasteData,
   };
 }
 

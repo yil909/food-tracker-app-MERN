@@ -5,8 +5,8 @@ import {
   createFoodItem,
   createTransLog,
   getFoodMetricByUserId,
+  getFoodItemWithAllColumn,
 } from "../../modules/inventory-dao.js";
-import {getAllFoodItem, getFoodItemWithAllColumn} from '../../modules/inventory-dao.js';
 import {getItemWithCategoryName} from "../../modules/report-dao.js";
 
 
@@ -98,4 +98,7 @@ router.get('/itemWithCategoryName', async (req, res) =>{
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+
+
 export default router;

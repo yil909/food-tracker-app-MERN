@@ -149,7 +149,7 @@ function FoodItemDisplay() {
               <th></th>
               <th>Category</th>
               <th>Name</th>
-              <th>Orginal Qty</th>
+              <th>Original Qty</th>
               <th>Used</th>
               <th>Wasted</th>
               <th>Remaining</th>
