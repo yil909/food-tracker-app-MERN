@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import './LeftNavBar.css'; 
-import logo from '../../assets/icons/logo.png';
+import "./LeftNavBar.css";
+import logo from "../../assets/icons/logo.png";
 //https://ant.design/components/icon
 //npm install antd
 //npm install @ant-design/icons
@@ -15,7 +15,7 @@ import {
   SoundOutlined,
   SettingOutlined,
   LogoutOutlined,
-} from '@ant-design/icons';
+} from "@ant-design/icons";
 
 const LeftNavBar = () => {
   return (
@@ -27,53 +27,61 @@ const LeftNavBar = () => {
       <ul className="nav-list">
         <li className="nav-item">
           <Link to="/" className="nav-link">
-            <HomeOutlined />Dashboard
+            <HomeOutlined />
+            Dashboard
           </Link>
         </li>
         <li className="nav-item">
           <Link to="/inventory" className="nav-link">
-            <ShoppingCartOutlined />Inventory
+            <ShoppingCartOutlined />
+            Inventory
           </Link>
         </li>
         <li className="nav-item">
           <Link to="/reports" className="nav-link">
-            <BarChartOutlined />Reports
+            <BarChartOutlined />
+            Reports
           </Link>
         </li>
         <li className="nav-item">
           <Link to="/notices" className="nav-link">
-            <SoundOutlined />Notice
+            <SoundOutlined />
+            Notice
           </Link>
         </li>
         <li className="nav-item">
           <Link to="/profile" className="nav-link">
-            <UserOutlined />Profile
+            <UserOutlined />
+            Profile
           </Link>
         </li>
         <li className="nav-item">
           <Link to="/guide" className="nav-link">
-            <BookOutlined/>Guide
+            <BookOutlined />
+            Guide
           </Link>
         </li>
         <li className="nav-item">
           <Link to="/contact" className="nav-link">
-            <MessageOutlined/>Contact Us
+            <MessageOutlined />
+            Contact Us
           </Link>
         </li>
         <li className="nav-item">
           <Link to="/settings" className="nav-link">
-            <SettingOutlined />Settings
+            <SettingOutlined />
+            Settings
           </Link>
         </li>
         <li className="nav-item">
           <Link to="/logout" className="nav-link">
-            <LogoutOutlined />Log Out
+            <LogoutOutlined />
+            Log Out
           </Link>
         </li>
       </ul>
     </nav>
   );
-
-}
+};
 
 export default LeftNavBar;

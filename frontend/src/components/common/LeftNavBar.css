@@ -62,4 +62,9 @@
   margin-bottom: 200px; 
 }
 
+/* Active link styles */
+.active-nav-link {
+  color: #0A653A; /* Color for active nav item */
+  background-color: #E8E8E8; /* Background color for active nav item */
+}
 

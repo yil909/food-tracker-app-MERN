@@ -4,13 +4,14 @@
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    margin-left: 10px; /* Center align the frame */
+    margin-left: 0px; /* Center align the frame */
     margin-top: 10px; /* Center align the frame */
 }
 
 /* Title of the content area */
 .content-title {
     margin-bottom: 24px;
+    margin-top: 2px;
 }
 
 /* Individual guide cards */

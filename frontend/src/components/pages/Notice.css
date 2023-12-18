@@ -1,0 +1,59 @@
+.notice-container {
+    background-color: #FFFFFF;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-left: 0px; /* Center align the frame */
+    margin-top: 10px; /* Center align the frame */
+  }
+  
+  h1 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .alerts {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .alert {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    display: flex;
+    padding: 10px;
+    align-items: center;
+  }
+  
+  .expiration-warning {
+    border-left: 5px solid #f44336; /* Red color for expiration warning */
+  }
+  
+  .inventory-alert {
+    border-left: 5px solid #ff9800; /* Orange color for inventory alert */
+  }
+  
+  .alert-content {
+    margin-left: 10px;
+  }
+  
+  .alert-content h2 {
+    margin: 0;
+    color: #333;
+  }
+  
+  .alert-content p {
+    color: #666;
+  }
+  
+  .alert a {
+    color: #1e90ff;
+    text-decoration: none;
+  }
+  
+  .icon {
+    font-size: 24px;
+    margin-right: 10px;
+  }
+  

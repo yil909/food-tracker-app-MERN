@@ -51,7 +51,26 @@ const Guide = () => {
             </p>
             {showDetails.inventoryAlerts && (
               <div className="details-content">
-                Detailed content for Inventory Alerts...
+                Detailed content for Inventory Alerts... Set up expiration
+                {/* <p>
+                  alerts to be notified two days before your items expire,
+                  ensuring you have ample time to use or donate these items.
+                </p>
+                <p>
+                  Implement a First-In, First-Out (FIFO) system to ensure older
+                  stock is used first, reducing the risk of throwing away unused
+                  inventory.
+                </p> */}
+                <p style={{ marginBottom: "5px" }}>
+                  Set up expiration alerts to be notified two days before your
+                  items expire, ensuring you have ample time to use or donate
+                  these items.
+                </p>
+                <p style={{ marginBottom: "5px" }}>
+                  Implement a First-In, First-Out (FIFO) system to ensure older
+                  stock is used first, reducing the risk of throwing away unused
+                  inventory.
+                </p>
               </div>
             )}
             <button className="see-all-btn">See All</button>
@@ -71,11 +90,11 @@ const Guide = () => {
             <button className="see-all-btn">See All</button>
           </div>
         </div>
-        {/* FAQ section */}
+        {/* FAQ section
         <div className="faq-section">
           <h2>FAQ</h2>
           <p>Find answers to common questions about using the app.</p>
-        </div>
+        </div> */}
       </div>
     </Layout>
   );
