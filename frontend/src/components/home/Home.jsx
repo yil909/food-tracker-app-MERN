@@ -11,7 +11,6 @@ const Home = () => {
         <>
             {/* <LeftNavBar /> */}
             <FoodItemDisplay />
-
         </>
     );
 }

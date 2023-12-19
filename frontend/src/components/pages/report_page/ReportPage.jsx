@@ -6,13 +6,12 @@ import Layout from "../../common/Layout.jsx";
 
 const ReportPage = () =>{
     return(
-      <>
-          <Layout></Layout>
+      <Layout>
           <OverallWaste/>
           <NearingExpiration/>
           <WasteOverTime/>
           <MostWastedItem/>
-      </>
+      </Layout>
     );
 }
 
