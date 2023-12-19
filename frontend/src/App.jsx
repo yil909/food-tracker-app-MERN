@@ -11,6 +11,7 @@ import Contact from "./components/pages/Contact.jsx";
 import FoodItemDisplay from "./components/pages/Inventory/FoodItemDisplay.jsx";
 import Notice from "./components/pages/Notice.jsx";
 import Dashboard from './components/pages/Dashboard/dashboard.jsx';
+import ProfilePage from "./components/pages/profile/ProfilePage.jsx";
 // import Login from './components/pages/Login/Login.jsx';
 // import Register from './components/pages/Login/Register.jsx'
 

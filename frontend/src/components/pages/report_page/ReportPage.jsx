@@ -6,18 +6,6 @@ import MostWastedItem from "./MostWastedItem.jsx";
 import Layout from "../../common/Layout.jsx";
 import "./ReportPage.css";
 
-<<<<<<< HEAD
-const ReportPage = () =>{
-    return(
-      <Layout>
-          <OverallWaste/>
-          <NearingExpiration/>
-          <WasteOverTime/>
-          <MostWastedItem/>
-      </Layout>
-    );
-}
-=======
 const ReportPage = () => {
   return (
     <Layout>
@@ -47,6 +35,6 @@ const ReportPage = () => {
     </Layout>
   );
 };
->>>>>>> 56efd9ec449cf620f8cd292c600011b2f468c7b2
+
 
 export default ReportPage;
