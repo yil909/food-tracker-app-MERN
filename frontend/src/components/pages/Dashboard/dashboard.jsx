@@ -6,17 +6,22 @@ import {
   Cell,
   Legend,
   Tooltip,
-  BarChart, 
-  Bar, 
+  BarChart,
+  Bar,
   XAxis,
   YAxis,
   CartesianGrid,
 } from "recharts";
 import useFoodItem from "../../../hooks/useFoodItem";
 import Layout from "../../common/Layout";
+import usePageTitleAndFavicon from "../../../hooks/usePageTitleAndFavicon";
+import logo from "../../../assets/icons/logo.png";
 
 const Dashboard = () => {
-  const { wasteMetric, getWasteMetric, usageWasteData, getUsageWasteData } = useFoodItem();
+  usePageTitleAndFavicon("Dashboard - Food Waste Tracker", logo);
+
+  const { wasteMetric, getWasteMetric, usageWasteData, getUsageWasteData } =
+    useFoodItem();
 
   useEffect(() => {
     getWasteMetric();
@@ -44,7 +49,6 @@ const Dashboard = () => {
     "#32CD32",
     "#DAA520",
   ];
-  
 
   // Prepare data for the Pie Chart
   const chartData = wasteMetric.map(({ categoryname, wastedQuantity }) => ({
@@ -79,7 +83,13 @@ const Dashboard = () => {
   const renderTooltipContent2 = (props) => {
     const { payload } = props;
     return (
-      <div style={{ backgroundColor: 'white', padding: '5px', border: '1px solid #ccc' }}>
+      <div
+        style={{
+          backgroundColor: "white",
+          padding: "5px",
+          border: "1px solid #ccc",
+        }}
+      >
         {payload.map((entry, index) => (
           <div key={`tooltip-${index}`} style={{ color: entry.color }}>
             {`${entry.name}: ${entry.value}`}
@@ -95,9 +105,12 @@ const Dashboard = () => {
         <h1>Dashboard</h1>
         {/* Render your other dashboard components here */}
         {/* Render the Pie Chart */}
-        <h2>Food Waste by Category</h2>
+        <h2 style={{ fontFamily: "Arial, sans-serif" }}>
+          Food Waste by Category
+        </h2>
+
         <ResponsiveContainer width="100%" height={400}>
-          <PieChart>
+          <PieChart style={{ fontFamily: "Arial, sans-serif" }}>
             <Pie
               data={chartData}
               dataKey="value"
@@ -123,9 +136,12 @@ const Dashboard = () => {
       </div>
 
       <div>
-        <h2>Usage vs Waste Over Time</h2>
+        <h2 style={{ fontFamily: "Arial, sans-serif" }}>
+          Usage vs Waste Over Time
+        </h2>
         <ResponsiveContainer width="100%" height={400}>
-        <BarChart
+          <BarChart
+            style={{ fontFamily: "Arial, sans-serif" }}
             data={usageWasteData}
             margin={{ top: 20, right: 30, left: 20, bottom: 10 }}
           >
@@ -134,12 +150,7 @@ const Dashboard = () => {
             <CartesianGrid strokeDasharray="3 3" />
             <Tooltip content={renderTooltipContent2} />
             <Legend />
-            <Bar
-              dataKey="used"
-              name="Food Used"
-              fill="#8884d8"
-              barSize={40}
-            />
+            <Bar dataKey="used" name="Food Used" fill="#8884d8" barSize={40} />
             <Bar
               dataKey="wasted"
               name="Food Wasted"

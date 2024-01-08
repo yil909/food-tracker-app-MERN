@@ -1,0 +1,38 @@
+/* CustomModal.css */
+.custom-modal-backdrop {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Dimmed background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .custom-modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 300px; /* Fixed width */
+  }
+  
+  .custom-modal-message {
+    margin-bottom: 20px;
+    font-size: 16px; /* Adjust font size as needed */
+  }
+  
+  .custom-modal-close {
+    background-color: #0a653a; /* Use a color that matches your theme */
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    text-transform: uppercase;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  

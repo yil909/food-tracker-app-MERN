@@ -31,7 +31,7 @@
   
 /* Container for the OverallWaste component */
 .overall-waste-container {
-  flex: 1;
+  flex: 0.5;
   min-width: 300px; /* Minimum width of each card */
   background-color: #fff;
   border-radius: 8px;
@@ -41,6 +41,8 @@
   align-items: flex-start; /* Align children to the start (left) */
   padding: 20px; /* Adjust padding to match other containers */
   border-left: 4px solid #FFC107;
+  font-family: Arial, Helvetica, sans-serif;
+  
 }
 
   
@@ -66,18 +68,36 @@
     color: #777; /* Lighter color for the label */
     margin-top: 5px; /* Space between the amount and label */
   }
-  
-  /* Container for the NearingExpiration component */
-  .nearing-expiration-container {
-    flex: 1;
-    padding: 1px 20px 15px;
-    min-width: 300px; /* Minimum width of each card */
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-left: 4px solid #F44336;
-    background-color: #ffebee;
-  }
+
+/* Container for the NearingExpiration component */
+.nearing-expiration-container {
+  flex: 1;
+  padding: 1px 20px 15px;
+  min-width: 300px; /* Minimum width of each card */
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #F44336;
+  background-color: #ffebee;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Targeting table within the NearingExpiration component */
+.nearing-expiration-container table {
+  border-collapse: sticky;
+  border-spacing: 10px; /* Adjust this value to increase spacing */
+}
+
+Targeting cells within the table to add padding
+.nearing-expiration-container table td {
+  padding: 10px; /* Adjust the padding to increase space within cells */
+}
+
+/* Ensure header cells also have increased spacing */
+.nearing-expiration-container table th {
+  padding: 8px; /* Adjust the padding to increase space within header cells */
+}
+
   
   /* Container for the WasteOverTime component */
   .waste-over-time-container {
@@ -88,6 +108,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
     border-left: 4px solid #1366d9;
+    font-family: Arial, Helvetica, sans-serif;
   }
   
   /* Container for the MostWastedItem component */
@@ -97,4 +118,5 @@
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-left: 4px solid #da3e33;
+    font-family: Arial, Helvetica, sans-serif;
   }

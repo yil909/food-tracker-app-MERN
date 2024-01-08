@@ -20,8 +20,9 @@ const WasteOverTime = () => {
       let wasteData = {};
 
       log.forEach((item) => {
-        if (item.act === "WASTE") {
+        if (item.act === "WASTE" && item.userid === 1) {
           const date = item.timestamp.slice(0, 10);
+
           wasteData[date] =
             (wasteData[date] || 0) + item.quantity * item.priceperunit;
         }
@@ -32,6 +33,9 @@ const WasteOverTime = () => {
         wasteCost: wasteData[date],
       }));
 
+      // 对数据按日期排序
+      formattedData.sort((a, b) => (a.date > b.date ? 1 : -1));
+
       setData(formattedData);
     };
 
@@ -41,7 +45,7 @@ const WasteOverTime = () => {
   return (
     <>
       <LineChart
-        width={600}
+        width={1100}
         height={300}
         data={data}
         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}

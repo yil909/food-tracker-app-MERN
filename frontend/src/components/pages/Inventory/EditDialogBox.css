@@ -7,20 +7,134 @@
   z-index: 1000;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  /* Semi-transparent black overlay */
+  background: rgba(0, 0, 0, 0.6); /* Darker overlay */
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .modal-content {
-  background: white;
+  background: #fff;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  max-width: 400px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Softer shadow */
   width: 100%;
+  max-width: 340px; /* Adjusted width */
+  max-height: 80vh; /* Added max height */
+  overflow-y: auto; /* Allow scrolling */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  
 }
 
-/* You can add more styles as needed */
+.modal-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+/* Heading style */
+.modal-content h2 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 20px;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+/* Form element styles */
+.modal-content label,
+.modal-content input,
+.modal-content select {
+  width: 100%;
+  max-width: 300px; /* Input width matches modal width */
+  margin: 4px 0; /* Vertical spacing */
+  margin-left: 5px;
+  margin-bottom: 10px;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+.modal-content input,
+.modal-content select {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  width: 300px; /* Ensure all inputs and selects have the same width */
+  max-width: 300px;
+}
+
+/* Button styles */
+.modal-actions {
+  width: 100%;
+  max-width: 350px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-button {
+  padding: 10px 0;
+  border-radius: 8px;
+  font-size: 1rem;
+  flex: 1;
+  margin: 0 5px;
+  border: none;
+  cursor: pointer; /* Added cursor pointer */
+}
+
+.modal-button.save {
+  background-color: #4CAF50; /* Green background */
+  color: white;
+}
+
+.modal-button.cancel {
+  background-color: #F44336; /* Red background */
+  color: white;
+}
+
+.modal-button:hover {
+  filter: brightness(90%);
+}
+
+.edit-modal-button {
+  /* General button styling */
+  padding: 10px 15px; /* Adequate padding for button size */
+  border-radius: 8px; /* Rounded corners for buttons */
+  font-size: 1rem; /* Matching font size with inputs */
+  margin: 0 5px; /* Space between buttons */
+  border: none; /* No border for a flat design */
+  color: white; /* Text color for buttons */
+  flex-grow: 0; /* Remove flex-grow */
+  width: auto; /* Allow the buttons to size according to their content */
+}
+
+.edit-modal-button.save {
+  /* Specific style for the Save button */
+  background-color: #4CAF50; /* Green color for Save */
+  margin-right: auto;
+}
+
+.edit-modal-button.close {
+  /* Specific style for the Close button */
+  background-color: #F44336; /* Red color for Close */
+  margin-left: auto;
+}
+
+.edit-modal-button:hover {
+  /* Hover effect for buttons */
+  filter: brightness(90%);
+}
+
+.modal-title {
+  width: 100%;
+  text-align: center;
+}
+
+.edit-modal-actions {
+  display: flex;
+  justify-content: space-between; /* This will place one button at each end */
+  /* width: 300px; Match the width of your inputs */
+  width: calc(100% - 20px); /* Subtract the total horizontal padding of the modal-content */
+}

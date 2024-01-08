@@ -21,7 +21,7 @@ const OverallWaste = () => {
     fetchData();
   }, [getLog, log]);
 
-  return <div className="overall-waste">{`$${allWaste}`}</div>;
+  return <div className="overall-waste">{`$${allWaste.toFixed(2)}`}</div>;
 };
 
 export default OverallWaste;
