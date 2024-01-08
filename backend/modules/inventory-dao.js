@@ -221,11 +221,22 @@ async function getUsageWasteOverTime(id) {
 }
 export { getUsageWasteOverTime };
 
+// async function getFoodItemWithAllColumn() {
+//   const db = await openDatabase();
+//   const allFoodItems = await db.all(SQL`
+//     select * from fooditem
+//   `);
+//   return allFoodItems;
+// }
+
 async function getFoodItemWithAllColumn() {
-  const db = await openDatabase();
-  const allFoodItems = await db.all(SQL`
-    select * from fooditem
+    const db = await openDatabase();
+    const allFoodItems = await db.all(SQL`
+    SELECT * FROM fooditem
+    WHERE DATE(expirydate) >= DATE('now')
+    AND DATE(expirydate) <= DATE('now', '+15 days')
   `);
-  return allFoodItems;
+    return allFoodItems;
 }
+
 export { getFoodItemWithAllColumn };

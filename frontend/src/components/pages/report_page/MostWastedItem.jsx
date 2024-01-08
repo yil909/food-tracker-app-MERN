@@ -33,8 +33,8 @@ const MostWastedItem = () => {
         </tr>
       </thead>
       <tbody>
-        {sortedData.map((item) => (
-          <tr key={item.itemid}>
+        {sortedData.map((item, index) => (
+          <tr key={index}>
             <td>{item.name}</td>
             <td>{item.itemid}</td>
             <td>{item.categoryname}</td>
