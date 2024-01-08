@@ -8,6 +8,7 @@ import {
   getFoodItemWithAllColumn
 } from "../../modules/inventory-dao.js";
 import {getItemWithCategoryName} from "../../modules/report-dao.js";
+import {getRestaurantInfo} from "../../modules/user-dao.js";
 
 
 const router = express.Router();
@@ -98,7 +99,5 @@ router.get('/itemWithCategoryName', async (req, res) =>{
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
-
 
 export default router;

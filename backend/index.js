@@ -4,6 +4,7 @@ import cors from "cors";
 import foodItemRouter from "./routes/api/foodItemRoutes.js";
 import foodCatRouter from "./routes/api/foodCategoryRoutes.js";
 import transactionLogRouter from "./routes/api/transactionLogRoutes.js";
+import userRoutes from "./routes/api/userRoutes.js";
 
 // Setup Express
 const app = express();
@@ -28,6 +29,7 @@ app.use(foodItemRouter);
 app.use(foodCatRouter);
 
 app.use(transactionLogRouter);
+app.use(userRoutes);
 
 
 

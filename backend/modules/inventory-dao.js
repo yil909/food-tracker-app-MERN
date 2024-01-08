@@ -238,4 +238,5 @@ async function getFoodItemWithAllColumn() {
 `);
   return allFoodItems;
 }
+
 export { getFoodItemWithAllColumn };
