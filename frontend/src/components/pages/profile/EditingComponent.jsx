@@ -1,65 +1,63 @@
 import React, { useState, useEffect } from 'react';
 
 const EditingComponent = (props) => {
-    // 使用useState钩子来初始化本地状态
-    const [info, setInfo] = useState([]);
+    // Initialize info as an object
+    const [info, setInfo] = useState({});
 
-    // 当props.restProp变化时，更新本地状态
+    // Update local state when props.restProp changes
     useEffect(() => {
-        setInfo(props.restProp);
+        setInfo(props.restProp || {});
     }, [props.restProp]);
 
-    // 处理输入字段更改的函数
-    function inputChangeHandler(e, index, field) {
-        // 创建新的info数组的副本
-        const newInfo = [...info];
-        // 更新特定索引和字段的值
-        newInfo[index][field] = e.target.value;
-        // 设置新的info状态
-        setInfo(newInfo);
-    }
+    // Handle input field changes
+    const inputChangeHandler = (e, field) => {
+        const updatedInfo = {
+            ...info,
+            [field]: e.target.value
+        };
+
+        setInfo(updatedInfo);
+
+        // Pass the updated info directly
+        props.onInfoChange(updatedInfo);
+    };
+
 
     return (
-        <>
-            {info.map((item, index) => (
-                item.userid === 1 && (
-                    <div key={index}>
-                        <h2>Restaurant Detail</h2>
-                        <label htmlFor={`restaurantName-${index}`}>Restaurant Name: </label>
-                        <input
-                            type="text"
-                            id={`restaurantName-${index}`}
-                            value={item.restaurantname || ''}
-                            onChange={(e) => inputChangeHandler(e, index, 'restaurantname')}
-                        />
+        <div>
+            <h2>Restaurant Detail</h2>
+            <label htmlFor="restaurantName">Restaurant Name: </label>
+            <input
+                type="text"
+                id="restaurantName"
+                value={info.restaurantname || ''}
+                onChange={(e) => inputChangeHandler(e, 'restaurantname')}
+            />
 
-                        <label htmlFor={`restaurantAddress-${index}`}>Restaurant Address: </label>
-                        <input
-                            type="text"
-                            id={`restaurantAddress-${index}`}
-                            value={item.address || ''}
-                            onChange={(e) => inputChangeHandler(e, index, 'address')}
-                        />
+            <label htmlFor="restaurantAddress">Restaurant Address: </label>
+            <input
+                type="text"
+                id="restaurantAddress"
+                value={info.address || ''}
+                onChange={(e) => inputChangeHandler(e, 'address')}
+            />
 
-                        <h2>User Detail: </h2>
-                        <label htmlFor={`username-${index}`}>Username: </label>
-                        <input
-                            type="text"
-                            id={`username-${index}`}
-                            value={item.username || ''}
-                            onChange={(e) => inputChangeHandler(e, index, 'username')}
-                        />
-                        <label htmlFor={`contact-${index}`}>Contact: </label>
-                        <input
-                            type="text"
-                            id={`contact-${index}`}
-                            value={item.contact || ''}
-                            onChange={(e) => inputChangeHandler(e, index, 'contact')}
-                        />
-                    </div>
-                )
-            ))}
-        </>
+            <h2>User Detail: </h2>
+            <label htmlFor="username">Username: </label>
+            <input
+                type="text"
+                id="username"
+                value={info.username || ''}
+                onChange={(e) => inputChangeHandler(e, 'username')}
+            />
+            <label htmlFor="contact">Contact: </label>
+            <input
+                type="text"
+                id="contact"
+                value={info.contact || ''}
+                onChange={(e) => inputChangeHandler(e, 'contact')}
+            />
+        </div>
     );
 }
 

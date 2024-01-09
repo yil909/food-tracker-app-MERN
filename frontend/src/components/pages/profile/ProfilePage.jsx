@@ -5,9 +5,11 @@ import EditingComponent from "./EditingComponent.jsx";
 
 const ProfilePage = () => {
     const [restInfo, setRestInfo] = useState([]);
-    const [editMode, setEditMode] = useState(false); // 初始化为false表示不处于编辑模式
-    const [editedRestInfo, setEditedRestInfo] = useState([]); // 用于存储编辑后的数据
+    const [editMode, setEditMode] = useState(false);
+    // Initialize editedRestInfo as an object
+    const [editedRestInfo, setEditedRestInfo] = useState({});
 
+    // Function to fetch restaurant information
     async function getRestInfo() {
         try {
             const response = await axios.get("http://localhost:5555/restInfo");
@@ -17,41 +19,58 @@ const ProfilePage = () => {
         }
     }
 
+    // Fetch restaurant information on component mount
     useEffect(() => {
         getRestInfo();
     }, []);
 
+    // Handler for entering edit mode
     const handleEditClick = () => {
-        setEditMode(true); // 点击"Edit"按钮后，将编辑模式设置为true，隐藏ProfileDisplayComponent
+        setEditMode(true);
+        // Initialize editedRestInfo with the current restInfo
+        setEditedRestInfo(restInfo[0] || {});
     };
 
+    // Handler for saving edited information
     const handleSaveClick = async () => {
-        // 在这里处理保存到数据库的逻辑，使用axios或其他方法
-        // 完成后，你可以再次调用getRestInfo来刷新数据
-        // 然后将编辑模式设置为false，显示ProfileDisplayComponent
         try {
-            await axios.put("http://localhost:5555/updateRestInfo", editedRestInfo);
+            const dataToSend = {
+                userid: restInfo[0].userid,
+                restaurantname: editedRestInfo.restaurantname,
+                address: editedRestInfo.address,
+                username: editedRestInfo.username,
+                contact: editedRestInfo.contact,
+            };
+
+            console.log("Sending data to server:", dataToSend);
+
+            const response = await axios.put("http://localhost:5555/updateRestInfo", dataToSend);
+            console.log("Server response:", response.data);
+
             setEditMode(false);
             getRestInfo();
         } catch (error) {
-            console.log("Error saving data:", error);
+            console.error("Error saving data:", error);
+            console.log("Error details:", error.response ? error.response.data : error.message);
         }
     };
 
-    const handleInputChange = (index, field, value) => {
-        // 处理EditingComponent中的输入字段更改，并将更改保存到editedRestInfo中
-        const updatedEditedRestInfo = [...editedRestInfo];
-        updatedEditedRestInfo[index][field] = value;
-        setEditedRestInfo(updatedEditedRestInfo);
+    const handleInfoChange = (updatedInfo) => {
+        setEditedRestInfo(updatedInfo);
     };
+
+    // useEffect(() => {
+    //     console.log("Edited Info:", editedRestInfo);
+    // }, [editedRestInfo]);
 
     return (
         <div>
             {editMode ? (
                 <>
                     <EditingComponent
-                        restProp={restInfo}
-                        onInputChange={handleInputChange}
+                        restProp={editedRestInfo}
+                        // onInputChange={handleInputChange}
+                        onInfoChange = {handleInfoChange}
                     />
                     <button onClick={handleSaveClick}>Save</button>
                 </>
