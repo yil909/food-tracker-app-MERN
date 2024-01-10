@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import useFoodCategory from "../../../hooks/useFoodCategory";
 import useFoodItem from "../../../hooks/useFoodItem";
-import "./AddDialogBox.css"; // Import your CSS styles
+import "./AddDialogBox.css";
 
 const AddDialogBox = ({ onClose }) => {
   const [foodCategoryid, setFoodCategoryid] = useState("");

@@ -1,123 +1,121 @@
 .contact-container {
-    margin: 20px; /* Margin around the frame */
-    padding: 20px; /* Padding inside the frame */
-    background-color: #FFFFFF; /* White background for the outer frame */
-    border-radius: 8px; /* Rounded corners for the frame */
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-    max-width: auto; /* Maximum width to control the size */
-    margin-left: 10px; /* Center align the frame */
-    margin-right: auto; /* Center align the frame */
-    margin-top: 10px;
-    max-width: none; /* Remove any constraints on the maximum width */
-    /* Center the container */
-    margin-left: auto;
-    margin-right: auto;
-  }
+  margin: 20px; /* Margin around the frame */
+  padding: 20px; /* Padding inside the frame */
+  background-color: #FFFFFF; /* White background for the outer frame */
+  border-radius: 8px; /* Rounded corners for the frame */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  max-width: auto; /* Maximum width to control the size */
+  margin-left: 10px; /* Center align the frame */
+  margin-right: auto; /* Center align the frame */
+  margin-top: 10px;
+  max-width: none; 
+  margin-left: auto;
+  margin-right: auto;
+}
 
-  .contact-form {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Two columns of equal width */
-    gap: 40px; /* Space between columns */
-    /* Set a specific width or use max-width for responsiveness */
-    width: 80%; /* Example: set the width to 80% of the parent container */
-    max-width: 800px; /* Example: set a maximum width if necessary */
-    /* Center the form */
-    margin-left: auto;
-    margin-right: auto;
-  }
+.contact-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two columns of equal width */
+  gap: 40px; /* Space between columns */
+  width: 80%; 
+  max-width: 800px; 
+  /* Center the form */
+  margin-left: auto;
+  margin-right: auto;
+}
 
-  .input-group input,
-  .subject-group textarea {
-    width: 100%;
-    padding: 10px;
-    margin-top: 15px;
-    margin-bottom: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    &.active {
-      background-color: #4CAF50; /* Example active button color */
-    }
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 16px;
-  }
-
-  .custom-message {
-    font-size: 18px; 
-    font-family: Arial, Helvetica, sans-serif;
-  }
-
-  
-  .subject-group {
-    grid-column: 1 / -1; /* Span across all columns */
-    font-family: Arial, Helvetica, sans-serif;
-  }
-
-  .subject-button {
-    background-color: #f0f2f5;
-    border: none;
-    padding: 10px 20px;
-    margin-right: 10px;
-    cursor: pointer;
-    margin-top: 10px;
-    font-family: Arial, Helvetica, sans-serif;
-    border-radius: 5px;
-    font-size: 16px;
-  }
-  
-  .subject-button.active {
-    background-color: #0A653A; 
-    color: white;
-  }
-  
-  .send-message {
-  grid-column: 1 / -1; /* Span across all columns */
-  background-color: #0A653A; 
-  color: white;
-  padding: 15px 20px;
-  border: none;
+.input-group input,
+.subject-group textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  border: 1px solid #ccc;
   border-radius: 4px;
-  cursor: pointer;
-  text-align: center;
-  width: auto; /* Let the width be determined by the content size and padding */
-  min-width: 200px; /* Adjust this value as needed to make the button shorter */
-  margin-left: auto; /* Center the button horizontally */
-  margin-right: auto; /* Center the button horizontally */
-  display: flex; /* To align icon and text */
-  align-items: center; /* To vertically center icon and text */
-  justify-content: center; 
+  &.active {
+    background-color: #4CAF50; 
+  }
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
+}
+
+.custom-message {
+  font-size: 18px; 
   font-family: Arial, Helvetica, sans-serif;
 }
 
-  .contact-info {
-    background-color: #f0f2f5;
-    padding: 20px;
-    margin-top: 20px;
-    font-family: Arial, Helvetica, sans-serif;
-  } 
-  
-  .contact-main {  
-    flex-grow: 1;
-    padding: 20px;
-    margin-left: 0px; /* Adjust this to match the Guide component's margin-left value */
+
+.subject-group {
+  grid-column: 1 / -1; /* Span across all columns */
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.subject-button {
+  background-color: #f0f2f5;
+  border: none;
+  padding: 10px 20px;
+  margin-right: 10px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.subject-button.active {
+  background-color: #0A653A; 
+  color: white;
+}
+
+.send-message {
+grid-column: 1 / -1; /* Span across all columns */
+background-color: #0A653A; 
+color: white;
+padding: 15px 20px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+text-align: center;
+width: auto; /* Let the width be determined by the content size and padding */
+min-width: 200px; /* Adjust this value as needed to make the button shorter */
+margin-left: auto; /* Center the button horizontally */
+margin-right: auto; /* Center the button horizontally */
+display: flex; /* To align icon and text */
+align-items: center; /* To vertically center icon and text */
+justify-content: center; 
+font-size: 16px;
+font-family: Arial, Helvetica, sans-serif;
+}
+
+.contact-info {
+  background-color: #f0f2f5;
+  padding: 20px;
+  margin-top: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+} 
+
+.contact-main {  
+  flex-grow: 1;
+  padding: 20px;
+  margin-left: 0px;
 }
 
 h1 {
-  margin-top: 2px;
+margin-top: 2px;
 }
 
 .message-group textarea {
-  width: 209%; /* This will make the textarea stretch to the width of its container */
-  min-height: 120px; /* This sets a minimum height for the textarea */
-  padding: 10px; /* This adds some space inside the textarea around the text */
-  border: 1px solid #ccc; /* This adds a border around the textarea */
-  border-radius: 4px; /* This rounds the corners of the textarea */
-  resize: vertical; /* This allows the user to resize the textarea vertically */
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 16px;
+width: 209%; /* This will make the textarea stretch to the width of its container */
+min-height: 120px; /* This sets a minimum height for the textarea */
+padding: 10px; /* This adds some space inside the textarea around the text */
+border: 1px solid #ccc; /* This adds a border around the textarea */
+border-radius: 4px; /* This rounds the corners of the textarea */
+resize: vertical; /* This allows the user to resize the textarea vertically */
+font-family: Arial, Helvetica, sans-serif;
+font-size: 16px;
 }
 
 .phone-input {
-  display: flex; /* For inline alignment of icon and input */
-  align-items: center; /* To vertically center elements in the div */
+display: flex; /* For inline alignment of icon and input */
+align-items: center; /* To vertically center elements in the div */
 }
