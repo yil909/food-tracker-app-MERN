@@ -23,9 +23,8 @@ const WasteOverTime = () => {
         if (item.act === "WASTE" && item.userid === 1) {
           const date = item.timestamp.slice(0, 10);
 
-
           wasteData[date] =
-              (wasteData[date] || 0) + item.quantity * item.priceperunit;
+            (wasteData[date] || 0) + item.quantity * item.priceperunit;
         }
       });
 
@@ -43,11 +42,10 @@ const WasteOverTime = () => {
     fetchData();
   }, [getLog, log]);
 
-
   return (
     <>
       <LineChart
-        width={600}
+        width={1100}
         height={300}
         data={data}
         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}

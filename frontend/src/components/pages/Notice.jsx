@@ -1,12 +1,15 @@
 import React from "react";
 import Layout from "../common/Layout";
 import "./Notice.css";
+import usePageTitleAndFavicon from "../../hooks/usePageTitleAndFavicon";
+import logo from "../../assets/icons/logo.png";
 import {
   ExclamationCircleOutlined,
   InfoCircleOutlined,
 } from "@ant-design/icons";
 
 const Notice = () => {
+  usePageTitleAndFavicon("Notice - Food Waste Tracker", logo);
   return (
     <Layout>
       <div className="notice-container">

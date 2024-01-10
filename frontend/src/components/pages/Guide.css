@@ -12,6 +12,7 @@
 .content-title {
     margin-bottom: 24px;
     margin-top: 2px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 /* Individual guide cards */
@@ -23,6 +24,7 @@
     border-radius: 8px;
     margin-bottom: 20px;
     cursor: pointer; /* Indicates the card is clickable */
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 /* Icons in guide cards */

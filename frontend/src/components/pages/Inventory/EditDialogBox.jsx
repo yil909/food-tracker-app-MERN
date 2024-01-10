@@ -43,7 +43,10 @@ const EditDialogBox = ({ foodItemDetails, onClose }) => {
   return (
     <div className="modal-overlay">
       <div className="modal-content">
-        <h2>Edit Food Item</h2>
+        <div className="modal-title">
+          <h2>Edit Food Item</h2>
+        </div>
+
         {/* Editable input fields for all fields */}
         <div>
           <label>
@@ -57,10 +60,7 @@ const EditDialogBox = ({ foodItemDetails, onClose }) => {
                 Select a category
               </option>
               {foodCategory.map((category) => (
-                <option
-                  key={category.categoryid}
-                  value={category.categoryid}
-                >
+                <option key={category.categoryid} value={category.categoryid}>
                   {category.categoryname}
                 </option>
               ))}
@@ -112,15 +112,17 @@ const EditDialogBox = ({ foodItemDetails, onClose }) => {
           </label>
         </div>
         <div>
-          <label>
-            Expiry Date:
-            <input
-              type="text"
-              name="expirydate"
-              value={editedItem.expirydate}
-              onChange={handleInputChange}
-            />
-          </label>
+          <div>
+            <label>
+              Expiry Date:
+              <input
+                type="date" // Change this from "text" to "date"
+                name="expirydate"
+                value={editedItem.expirydate}
+                onChange={handleInputChange}
+              />
+            </label>
+          </div>
         </div>
         <div>
           <label>
@@ -140,8 +142,16 @@ const EditDialogBox = ({ foodItemDetails, onClose }) => {
         </div>
         {/* Add more input fields for other details */}
         {/* Save and Close buttons */}
-        <button onClick={handleSave}>Save</button>
-        <button onClick={onClose}>Close</button>
+        <div className="edit-modal-actions">
+          {" "}
+          {/* Updated class name */}
+          <button className="edit-modal-button save" onClick={handleSave}>
+            Save
+          </button>
+          <button className="edit-modal-button close" onClick={onClose}>
+            Close
+          </button>
+        </div>
       </div>
     </div>
   );
