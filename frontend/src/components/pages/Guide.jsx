@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import Layout from "../common/Layout";
+import usePageTitleAndFavicon from "../../hooks/usePageTitleAndFavicon";
+import logo from "../../assets/icons/logo.png";
+
 import {
   CheckCircleOutlined,
   AlertOutlined,
@@ -8,6 +11,8 @@ import {
 import "./Guide.css";
 
 const Guide = () => {
+  usePageTitleAndFavicon("Guide - Food Waste Tracker", logo);
+
   const [showDetails, setShowDetails] = useState({
     newToApp: false,
     inventoryAlerts: false,

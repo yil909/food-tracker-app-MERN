@@ -5,8 +5,11 @@ import WasteOverTime from "./WasteOverTime.jsx";
 import MostWastedItem from "./MostWastedItem.jsx";
 import Layout from "../../common/Layout.jsx";
 import "./ReportPage.css";
+import usePageTitleAndFavicon from "../../../hooks/usePageTitleAndFavicon";
+import logo from "../../../assets/icons/logo.png";
 
 const ReportPage = () => {
+  usePageTitleAndFavicon("Report - Food Waste Tracker", logo);
   return (
     <Layout>
       <div className="report-container">

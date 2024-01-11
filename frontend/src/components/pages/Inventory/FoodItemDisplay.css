@@ -4,6 +4,7 @@
   color: #333;
   margin-left: 20px;
   margin-top: 20px;
+  font-family:Arial, Helvetica, sans-serif;
 }
 
 /* Flexbox layout for the inventory statistics */
@@ -41,11 +42,17 @@
   background-color: #ffebee;
 }
 
+.stat-box.wasted-items {
+  border-left: 4px solid #f79009;
+}
+
 /* Heading and number styles within stat boxes */
 .stat-box h3 {
   font-size: 16px;
   margin: 0;
   margin-bottom: 8px;
+  font-family: Arial, Helvetica, sans-serif;
+  
 }
 .stat-box span {
   font-size: 32px;
@@ -53,6 +60,7 @@
 }
 .stat-box .subtext {
   font-size: 12.8px;
+  font-family:Arial, Helvetica, sans-serif;
 }
 
 /* Style adjustments for the food items section */
@@ -69,6 +77,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  font-family:Arial, Helvetica, sans-serif;
 }
 
 /* Style for action buttons in the section header */
@@ -80,12 +89,14 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  
 }
 
 /* Full width table with collapsed borders */
 .food-items-table {
   width: 100%;
   border-collapse: collapse;
+  font-family:Arial, Helvetica, sans-serif;
 }
 
 /* Style for table header */
@@ -105,7 +116,7 @@
 
 /* Text alignment and padding for table cells */
 .food-items-table th, .food-items-table td {
-  text-align: center;
+  text-align: left;
   padding: 8px;
 }
 
@@ -139,6 +150,7 @@
 .page-info {
   /* flex-grow: 1; */
   text-align: center;
+  font-family:Arial, Helvetica, sans-serif;
 }
 
 /* Style for the 'Edit Selected' button */

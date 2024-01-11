@@ -1,0 +1,45 @@
+.profile-container {
+    background-color: #FFFFFF;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin: 10px auto; /* Centers the container with automatic horizontal margins */
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.content-title {
+    margin-bottom: 24px;
+    margin-top: 2px;
+}
+
+.section {
+    margin-bottom: 30px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.section-header h2 {
+    margin: 0;
+    color: #333;
+}
+
+.info-row {
+    display: flex;
+    justify-content: start; /* Align items to the start of the flex container */
+    margin-bottom: 15px; /* Adjust the spacing between rows */
+}
+
+.info-label {
+    margin-right: 10px; /* Space between the label and the value */
+    white-space: nowrap; /* Prevents the text from wrapping */
+}
+
+.info-value {
+    color: rgb(110, 108, 108);
+    margin-left: 10px; /* Space between the label and the value */
+}

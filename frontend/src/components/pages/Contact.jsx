@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import Layout from "../common/Layout";
 import "./Contact.css";
 import { SendOutlined } from "@ant-design/icons";
+import usePageTitleAndFavicon from "../../hooks/usePageTitleAndFavicon";
+import logo from "../../assets/icons/logo.png";
 
 const Contact = () => {
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -21,6 +24,12 @@ const Contact = () => {
       ...prevState,
       [name]: value
     }));
+
+  usePageTitleAndFavicon("Contact Us - Food Waste Tracker", logo);
+
+  // Track the active button
+  const [activeSubject, setActiveSubject] = useState("General Inquiry");
+
 
   };
 
