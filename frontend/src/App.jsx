@@ -19,7 +19,7 @@ function App() {
   return (
     <Routes>
 
-        <Route path='/' element={<Home />}></Route>
+        <Route path='/' element={<Dashboard />}></Route>
         <Route path='/guide' element={<Guide />}></Route>
         <Route path='/contact' element={<Contact />}></Route> 
         <Route path='/inventory' element={<FoodItemDisplay />}></Route>

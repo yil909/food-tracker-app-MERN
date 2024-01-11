@@ -6,6 +6,7 @@ function useFoodItem() {
   const [foodMetric, setFoodMetric] = useState([]);
   const [wasteMetric, setWasteMetric] = useState([]);
   const [usageWasteData, setUsageWasteData] = useState([]);
+  const [locationRanking, setLocationRanking] = useState([]);
 
   const getFoodItem = async () => {
     try {
@@ -46,6 +47,17 @@ function useFoodItem() {
       console.log(JSON.stringify(usageWasteData, null, 2));
     } catch (error) {
       console.error("Error fetching usageWaste data:", error);
+    }
+  };
+
+  const getLocationRanking = async () => {
+    try {
+      const response = await axios.get("http://localhost:5555/locationranking");
+      setLocationRanking(response.data);
+      console.log("Hello world 333!");
+      console.log(JSON.stringify(locationRanking, null, 2));
+    } catch (error) {
+      console.error("Error fetching location ranking data:", error);
     }
   };
 
@@ -98,6 +110,7 @@ function useFoodItem() {
     foodMetric,
     wasteMetric,
     usageWasteData,
+    locationRanking,
     getFoodItem,
     updateFoodItem,
     createFoodItem,
@@ -105,6 +118,7 @@ function useFoodItem() {
     getFoodMetric,
     getWasteMetric,
     getUsageWasteData,
+    getLocationRanking,
   };
 }
 

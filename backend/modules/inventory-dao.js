@@ -188,7 +188,7 @@ async function getAllFoodCategory() {
 }
 export { getAllFoodCategory };
 
-async function getWasteByCategory(id) {
+async function getWasteByCategory() {
   const db = await openDatabase();
   const wastecategories = await db.all(SQL`
   SELECT
@@ -197,15 +197,14 @@ async function getWasteByCategory(id) {
   FROM fooditem fi
   LEFT JOIN transactionlog t ON fi.itemid = t.fooditemid
   LEFT JOIN foodcategory fc on fi.foodCategoryid = fc.categoryid
-  WHERE fi.userid = ${id}
-  AND t.act = 'WASTE'
+  WHERE t.act = 'WASTE'
   GROUP BY fc.categoryname;
  `);
   return wastecategories;
 }
 export { getWasteByCategory };
 
-async function getUsageWasteOverTime(id) {
+async function getUsageWasteOverTime() {
   const db = await openDatabase();
   const usageWaste = await db.all(SQL`
   SELECT
@@ -213,13 +212,37 @@ async function getUsageWasteOverTime(id) {
   SUM(CASE WHEN act = 'USE' THEN quantity ELSE 0 END) AS used,
   SUM(CASE WHEN act = 'WASTE' THEN quantity ELSE 0 END) AS wasted
   FROM transactionlog
-  WHERE userid = ${id} 
   GROUP BY month
   ORDER BY month;
  `);
   return usageWaste;
 }
 export { getUsageWasteOverTime };
+
+// Function to get location ranking
+async function getLocationRanking() {
+  const db = await openDatabase();
+
+  // This query assumes that the 'location' column exists in your user table
+  const ranking = await db.all(`
+    SELECT
+      location,
+      SUM(t.quantity) AS totalWasted
+    FROM
+      user u
+      LEFT JOIN transactionlog t ON u.userid = t.userid
+    WHERE
+      t.act = 'WASTE'
+    GROUP BY
+      location
+    ORDER BY
+      totalWasted DESC
+  `);
+
+  return ranking;
+}
+
+export { getLocationRanking };
 
 // async function getFoodItemWithAllColumn() {
 //   const db = await openDatabase();
@@ -230,13 +253,13 @@ export { getUsageWasteOverTime };
 // }
 
 async function getFoodItemWithAllColumn() {
-    const db = await openDatabase();
-    const allFoodItems = await db.all(SQL`
+  const db = await openDatabase();
+  const allFoodItems = await db.all(SQL`
     SELECT * FROM fooditem
     WHERE DATE(expirydate) >= DATE('now')
     AND DATE(expirydate) <= DATE('now', '+15 days')
   `);
-    return allFoodItems;
+  return allFoodItems;
 }
 
 export { getFoodItemWithAllColumn };
