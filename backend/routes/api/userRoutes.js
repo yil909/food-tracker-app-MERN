@@ -2,6 +2,7 @@ import express from "express";
 import {getRestaurantInfo, updateUserAndRestInfo} from "../../modules/user-dao.js";
 import {updateFoodItem} from "../../modules/inventory-dao.js";
 
+
 const router = express.Router();
 
 router.get('/restInfo', async (req, res) => {
@@ -25,6 +26,5 @@ router.put("/updateRestInfo", async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 });
-
 
 export default router;
