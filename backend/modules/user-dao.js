@@ -8,4 +8,16 @@ async function getRestaurantInfo(){
     return restaurantInfo;
 }
 
-export {getRestaurantInfo};
+async function updateUserAndRestInfo(id, updatedInfo) {
+    const db = await openDatabase();
+    const result = await db.run(SQL`
+        UPDATE user
+        SET restaurantname = ${updatedInfo.restaurantname},
+            address = ${updatedInfo.address},
+            username = ${updatedInfo.username},
+            contact = ${updatedInfo.contact}
+        WHERE userid = ${id}
+    `);
+}
+
+export {getRestaurantInfo, updateUserAndRestInfo};

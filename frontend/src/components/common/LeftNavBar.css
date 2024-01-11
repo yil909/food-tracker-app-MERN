@@ -1,25 +1,30 @@
 .left-nav-bar {
-  width: 240px; /* Adjust width as needed */
+  width: 240px; 
   height: 100%; /* Full height of the viewport */
   background-color: #FAFAFA; /* Light grey background */
   padding: 20px;
   box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .logo-section {
   display: flex;
-  align-items: center;
-  margin-bottom: 20px;
+  flex-direction: row; /* Ensure the items are in a row */
+  align-items: center; /* Vertically center items in the flex container */
+  justify-content: flex-start; /* Align items to the start of the container */
+  overflow: hidden; /* Hide overflow */
+  margin-bottom: 30px; 
 }
 
 .logo-image {
-  width: 50px; /* Adjust as needed */
-  margin-right: 10px; /* Adjust spacing between logo and text */
+  width: 50px; /* Example size, adjust as needed */
+  margin-right: 10px; /* Space between the logo and the text */
 }
 
 .logo-text {
-  font-size: 20px; /* Adjust as needed */
-  color: #0A653A; /* Match the text color to the logo color */
+  font-size: 20px; /* Adjust if necessary to fit */
+  color: #0A653A;
+  margin: 0;
 }
 
 .nav-list {
@@ -40,11 +45,12 @@
   align-items: bottom;
   gap: 10px; /* Space between icon and text */
   font-weight: 500;
-  font-size: 35;
+  font-size: 18px;
   transition: color 0.2s, background-color 0.3s; /* Transition for color and background */
   padding: 10px; /* Padding inside the link for larger clickable area */
   width: 100%; /* Ensure the background color fills to the full width of the nav bar */
   box-sizing: border-box; /* Ensures padding is included in width */
+  
 }
 
 /* Hover effect for the list item */

@@ -1,66 +1,86 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
+import "./EditingComponent.css"; // Make sure this CSS file contains the styles you need
 
 const EditingComponent = (props) => {
-    // 使用useState钩子来初始化本地状态
-    const [info, setInfo] = useState([]);
+  // Initialize info as an object
+  const [info, setInfo] = useState({});
 
-    // 当props.restProp变化时，更新本地状态
-    useEffect(() => {
-        setInfo(props.restProp);
-    }, [props.restProp]);
+  // Update local state when props.restProp changes
+  useEffect(() => {
+    setInfo(props.restProp || {});
+  }, [props.restProp]);
 
-    // 处理输入字段更改的函数
-    function inputChangeHandler(e, index, field) {
-        // 创建新的info数组的副本
-        const newInfo = [...info];
-        // 更新特定索引和字段的值
-        newInfo[index][field] = e.target.value;
-        // 设置新的info状态
-        setInfo(newInfo);
-    }
+  // Handle input field changes
+  const inputChangeHandler = (e, field) => {
+    const updatedInfo = {
+      ...info,
+      [field]: e.target.value,
+    };
 
-    return (
-        <>
-            {info.map((item, index) => (
-                item.userid === 1 && (
-                    <div key={index}>
-                        <h2>Restaurant Detail</h2>
-                        <label htmlFor={`restaurantName-${index}`}>Restaurant Name: </label>
-                        <input
-                            type="text"
-                            id={`restaurantName-${index}`}
-                            value={item.restaurantname || ''}
-                            onChange={(e) => inputChangeHandler(e, index, 'restaurantname')}
-                        />
+    setInfo(updatedInfo);
 
-                        <label htmlFor={`restaurantAddress-${index}`}>Restaurant Address: </label>
-                        <input
-                            type="text"
-                            id={`restaurantAddress-${index}`}
-                            value={item.address || ''}
-                            onChange={(e) => inputChangeHandler(e, index, 'address')}
-                        />
+    // Pass the updated info directly
+    props.onInfoChange(updatedInfo);
+  };
 
-                        <h2>User Detail: </h2>
-                        <label htmlFor={`username-${index}`}>Username: </label>
-                        <input
-                            type="text"
-                            id={`username-${index}`}
-                            value={item.username || ''}
-                            onChange={(e) => inputChangeHandler(e, index, 'username')}
-                        />
-                        <label htmlFor={`contact-${index}`}>Contact: </label>
-                        <input
-                            type="text"
-                            id={`contact-${index}`}
-                            value={item.contact || ''}
-                            onChange={(e) => inputChangeHandler(e, index, 'contact')}
-                        />
-                    </div>
-                )
-            ))}
-        </>
-    );
-}
+  return (
+    <div className="editing-container">
+      {" "}
+      {/* Use the same container class name */}
+      <h2>Restaurant Detail</h2>
+      <div className="input-group">
+        {" "}
+        {/* Use the same class name for grouping */}
+        <label htmlFor="restaurantName">
+          <strong>Restaurant Name:</strong>
+        </label>
+        <input
+          type="text"
+          id="restaurantName"
+          className="input-field" // Apply the same input field class name
+          value={info.restaurantname || ""}
+          onChange={(e) => inputChangeHandler(e, "restaurantname")}
+        />
+      </div>
+      <div className="input-group">
+        <label htmlFor="restaurantAddress">
+          <strong>Restaurant Address:</strong>
+        </label>
+        <input
+          type="text"
+          id="restaurantAddress"
+          className="input-field" // Apply the same input field class name
+          value={info.address || ""}
+          onChange={(e) => inputChangeHandler(e, "address")}
+        />
+      </div>
+      <h2>User Detail </h2>
+      <div className="input-group">
+        <label htmlFor="username">
+          <strong>Username:</strong>
+        </label>
+        <input
+          type="text"
+          id="username"
+          className="input-field" // Apply the same input field class name
+          value={info.username || ""}
+          onChange={(e) => inputChangeHandler(e, "username")}
+        />
+      </div>
+      <div className="input-group">
+        <label htmlFor="contact">
+          <strong>Contact:</strong>
+        </label>
+        <input
+          type="text"
+          id="contact"
+          className="input-field" // Apply the same input field class name
+          value={info.contact || ""}
+          onChange={(e) => inputChangeHandler(e, "contact")}
+        />
+      </div>
+    </div>
+  );
+};
 
 export default EditingComponent;

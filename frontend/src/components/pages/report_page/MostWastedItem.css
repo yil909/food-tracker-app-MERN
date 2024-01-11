@@ -4,6 +4,20 @@ table {
   border-collapse: collapse;
 }
 
+/* Container for the table and the button */
+.table-container {
+  position: relative; /* Set position relative for absolute positioning of children */
+}
+
+/* Style for the "See All" button */
+.see-all-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px 10px;
+}
+
+
 caption {
   font-size: 20px;
   margin-bottom: .5em;
@@ -29,6 +43,7 @@ th {
   text-align: left;
   position: sticky;
   top: 0;
+  z-index: 100; /* Add z-index to ensure the header is above other content */
 }
 
 tbody tr:last-child td {

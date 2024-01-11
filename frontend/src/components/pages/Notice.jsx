@@ -3,6 +3,8 @@ import Layout from "../common/Layout";
 import useFoodItemWithAllColumn from "../../hooks/useFoodItemWithAllColumn.js";
 import { useEffect, useState } from "react";
 import "./Notice.css";
+import usePageTitleAndFavicon from "../../hooks/usePageTitleAndFavicon";
+import logo from "../../assets/icons/logo.png";
 import {
   ExclamationCircleOutlined,
   InfoCircleOutlined,
@@ -37,6 +39,7 @@ const Notice = () => {
 
   // Now, itemNearExp contains food items expiring within the next 2 days, sorted by expiry date.
 
+  usePageTitleAndFavicon("Notice - Food Waste Tracker", logo);
   return (
     <Layout>
       <div className="notice-container">

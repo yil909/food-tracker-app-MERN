@@ -1,0 +1,69 @@
+/* Styles for input groups and fields */
+.input-group {
+    margin-bottom: 10px; 
+}
+
+.input-group input[type="text"] {
+    width: 100%; /* Full width for input fields */
+}
+
+/* Styles for button groups */
+.button-group {
+    display: flex;
+    justify-content: space-between; /* Align first button to left and last button to right */
+    margin-top: 1em; /* Space above the button group */
+}
+
+/* General button styles (applied to Save, Back, and Edit buttons) */
+.save-button,
+.back-button,
+.edit-button2 {
+    padding: 12px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+/* Specific styles for the save button */
+.save-button {
+    background-color: #4CAF50; /* Green background */
+    color: white;
+}
+
+/* Specific styles for the back button */
+.back-button {
+    background-color: #F44336; /* Red background */
+    color: white;
+}
+
+/* Hover effects for buttons */
+.save-button:hover,
+.back-button:hover,
+.edit-button2:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for lifted effect */
+}
+
+/* Active (click) effects for buttons */
+.save-button:active,
+.back-button:active,
+.edit-button2:active {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Smaller shadow for pressed effect */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .button-group {
+        flex-direction: column;
+        align-items: stretch; /* Stretch buttons to full width */
+    }
+
+    .save-button,
+    .back-button,
+    .edit-button2 {
+        width: 100%; /* Full width for buttons on smaller screens */
+        margin-bottom: 10px; /* Space between stacked buttons */
+    }
+}

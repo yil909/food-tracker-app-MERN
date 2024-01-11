@@ -16,16 +16,12 @@ import {
 } from "recharts";
 import useFoodItem from "../../../hooks/useFoodItem";
 import Layout from "../../common/Layout";
+import usePageTitleAndFavicon from "../../../hooks/usePageTitleAndFavicon";
+import logo from "../../../assets/icons/logo.png";
 
 const Dashboard = () => {
-  const {
-    wasteMetric,
-    getWasteMetric,
-    usageWasteData,
-    getUsageWasteData,
-    locationRanking,
-    getLocationRanking,
-  } = useFoodItem();
+  const { wasteMetric, getWasteMetric, usageWasteData, getUsageWasteData } =
+    useFoodItem();
 
   useEffect(() => {
     getWasteMetric();
@@ -108,9 +104,13 @@ const Dashboard = () => {
     <Layout>
       <div>
         <h1>Dashboard</h1>
-        <h2>Food Waste by Category</h2>
+        {/* Render your other dashboard components here */}
+        {/* Render the Pie Chart */}
+        <h2 style={{ fontFamily: "Arial, sans-serif" }}>
+        Food Waste by Category
+        </h2>
         <ResponsiveContainer width="100%" height={400}>
-          <PieChart>
+          <PieChart style={{ fontFamily: "Arial, sans-serif" }}>
             <Pie
               data={chartData}
               dataKey="value"
@@ -136,7 +136,9 @@ const Dashboard = () => {
       </div>
 
       <div>
-        <h2>Usage vs Waste Over Time</h2>
+        <h2 style={{ fontFamily: "Arial, sans-serif" }}>
+          Usage vs Waste Over Time
+        </h2>
         <ResponsiveContainer width="100%" height={400}>
           <LineChart
             data={usageWasteData}
@@ -164,7 +166,9 @@ const Dashboard = () => {
       </div>
 
       <div>
-        <h2>Ranking of Regional Food Waste</h2>
+        <h2 style={{ fontFamily: "Arial, sans-serif" }}>
+        Ranking of Regional Food Waste
+        </h2>
         <ResponsiveContainer width="100%" height={400}>
           <table>
             <thead>
