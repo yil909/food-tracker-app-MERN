@@ -30,7 +30,7 @@ router.put("/updatefooditems", async (req, res) => {
     const itemid = req.body.itemid;
     console.log("itemid: " + JSON.stringify(itemid, null, 2));
     const updatedFoodItem = req.body;
-    //console.log(JSON.stringify(updatedFoodItem, null, 2));
+    console.log(JSON.stringify(updatedFoodItem, null, 2));
     await updateFoodItem(itemid, updatedFoodItem);
     console.log("Food item updated successfully!");
     res.status(200).send("Food item updated successfully!");
