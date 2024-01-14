@@ -20,7 +20,8 @@ import usePageTitleAndFavicon from "../../../hooks/usePageTitleAndFavicon";
 import logo from "../../../assets/icons/logo.png";
 
 const Dashboard = () => {
-  const { wasteMetric, getWasteMetric, usageWasteData, getUsageWasteData } =
+  const { wasteMetric, getWasteMetric, usageWasteData, getUsageWasteData,
+  locationRanking, getLocationRanking } =
     useFoodItem();
 
   useEffect(() => {

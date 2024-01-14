@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { LOCAL_IP, PORT } from "../../../backend/config";
 
 function useItemWithCategoryName() {
     const [itemWithCName, setItemWithCName] = useState([]);
 
     const getItemWithCategoryName = async () => {
         try {
-            const response = await axios.get("http://localhost:5555/itemWithCategoryName");
+            const response = await axios.get('http://'+LOCAL_IP+':'+PORT+'/itemWithCategoryName');
             setItemWithCName(response.data);
         } catch (error) {
             console.error("Error fetching data:", error);

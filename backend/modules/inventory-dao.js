@@ -69,9 +69,10 @@ async function updateFoodItem(id, updatedFoodItem) {
         quantity = ${updatedFoodItem.quantity},
         unit = ${updatedFoodItem.unit},
         pricePerUnit = ${updatedFoodItem.pricePerUnit},
-        expirydate = ${updatedFoodItem.expiryDate},
+        expirydate = ${updatedFoodItem.expirydate},
         foodCategoryid = ${updatedFoodItem.foodCategoryid},
-        timestamp = DATETIME('now')
+        timestamp = DATETIME('now'),
+        readstatus = ${updatedFoodItem.readstatus}
     WHERE itemid = ${id}`);
 
   console.log(`${result.changes} rows were updated.`);
