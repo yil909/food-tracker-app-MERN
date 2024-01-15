@@ -8,7 +8,7 @@ function Reset() {
     const [newPassword, setNewPassword] = useState('');
     const [doubleCheck, setDoubleCheck] = useState('');
     const [verificationCode, setVerificationCode] = useState('');
-    const [passwordMismatch, setPasswordMismatch] = useState(false);  // 新增状态变量
+    const [passwordMismatch, setPasswordMismatch] = useState(false);  
 
     const handleSubmit = (event) => {
       event.preventDefault();
@@ -28,7 +28,7 @@ function Reset() {
 
     return (
       <div className="reset-container">
-        <div className="icon">
+        <div className="logo">
           <img src={logoIcon} alt="Logo" />
         </div>
         <div className="reset-content">
