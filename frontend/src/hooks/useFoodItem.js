@@ -8,6 +8,8 @@ function useFoodItem() {
   const [wasteMetric, setWasteMetric] = useState([]);
   const [usageWasteData, setUsageWasteData] = useState([]);
   const [locationRanking, setLocationRanking] = useState([]);
+  const [cookMenu, setCookMenu] = useState([]);
+  const [ingredientList, setIngrdList] = useState([]);
 
   const getFoodItem = async () => {
     try {
@@ -62,6 +64,29 @@ function useFoodItem() {
     }
   };
 
+  const getCookMenu = async () => {
+    try {
+      const response = await axios.get('http://'+LOCAL_IP+':'+PORT+'/cookmenu');
+      setCookMenu(response.data);
+      console.log("Hello world 444!");
+      console.log(JSON.stringify(cookMenu, null, 2));
+    } catch (error) {
+      console.error("Error fetching cook menu data:", error);
+    }
+  };
+
+  const getIngredientList = async (dishid, userid) => {
+    try {
+      const response = await axios.get(`http://${LOCAL_IP}:${PORT}/ingredientList?dishid=${dishid}&userid=${userid}`);
+      setIngrdList(response.data);
+      console.log("Hello world 555!");
+      console.log(JSON.stringify(response.data, null, 2)); // Use response.data instead of ingrdList
+    } catch (error) {
+      console.error("Error fetching ingredient list:", error);
+    }
+  };
+  
+
   const updateFoodItem = async (updatedData) => {
     try {
       const response = await axios.put(
@@ -112,6 +137,8 @@ function useFoodItem() {
     wasteMetric,
     usageWasteData,
     locationRanking,
+    cookMenu,
+    ingredientList,
     getFoodItem,
     updateFoodItem,
     createFoodItem,
@@ -120,6 +147,8 @@ function useFoodItem() {
     getWasteMetric,
     getUsageWasteData,
     getLocationRanking,
+    getCookMenu,
+    getIngredientList,
   };
 }
 

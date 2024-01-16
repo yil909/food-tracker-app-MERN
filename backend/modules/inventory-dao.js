@@ -264,3 +264,26 @@ async function getFoodItemWithAllColumn() {
 }
 
 export { getFoodItemWithAllColumn };
+
+async function getCookMenuByUserId(id) {
+  const db = await openDatabase();
+  const allMenu = await db.all(SQL`
+  select DISTINCT dishid, userid, dishname, dishpic from menu
+  WHERE userid = ${id}
+  `);
+  return allMenu;
+}
+
+export { getCookMenuByUserId };
+
+async function getIngredientList(dishid, userid) {
+  const db = await openDatabase();
+  const ingrdList = await db.all(SQL`
+  select ingredientname, weight from menu
+  WHERE userid = ${userid}
+  AND dishid = ${dishid}
+  `);
+  return ingrdList;
+}
+
+export { getIngredientList };

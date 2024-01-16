@@ -1,0 +1,97 @@
+/* CookMenu.css */
+
+/* Style for the modal overlay */
+.modal-overlay {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Style for the modal box */
+.modal-box {
+  background-color: #fff; /* White background for the modal */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Drop shadow effect */
+  max-width: 80%; /* Adjust the maximum width as needed */
+}
+
+/* Style for the dish card container (grid) */
+.dish-card-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columns */
+  grid-gap: 20px; /* Adjust the gap between cards */
+}
+
+
+.dish-card aa {
+  text-align: center;
+  width: 100%; /* Adjust this value as needed */
+  max-width: 150px; /* Set a maximum width if necessary */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.dish-card {
+  position: relative;
+  width: 200px;
+  height: 300px;
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+}
+
+.dish-card.flipped {
+  transform: rotateY(180deg);
+}
+
+.dish-front,
+.dish-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.dish-back {
+  transform: rotateY(180deg);
+}
+
+/* Style for the dish image */
+.dish-card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Style for the dish name */
+.dish-card h5 {
+  margin-top: 10px;
+}
+
+/* Style for the modal actions (e.g., close button) */
+.modal-actions {
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* Style for the modal button */
+.modal-button {
+  padding: 10px 10px;
+  margin: 0 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+/* Style for the close button */
+.modal-button.close {
+  background-color: #ddd; /* Light gray background */
+}
+
+/* Additional styles can be added as needed */
