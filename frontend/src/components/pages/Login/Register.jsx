@@ -17,7 +17,7 @@ function Register() {
 
   return (
     <div className="register-container">
-      <div className="logo">
+      <div className="logo-pic">
         <img src={logoIcon} alt="Logo" />
       </div>
       <div className="register-content">
