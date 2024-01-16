@@ -5,7 +5,13 @@ import {
   createFoodItem,
   createTransLog,
   getFoodMetricByUserId,
+<<<<<<< HEAD
   getFoodItemWithAllColumn, getFoodItemsByUserIdAndCategoryName
+=======
+  getFoodItemWithAllColumn,
+  getCookMenuByUserId,
+  getIngredientList,
+>>>>>>> 73a8caf8745fa64311f7db311f0ff5327d503ec5
 } from "../../modules/inventory-dao.js";
 import {getItemWithCategoryName} from "../../modules/report-dao.js";
 import {getRestaurantInfo} from "../../modules/user-dao.js";
@@ -41,7 +47,7 @@ router.put("/updatefooditems", async (req, res) => {
     const itemid = req.body.itemid;
     console.log("itemid: " + JSON.stringify(itemid, null, 2));
     const updatedFoodItem = req.body;
-    //console.log(JSON.stringify(updatedFoodItem, null, 2));
+    console.log(JSON.stringify(updatedFoodItem, null, 2));
     await updateFoodItem(itemid, updatedFoodItem);
     console.log("Food item updated successfully!");
     res.status(200).send("Food item updated successfully!");
@@ -108,6 +114,35 @@ router.get('/itemWithCategoryName', async (req, res) =>{
   }catch (error){
     console.error('Error retrieving food items:', error);
     res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+router.get("/cookmenu", async (req, res) => {
+  try {
+    const cookMenu = await getCookMenuByUserId(1);
+    res.json(cookMenu);
+    console.log(JSON.stringify(cookMenu, null, 2));
+  } catch (error) {
+    console.error("Error retrieving cook menu:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+router.get("/ingredientList", async (req, res) => {
+  try {
+    const dishid = req.query.dishid; 
+    const userid = req.query.userid; 
+
+    // Validate if dishid and userid are provided
+    if (!dishid || !userid) {
+      return res.status(400).json({ error: "dishid and userid are required parameters" });
+    }
+    const ingrdList = await getIngredientList(dishid, userid);
+    res.json(ingrdList);
+    console.log(JSON.stringify(ingrdList, null, 2));
+  } catch (error) {
+    console.error("Error retrieving ingredient list:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 

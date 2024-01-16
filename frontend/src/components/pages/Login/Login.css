@@ -1,0 +1,106 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 400px;
+    margin-left: 200px; 
+}
+
+.login-form {
+    width: 100%;
+    padding: 10px;
+}
+
+.login-form h2 {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.forgot-password {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.forgot-password button {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+}
+
+.forgot-password button:hover {
+    text-decoration: underline;
+}
+
+.login-button {
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.login-button:hover {
+    background-color: #0056b3;
+}
+
+.register-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.logo {
+    width: 200px; 
+    height: 200px; 
+    position: absolute;
+    top: 50%;
+    left: 20px; 
+    transform: translate(-20%, -50%);
+}
+
+
+.small-icon-and-welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+    max-width: 450px; /* Increased maximum width for the welcome message */
+}
+
+h2 {
+    text-align: center;
+    width: 100%; /* Ensure h2 takes up 100% of the .small-icon-and-welcome width */
+    padding: 0 20px; /* Add padding to ensure text does not touch the edges */
+    margin-right: 80px;
+}
+
+.small-icon-and-welcome img {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 10px; /* Add space between the icon and the welcome message */
+}

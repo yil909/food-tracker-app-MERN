@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import {
   ResponsiveContainer,
+  LineChart,
+  Line,
   PieChart,
   Pie,
   Cell,
@@ -18,14 +20,14 @@ import usePageTitleAndFavicon from "../../../hooks/usePageTitleAndFavicon";
 import logo from "../../../assets/icons/logo.png";
 
 const Dashboard = () => {
-  usePageTitleAndFavicon("Dashboard - Food Waste Tracker", logo);
-
-  const { wasteMetric, getWasteMetric, usageWasteData, getUsageWasteData } =
+  const { wasteMetric, getWasteMetric, usageWasteData, getUsageWasteData,
+  locationRanking, getLocationRanking } =
     useFoodItem();
 
   useEffect(() => {
     getWasteMetric();
     getUsageWasteData();
+    getLocationRanking();
   }, []);
 
   const COLORS = [
@@ -106,9 +108,8 @@ const Dashboard = () => {
         {/* Render your other dashboard components here */}
         {/* Render the Pie Chart */}
         <h2 style={{ fontFamily: "Arial, sans-serif" }}>
-          Food Waste by Category
+        Food Waste by Category
         </h2>
-
         <ResponsiveContainer width="100%" height={400}>
           <PieChart style={{ fontFamily: "Arial, sans-serif" }}>
             <Pie
@@ -140,24 +141,75 @@ const Dashboard = () => {
           Usage vs Waste Over Time
         </h2>
         <ResponsiveContainer width="100%" height={400}>
-          <BarChart
-            style={{ fontFamily: "Arial, sans-serif" }}
+          <LineChart
             data={usageWasteData}
             margin={{ top: 20, right: 30, left: 20, bottom: 10 }}
           >
+            <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="month" />
             <YAxis />
-            <CartesianGrid strokeDasharray="3 3" />
             <Tooltip content={renderTooltipContent2} />
             <Legend />
-            <Bar dataKey="used" name="Food Used" fill="#8884d8" barSize={40} />
-            <Bar
+            <Line
+              type="monotone"
+              dataKey="used"
+              name="Food Used"
+              stroke="#8884d8"
+            />
+            <Line
+              type="monotone"
               dataKey="wasted"
               name="Food Wasted"
-              fill="#82ca9d"
-              barSize={40}
+              stroke="#82ca9d"
             />
-          </BarChart>
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+
+      <div>
+        <h2 style={{ fontFamily: "Arial, sans-serif" }}>
+        Ranking of Regional Food Waste
+        </h2>
+        <ResponsiveContainer width="100%" height={400}>
+          <table>
+            <thead>
+              <tr>
+                <th>Ranking</th>
+                <th>City</th>
+                <th>Food Wasted (KG)</th>
+                <th> </th>
+              </tr>
+            </thead>
+            <tbody>
+              {locationRanking.map((entry, index) => (
+                <tr key={`ranking-${index}`}>
+                  <td>{index + 1}</td>
+                  <td>{entry.location}</td>
+                  <td>{entry.totalWasted.toFixed(2)}</td>
+                  <td>
+                    <div
+                      style={{
+                        backgroundColor: (() => {
+                          switch (index + 1) {
+                            case 1:
+                              return "#FF5733"; // Red
+                            case 2:
+                              return "#FF8042"; // Orange
+                            case 3:
+                              return "#FFFF00"; // Yellow
+                            default:
+                              return "#00FF00"; // Green for indices 4 and above
+                          }
+                        })(),
+                        height: "20px",
+                        width: `${(entry.totalWasted / 100) * 100}px`, // Adjust the scaling
+                      }}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </ResponsiveContainer>
       </div>
     </Layout>

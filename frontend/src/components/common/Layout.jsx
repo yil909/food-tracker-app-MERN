@@ -6,9 +6,11 @@ import { BellOutlined, SearchOutlined } from "@ant-design/icons";
 import LeftNavBar from "./LeftNavBar";
 import "./Layout.css";
 // import logo from "../../assets/icons/logo.png";
+import { useNotification } from "../../hooks/useNotification.jsx";
 import profilelogo from "../../assets/icons/profile.png";
 
 const Layout = ({ children }) => {
+  const { notificationCount } = useNotification();
   return (
     <div className="layout">
       <LeftNavBar />
@@ -21,6 +23,9 @@ const Layout = ({ children }) => {
           />
           <div className="header-icons">
             <Link to="/notices">
+              {notificationCount > 0 && (
+                <span className="badge">{notificationCount}</span>
+              )}
               <BellOutlined className="bell-icon" />
             </Link>
             <Link to="/profile">

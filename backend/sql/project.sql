@@ -69,48 +69,55 @@ CREATE TABLE IF NOT EXISTS transactionlog (
   FOREIGN KEY (fooditemid) REFERENCES fooditem (itemid)
 );
 
+CREATE TABLE IF NOT EXISTS categoryassociation (
+  categoryid INTEGER ,
+	categoryname	TEXT NOT NULL,
+	itemname	TEXT NOT NULL,
+  FOREIGN KEY (categoryid) REFERENCES foodcategory (categoryid)
+);
+
 
 INSERT INTO user (username, hashpw, saltpw, avatar, authToken, is_admin, restaurantname, address, location, contact) VALUES 
-('user1', 'bb725dc48d9e4635c7e5d352f5bb5537bf74f2fc01b4f6eee72c19b2a4ccbec4', 'ab6a10b4c6fb238a56a47a9cc8132e92ae3287cdbf8e310d77a213588cda4921', 'avatar1.png', 'bb1fe80c13f792ddfb3bf93d2518464fbb3ce70973c98cd1e986d2c965d5cc23', True, 'Restaurant1', 'Address1', 'Invercargill', 'contact1@example.com'), 
-('user2', 'c2e2c69da6d00af8097ce6f62f368a80bc545322f63e9ca428c893feb85b609b', '8cd8d8c914298e8080b7968b9466eabb4c85e2f813f3bff5ed10495874cdc34b', 'avatar2.png', '5903d29602005fd0feb62a2466535da14d22a083c7e9e11293626900dff37cb8', True, 'Restaurant2', 'Address2', 'Masterton', 'contact2@example.com'), 
-('user3', 'b7232d027311fa799ed7f234f4653ed1e14107a9b8a036498362aaaddbac3cce', '7c1b3c4c39410b52f05e67f97c6c57401cdffa0ce96bb278a863c039f9dcc5db', 'avatar3.png', '278112e25b90bb8a6a8ef303f66d4f4d0ec673609a525baff66433cc87e73daf', False, 'Restaurant3', 'Address3', 'Taupo', 'contact3@example.com'), 
-('user4', '4c0a0beeb7bd588ab8031e3111385deb425406a7f48458b95e629d8188133548', '18e1207b82ad38315f8a354c22fbf170ae57ee0ff4c0851a4f10d46b56e6f4b8', 'avatar4.png', 'cf43bcce42227f1ae981007f800a2c852a453f6c44605bad0957b491a009dda2', True, 'Restaurant4', 'Address4', 'Palmerston North', 'contact4@example.com'), 
-('user5', 'ff525a70d18896e51cfa5e16c4dbe782e4c70418328a497b6ebabfcf5088a61c', '64f4c0fea492c7667312ed9a325cb8be5450c031beb1099b1afab63b36902d5b', 'avatar5.png', '032c657600b0f52ccddf04584335b03093f2424dabb1a06d7cad6375463840ba', True, 'Restaurant5', 'Address5', 'Pukekohe', 'contact5@example.com'), 
-('user6', '4717e761425ca0377157f51b5011532c667b3ede4f171abd2a414259d1fd815b', '63d175bc17896fdbc97016d7439781bc1a8f6dec3c487660b7740fed33fcbe1e', 'avatar6.png', '09775760729e68fd98c2801a513257c4e725ec12968ac5ee4e95e852be0121c7', True, 'Restaurant6', 'Address6', 'Whanganui', 'contact6@example.com'), 
-('user7', '6476b2a869d945f4e5e80d371076a9be1435d2a9f752d5257d38a56639901a11', 'a397046a9655c8ea4cd02f2400e0a7d7da6a69585e79108abffeb8b41bb4f422', 'avatar7.png', '8f01a50102b92c66fc25b8f7b1efd229f36b4094874a7c0139af5744c38a92f9', False, 'Restaurant7', 'Address7', 'Wellington', 'contact7@example.com'), 
-('user8', '7a9f28bba374d8ef7fa6583517e6156c7abdf3f720613bfac96c3847e68262f1', '21f5fdc2b96b7b630cbb1bb9625a429ec6cfffb5308801a0d27a92fa4e39b97c', 'avatar8.png', '93031f3ed7c96fa15e37b22ccd062030e901cc7580db222229a754b2cce1be37', True, 'Restaurant8', 'Address8', 'Rotorua', 'contact8@example.com'), 
-('user9', 'cfa829bfb8e30b65c42e7c2ac5af34784278d89a6ab6f5286951e39d22aceefa', '2e15f7290d003122f3444051251dea515a5cec73f7af45cdfddb2a41fa58cb55', 'avatar9.png', '28cfd6d03ae49263c0684fd25523c0f3c1e9f77c81c1a64efb1c1cb47afa40b9', True, 'Restaurant9', 'Address9', 'Tauranga', 'contact9@example.com'), 
-('user10', '8b3b72c3e9ee9ec93438fc4452c3d8186923d3806143fdf1029ec588c4888e4f', 'dec95e8d7a21e4ea7d60d8d9214f591279552c448fb60473a440bade17f9953f', 'avatar10.png', 'b0af3cce9aba6a6a9927562973943db96c306e89f738633fd239e8e684d6a2c5', False, 'Restaurant10', 'Address10', 'Whanganui', 'contact10@example.com'), 
-('user11', '6562a5c185fbcc706fd06d3fa489bbf0a30952b3d057c49ad5ad7f1bf0b74e26', 'ceac36cdcf30705d87cef772fb37c3502b9a844c00c10ab42be41cc8a2e07af9', 'avatar11.png', 'b16bd5491a47eb48ac180c388ca5ad1b024ba9309ecc095bf0797aec244dce32', True, 'Restaurant11', 'Address11', 'New Plymouth', 'contact11@example.com'), 
-('user12', '7e2ac0966d92a7b017a3dec01006ea75cd0b4bd9140cabfa9a5885f73a3a549a', '5ec8289b3e6fb32fc1d73984e371910e1cb8e01b764e9e435af5068eece60819', 'avatar12.png', '7cc7acce1035872db925b781faa1b14eac6317359260ce6861667794d0dfd9c5', True, 'Restaurant12', 'Address12', 'Dunedin', 'contact12@example.com'), 
-('user13', '3310fd2e691d52f1d6da2364ba2ffb3188f05d0635b77d6de3ff50514b617ce5', '62a5c7aeecaf63c467473ddfd070277a9cb914885c17508ca5fcf0bfeefd2278', 'avatar13.png', 'f05c57a1456c9150cfb911dc9bd09a516bf51213754102ae286d6f93834651ed', True, 'Restaurant13', 'Address13', 'Gisborne', 'contact13@example.com'), 
-('user14', '101aadfcb0e642b22f8095cdb43d4f7c4e84125ae8dc9f1341f0488a3d04b29f', 'acba65484b5f4cccbd4d2afafe4fe21331bf4aebedd468d619d0d8b7f8705a01', 'avatar14.png', 'd7a60cdd7b4986dd5427bfdc8466cd49c3523fc7efd1290fdc38fef8188b3e7e', False, 'Restaurant14', 'Address14', 'Auckland', 'contact14@example.com'), 
-('user15', '458c76cfeec31605727f169a37d5a745e486798bf49705837dfa1e7be565bb39', 'e3c5ab737a86859b324c6f6d91cc65a49c6db95b9eefe298c675d6edcccf9ca0', 'avatar15.png', 'af15ff9084bbb9f23445bf21b2742e89a8be37a3df3303cfb9f974283a2adf1e', False, 'Restaurant15', 'Address15', 'Napier-Hastings', 'contact15@example.com'), 
-('user16', 'c4541fd5323f8e9f9e923c7c78d398e13449b58de2cdc8f040e712a87cdd5e1d', '20252f3b4dad1bb50720372ae3e385644c8e0f0b5b6de41c585c446e087c6f0d', 'avatar16.png', 'add4a8980fb42f657c6a0ab309cd64fddedf4e38da39a8bdf62a84f8bc5391cf', True, 'Restaurant16', 'Address16', 'Palmerston North', 'contact16@example.com'), 
-('user17', '1c91af4f4a7c34a6cff3fed6e805d4567fa940c992fd0acfd44ae63fe91a07ae', '398ce10efa31ec16c723f59d977aa756803224031705c128439ffbcf05b42f3b', 'avatar17.png', '4c2124648baabf2df8f4a694104ad19378e481adfdc0ec4f491d16e3eae5ee51', False, 'Restaurant17', 'Address17', 'Invercargill', 'contact17@example.com'), 
-('user18', 'ad4bdbe1b81c317f4d5c471df11523aec853fac401a4de7d04aee204d2b2875f', '0f22908d96c998496b942f6a3943c8bd6bcf19af21df020738b76883a0d17e38', 'avatar18.png', '9a7e466b85bd44073002ea0a4c6a45ed6c308d820623713f10b04f4911a357a2', False, 'Restaurant18', 'Address18', 'Napier-Hastings', 'contact18@example.com'), 
-('user19', '81ef2a092d788511cd604b24759f76030aeb009dda4d095c72539f39074c76ba', 'b27f6a9806c074167e3a8cb7d103503d943157258eeec888af20ec7c90ea0b81', 'avatar19.png', 'df2879d6d80ad7ff2e9cfda248aefd466b620bb8f0d97c486404be4aa8e4d2d7', True, 'Restaurant19', 'Address19', 'Blenheim', 'contact19@example.com'), 
-('user20', '80cd4a6695c8487af9c10dfac37e67855657d70e970501dcea8d4c7e3f75da6c', 'bc168b9923a7c1b7110ad888e8738b6d018c2d483c974e41a96069d674c97d7c', 'avatar20.png', 'be02720c1c828a6aabe44c0182b34527a3a5c5c449d07d0e26d2265845ac81b2', False, 'Restaurant20', 'Address20', 'Invercargill', 'contact20@example.com'),
-('user21', 'bb725dc48d9e4635c7e5d352f5bb5537bf74f2fc01b4f6eee72c19b2a4ccbec4', 'ab6a10b4c6fb238a56a47a9cc8132e92ae3287cdbf8e310d77a213588cda4921', 'avatar1.png', 'bb1fe80c13f792ddfb3bf93d2518464fbb3ce70973c98cd1e986d2c965d5cc23', True, 'Restaurant21', 'Address1', 'Invercargill', 'contact1@example.com'), 
-('user22', 'c2e2c69da6d00af8097ce6f62f368a80bc545322f63e9ca428c893feb85b609b', '8cd8d8c914298e8080b7968b9466eabb4c85e2f813f3bff5ed10495874cdc34b', 'avatar2.png', '5903d29602005fd0feb62a2466535da14d22a083c7e9e11293626900dff37cb8', True, 'Restaurant22', 'Address2', 'Masterton', 'contact2@example.com'), 
-('user23', 'b7232d027311fa799ed7f234f4653ed1e14107a9b8a036498362aaaddbac3cce', '7c1b3c4c39410b52f05e67f97c6c57401cdffa0ce96bb278a863c039f9dcc5db', 'avatar3.png', '278112e25b90bb8a6a8ef303f66d4f4d0ec673609a525baff66433cc87e73daf', False, 'Restaurant23', 'Address3', 'Taupo', 'contact3@example.com'), 
-('user24', '4c0a0beeb7bd588ab8031e3111385deb425406a7f48458b95e629d8188133548', '18e1207b82ad38315f8a354c22fbf170ae57ee0ff4c0851a4f10d46b56e6f4b8', 'avatar4.png', 'cf43bcce42227f1ae981007f800a2c852a453f6c44605bad0957b491a009dda2', True, 'Restaurant24', 'Address4', 'Palmerston North', 'contact4@example.com'), 
-('user25', 'ff525a70d18896e51cfa5e16c4dbe782e4c70418328a497b6ebabfcf5088a61c', '64f4c0fea492c7667312ed9a325cb8be5450c031beb1099b1afab63b36902d5b', 'avatar5.png', '032c657600b0f52ccddf04584335b03093f2424dabb1a06d7cad6375463840ba', True, 'Restaurant25', 'Address5', 'Pukekohe', 'contact5@example.com'), 
-('user26', '4717e761425ca0377157f51b5011532c667b3ede4f171abd2a414259d1fd815b', '63d175bc17896fdbc97016d7439781bc1a8f6dec3c487660b7740fed33fcbe1e', 'avatar6.png', '09775760729e68fd98c2801a513257c4e725ec12968ac5ee4e95e852be0121c7', True, 'Restaurant26', 'Address6', 'Whanganui', 'contact6@example.com'), 
-('user27', '6476b2a869d945f4e5e80d371076a9be1435d2a9f752d5257d38a56639901a11', 'a397046a9655c8ea4cd02f2400e0a7d7da6a69585e79108abffeb8b41bb4f422', 'avatar7.png', '8f01a50102b92c66fc25b8f7b1efd229f36b4094874a7c0139af5744c38a92f9', False, 'Restaurant27', 'Address7', 'Wellington', 'contact7@example.com'), 
-('user28', '7a9f28bba374d8ef7fa6583517e6156c7abdf3f720613bfac96c3847e68262f1', '21f5fdc2b96b7b630cbb1bb9625a429ec6cfffb5308801a0d27a92fa4e39b97c', 'avatar8.png', '93031f3ed7c96fa15e37b22ccd062030e901cc7580db222229a754b2cce1be37', True, 'Restaurant28', 'Address8', 'Rotorua', 'contact8@example.com'), 
-('user29', 'cfa829bfb8e30b65c42e7c2ac5af34784278d89a6ab6f5286951e39d22aceefa', '2e15f7290d003122f3444051251dea515a5cec73f7af45cdfddb2a41fa58cb55', 'avatar9.png', '28cfd6d03ae49263c0684fd25523c0f3c1e9f77c81c1a64efb1c1cb47afa40b9', True, 'Restaurant29', 'Address9', 'Tauranga', 'contact9@example.com'), 
-('user30', '8b3b72c3e9ee9ec93438fc4452c3d8186923d3806143fdf1029ec588c4888e4f', 'dec95e8d7a21e4ea7d60d8d9214f591279552c448fb60473a440bade17f9953f', 'avatar10.png', 'b0af3cce9aba6a6a9927562973943db96c306e89f738633fd239e8e684d6a2c5', False, 'Restaurant30', 'Address10', 'Whanganui', 'contact10@example.com'), 
-('user31', '6562a5c185fbcc706fd06d3fa489bbf0a30952b3d057c49ad5ad7f1bf0b74e26', 'ceac36cdcf30705d87cef772fb37c3502b9a844c00c10ab42be41cc8a2e07af9', 'avatar11.png', 'b16bd5491a47eb48ac180c388ca5ad1b024ba9309ecc095bf0797aec244dce32', True, 'Restaurant31', 'Address11', 'New Plymouth', 'contact11@example.com'), 
-('user32', '7e2ac0966d92a7b017a3dec01006ea75cd0b4bd9140cabfa9a5885f73a3a549a', '5ec8289b3e6fb32fc1d73984e371910e1cb8e01b764e9e435af5068eece60819', 'avatar12.png', '7cc7acce1035872db925b781faa1b14eac6317359260ce6861667794d0dfd9c5', True, 'Restaurant32', 'Address12', 'Dunedin', 'contact12@example.com'), 
-('user33', '3310fd2e691d52f1d6da2364ba2ffb3188f05d0635b77d6de3ff50514b617ce5', '62a5c7aeecaf63c467473ddfd070277a9cb914885c17508ca5fcf0bfeefd2278', 'avatar13.png', 'f05c57a1456c9150cfb911dc9bd09a516bf51213754102ae286d6f93834651ed', True, 'Restaurant33', 'Address13', 'Gisborne', 'contact13@example.com'), 
-('user34', '101aadfcb0e642b22f8095cdb43d4f7c4e84125ae8dc9f1341f0488a3d04b29f', 'acba65484b5f4cccbd4d2afafe4fe21331bf4aebedd468d619d0d8b7f8705a01', 'avatar14.png', 'd7a60cdd7b4986dd5427bfdc8466cd49c3523fc7efd1290fdc38fef8188b3e7e', False, 'Restaurant34', 'Address14', 'Auckland', 'contact14@example.com'), 
-('user35', '458c76cfeec31605727f169a37d5a745e486798bf49705837dfa1e7be565bb39', 'e3c5ab737a86859b324c6f6d91cc65a49c6db95b9eefe298c675d6edcccf9ca0', 'avatar15.png', 'af15ff9084bbb9f23445bf21b2742e89a8be37a3df3303cfb9f974283a2adf1e', False, 'Restaurant35', 'Address15', 'Napier-Hastings', 'contact15@example.com'), 
-('user36', 'c4541fd5323f8e9f9e923c7c78d398e13449b58de2cdc8f040e712a87cdd5e1d', '20252f3b4dad1bb50720372ae3e385644c8e0f0b5b6de41c585c446e087c6f0d', 'avatar16.png', 'add4a8980fb42f657c6a0ab309cd64fddedf4e38da39a8bdf62a84f8bc5391cf', True, 'Restaurant36', 'Address16', 'Palmerston North', 'contact16@example.com'), 
-('user37', '1c91af4f4a7c34a6cff3fed6e805d4567fa940c992fd0acfd44ae63fe91a07ae', '398ce10efa31ec16c723f59d977aa756803224031705c128439ffbcf05b42f3b', 'avatar17.png', '4c2124648baabf2df8f4a694104ad19378e481adfdc0ec4f491d16e3eae5ee51', False, 'Restaurant37', 'Address17', 'Invercargill', 'contact17@example.com'), 
-('user38', 'ad4bdbe1b81c317f4d5c471df11523aec853fac401a4de7d04aee204d2b2875f', '0f22908d96c998496b942f6a3943c8bd6bcf19af21df020738b76883a0d17e38', 'avatar18.png', '9a7e466b85bd44073002ea0a4c6a45ed6c308d820623713f10b04f4911a357a2', False, 'Restaurant38', 'Address18', 'Napier-Hastings', 'contact18@example.com'), 
-('user39', '81ef2a092d788511cd604b24759f76030aeb009dda4d095c72539f39074c76ba', 'b27f6a9806c074167e3a8cb7d103503d943157258eeec888af20ec7c90ea0b81', 'avatar19.png', 'df2879d6d80ad7ff2e9cfda248aefd466b620bb8f0d97c486404be4aa8e4d2d7', True, 'Restaurant39', 'Address19', 'Blenheim', 'contact19@example.com'), 
-('user40', '80cd4a6695c8487af9c10dfac37e67855657d70e970501dcea8d4c7e3f75da6c', 'bc168b9923a7c1b7110ad888e8738b6d018c2d483c974e41a96069d674c97d7c', 'avatar20.png', 'be02720c1c828a6aabe44c0182b34527a3a5c5c449d07d0e26d2265845ac81b2', False, 'Restaurant40', 'Address20', 'Invercargill', 'contact20@example.com');
+('user1', 'bb725dc48d9e4635c7e5d352f5bb5537bf74f2fc01b4f6eee72c19b2a4ccbec4', 'ab6a10b4c6fb238a56a47a9cc8132e92ae3287cdbf8e310d77a213588cda4921', 'avatar1.png', '', True, 'Restaurant1', 'Address1', 'Invercargill', 'contact1@example.com'), 
+('user2', 'c2e2c69da6d00af8097ce6f62f368a80bc545322f63e9ca428c893feb85b609b', '8cd8d8c914298e8080b7968b9466eabb4c85e2f813f3bff5ed10495874cdc34b', 'avatar2.png', '', False, 'Restaurant2', 'Address2', 'Masterton', 'contact2@example.com'), 
+('user3', 'b7232d027311fa799ed7f234f4653ed1e14107a9b8a036498362aaaddbac3cce', '7c1b3c4c39410b52f05e67f97c6c57401cdffa0ce96bb278a863c039f9dcc5db', 'avatar3.png', '', False, 'Restaurant3', 'Address3', 'Taupo', 'contact3@example.com'), 
+('user4', '4c0a0beeb7bd588ab8031e3111385deb425406a7f48458b95e629d8188133548', '18e1207b82ad38315f8a354c22fbf170ae57ee0ff4c0851a4f10d46b56e6f4b8', 'avatar4.png', '', True, 'Restaurant4', 'Address4', 'Palmerston North', 'contact4@example.com'), 
+('user5', 'ff525a70d18896e51cfa5e16c4dbe782e4c70418328a497b6ebabfcf5088a61c', '64f4c0fea492c7667312ed9a325cb8be5450c031beb1099b1afab63b36902d5b', 'avatar5.png', '', True, 'Restaurant5', 'Address5', 'Pukekohe', 'contact5@example.com'), 
+('user6', '4717e761425ca0377157f51b5011532c667b3ede4f171abd2a414259d1fd815b', '63d175bc17896fdbc97016d7439781bc1a8f6dec3c487660b7740fed33fcbe1e', 'avatar6.png', '', True, 'Restaurant6', 'Address6', 'Whanganui', 'contact6@example.com'), 
+('user7', '6476b2a869d945f4e5e80d371076a9be1435d2a9f752d5257d38a56639901a11', 'a397046a9655c8ea4cd02f2400e0a7d7da6a69585e79108abffeb8b41bb4f422', 'avatar7.png', '', False, 'Restaurant7', 'Address7', 'Wellington', 'contact7@example.com'), 
+('user8', '7a9f28bba374d8ef7fa6583517e6156c7abdf3f720613bfac96c3847e68262f1', '21f5fdc2b96b7b630cbb1bb9625a429ec6cfffb5308801a0d27a92fa4e39b97c', 'avatar8.png', '', True, 'Restaurant8', 'Address8', 'Rotorua', 'contact8@example.com'), 
+('user9', 'cfa829bfb8e30b65c42e7c2ac5af34784278d89a6ab6f5286951e39d22aceefa', '2e15f7290d003122f3444051251dea515a5cec73f7af45cdfddb2a41fa58cb55', 'avatar9.png', '', True, 'Restaurant9', 'Address9', 'Tauranga', 'contact9@example.com'), 
+('user10', '8b3b72c3e9ee9ec93438fc4452c3d8186923d3806143fdf1029ec588c4888e4f', 'dec95e8d7a21e4ea7d60d8d9214f591279552c448fb60473a440bade17f9953f', 'avatar10.png', '', False, 'Restaurant10', 'Address10', 'Whanganui', 'contact10@example.com'), 
+('user11', '6562a5c185fbcc706fd06d3fa489bbf0a30952b3d057c49ad5ad7f1bf0b74e26', 'ceac36cdcf30705d87cef772fb37c3502b9a844c00c10ab42be41cc8a2e07af9', 'avatar11.png', '', True, 'Restaurant11', 'Address11', 'New Plymouth', 'contact11@example.com'), 
+('user12', '7e2ac0966d92a7b017a3dec01006ea75cd0b4bd9140cabfa9a5885f73a3a549a', '5ec8289b3e6fb32fc1d73984e371910e1cb8e01b764e9e435af5068eece60819', 'avatar12.png', '', True, 'Restaurant12', 'Address12', 'Dunedin', 'contact12@example.com'), 
+('user13', '3310fd2e691d52f1d6da2364ba2ffb3188f05d0635b77d6de3ff50514b617ce5', '62a5c7aeecaf63c467473ddfd070277a9cb914885c17508ca5fcf0bfeefd2278', 'avatar13.png', '', True, 'Restaurant13', 'Address13', 'Gisborne', 'contact13@example.com'), 
+('user14', '101aadfcb0e642b22f8095cdb43d4f7c4e84125ae8dc9f1341f0488a3d04b29f', 'acba65484b5f4cccbd4d2afafe4fe21331bf4aebedd468d619d0d8b7f8705a01', 'avatar14.png', '', False, 'Restaurant14', 'Address14', 'Auckland', 'contact14@example.com'), 
+('user15', '458c76cfeec31605727f169a37d5a745e486798bf49705837dfa1e7be565bb39', 'e3c5ab737a86859b324c6f6d91cc65a49c6db95b9eefe298c675d6edcccf9ca0', 'avatar15.png', '', False, 'Restaurant15', 'Address15', 'Napier-Hastings', 'contact15@example.com'), 
+('user16', 'c4541fd5323f8e9f9e923c7c78d398e13449b58de2cdc8f040e712a87cdd5e1d', '20252f3b4dad1bb50720372ae3e385644c8e0f0b5b6de41c585c446e087c6f0d', 'avatar16.png', '', True, 'Restaurant16', 'Address16', 'Palmerston North', 'contact16@example.com'), 
+('user17', '1c91af4f4a7c34a6cff3fed6e805d4567fa940c992fd0acfd44ae63fe91a07ae', '398ce10efa31ec16c723f59d977aa756803224031705c128439ffbcf05b42f3b', 'avatar17.png', '', False, 'Restaurant17', 'Address17', 'Invercargill', 'contact17@example.com'), 
+('user18', 'ad4bdbe1b81c317f4d5c471df11523aec853fac401a4de7d04aee204d2b2875f', '0f22908d96c998496b942f6a3943c8bd6bcf19af21df020738b76883a0d17e38', 'avatar18.png', '', False, 'Restaurant18', 'Address18', 'Napier-Hastings', 'contact18@example.com'), 
+('user19', '81ef2a092d788511cd604b24759f76030aeb009dda4d095c72539f39074c76ba', 'b27f6a9806c074167e3a8cb7d103503d943157258eeec888af20ec7c90ea0b81', 'avatar19.png', '', True, 'Restaurant19', 'Address19', 'Blenheim', 'contact19@example.com'), 
+('user20', '80cd4a6695c8487af9c10dfac37e67855657d70e970501dcea8d4c7e3f75da6c', 'bc168b9923a7c1b7110ad888e8738b6d018c2d483c974e41a96069d674c97d7c', 'avatar20.png', '', False, 'Restaurant20', 'Address20', 'Invercargill', 'contact20@example.com'),
+('user21', 'bb725dc48d9e4635c7e5d352f5bb5537bf74f2fc01b4f6eee72c19b2a4ccbec4', 'ab6a10b4c6fb238a56a47a9cc8132e92ae3287cdbf8e310d77a213588cda4921', 'avatar21.png', '', True, 'Restaurant21', 'Address1', 'Invercargill', 'contact1@example.com'), 
+('user22', 'c2e2c69da6d00af8097ce6f62f368a80bc545322f63e9ca428c893feb85b609b', '8cd8d8c914298e8080b7968b9466eabb4c85e2f813f3bff5ed10495874cdc34b', 'avatar22.png', '', True, 'Restaurant22', 'Address2', 'Masterton', 'contact2@example.com'), 
+('user23', 'b7232d027311fa799ed7f234f4653ed1e14107a9b8a036498362aaaddbac3cce', '7c1b3c4c39410b52f05e67f97c6c57401cdffa0ce96bb278a863c039f9dcc5db', 'avatar23.png', '', False, 'Restaurant23', 'Address3', 'Taupo', 'contact3@example.com'), 
+('user24', '4c0a0beeb7bd588ab8031e3111385deb425406a7f48458b95e629d8188133548', '18e1207b82ad38315f8a354c22fbf170ae57ee0ff4c0851a4f10d46b56e6f4b8', 'avatar24.png', '', True, 'Restaurant24', 'Address4', 'Palmerston North', 'contact4@example.com'), 
+('user25', 'ff525a70d18896e51cfa5e16c4dbe782e4c70418328a497b6ebabfcf5088a61c', '64f4c0fea492c7667312ed9a325cb8be5450c031beb1099b1afab63b36902d5b', 'avatar25.png', '', True, 'Restaurant25', 'Address5', 'Pukekohe', 'contact5@example.com'), 
+('user26', '4717e761425ca0377157f51b5011532c667b3ede4f171abd2a414259d1fd815b', '63d175bc17896fdbc97016d7439781bc1a8f6dec3c487660b7740fed33fcbe1e', 'avatar26.png', '', True, 'Restaurant26', 'Address6', 'Whanganui', 'contact6@example.com'), 
+('user27', '6476b2a869d945f4e5e80d371076a9be1435d2a9f752d5257d38a56639901a11', 'a397046a9655c8ea4cd02f2400e0a7d7da6a69585e79108abffeb8b41bb4f422', 'avatar27.png', '', False, 'Restaurant27', 'Address7', 'Wellington', 'contact7@example.com'), 
+('user28', '7a9f28bba374d8ef7fa6583517e6156c7abdf3f720613bfac96c3847e68262f1', '21f5fdc2b96b7b630cbb1bb9625a429ec6cfffb5308801a0d27a92fa4e39b97c', 'avatar28.png', '', True, 'Restaurant28', 'Address8', 'Rotorua', 'contact8@example.com'), 
+('user29', 'cfa829bfb8e30b65c42e7c2ac5af34784278d89a6ab6f5286951e39d22aceefa', '2e15f7290d003122f3444051251dea515a5cec73f7af45cdfddb2a41fa58cb55', 'avatar29.png', '', True, 'Restaurant29', 'Address9', 'Tauranga', 'contact9@example.com'), 
+('user30', '8b3b72c3e9ee9ec93438fc4452c3d8186923d3806143fdf1029ec588c4888e4f', 'dec95e8d7a21e4ea7d60d8d9214f591279552c448fb60473a440bade17f9953f', 'avatar30.png', '', False, 'Restaurant30', 'Address10', 'Whanganui', 'contact10@example.com'), 
+('user31', '6562a5c185fbcc706fd06d3fa489bbf0a30952b3d057c49ad5ad7f1bf0b74e26', 'ceac36cdcf30705d87cef772fb37c3502b9a844c00c10ab42be41cc8a2e07af9', 'avatar31.png', '', True, 'Restaurant31', 'Address11', 'New Plymouth', 'contact11@example.com'), 
+('user32', '7e2ac0966d92a7b017a3dec01006ea75cd0b4bd9140cabfa9a5885f73a3a549a', '5ec8289b3e6fb32fc1d73984e371910e1cb8e01b764e9e435af5068eece60819', 'avatar32.png', '', True, 'Restaurant32', 'Address12', 'Dunedin', 'contact12@example.com'), 
+('user33', '3310fd2e691d52f1d6da2364ba2ffb3188f05d0635b77d6de3ff50514b617ce5', '62a5c7aeecaf63c467473ddfd070277a9cb914885c17508ca5fcf0bfeefd2278', 'avatar33.png', '', True, 'Restaurant33', 'Address13', 'Gisborne', 'contact13@example.com'), 
+('user34', '101aadfcb0e642b22f8095cdb43d4f7c4e84125ae8dc9f1341f0488a3d04b29f', 'acba65484b5f4cccbd4d2afafe4fe21331bf4aebedd468d619d0d8b7f8705a01', 'avatar34.png', '', False, 'Restaurant34', 'Address14', 'Auckland', 'contact14@example.com'), 
+('user35', '458c76cfeec31605727f169a37d5a745e486798bf49705837dfa1e7be565bb39', 'e3c5ab737a86859b324c6f6d91cc65a49c6db95b9eefe298c675d6edcccf9ca0', 'avatar35.png', '', False, 'Restaurant35', 'Address15', 'Napier-Hastings', 'contact15@example.com'), 
+('user36', 'c4541fd5323f8e9f9e923c7c78d398e13449b58de2cdc8f040e712a87cdd5e1d', '20252f3b4dad1bb50720372ae3e385644c8e0f0b5b6de41c585c446e087c6f0d', 'avatar36.png', '', True, 'Restaurant36', 'Address16', 'Palmerston North', 'contact16@example.com'), 
+('user37', '1c91af4f4a7c34a6cff3fed6e805d4567fa940c992fd0acfd44ae63fe91a07ae', '398ce10efa31ec16c723f59d977aa756803224031705c128439ffbcf05b42f3b', 'avatar37.png', '', False, 'Restaurant37', 'Address17', 'Invercargill', 'contact17@example.com'), 
+('user38', 'ad4bdbe1b81c317f4d5c471df11523aec853fac401a4de7d04aee204d2b2875f', '0f22908d96c998496b942f6a3943c8bd6bcf19af21df020738b76883a0d17e38', 'avatar38.png', '', False, 'Restaurant38', 'Address18', 'Napier-Hastings', 'contact18@example.com'), 
+('user39', '81ef2a092d788511cd604b24759f76030aeb009dda4d095c72539f39074c76ba', 'b27f6a9806c074167e3a8cb7d103503d943157258eeec888af20ec7c90ea0b81', 'avatar39.png', '', True, 'Restaurant39', 'Address19', 'Blenheim', 'contact19@example.com'), 
+('user40', '80cd4a6695c8487af9c10dfac37e67855657d70e970501dcea8d4c7e3f75da6c', 'bc168b9923a7c1b7110ad888e8738b6d018c2d483c974e41a96069d674c97d7c', 'avatar40.png', '', False, 'Restaurant40', 'Address20', 'Invercargill', 'contact20@example.com');
 
 INSERT INTO foodcategory (categoryname) VALUES 
 ('Vegetables'), 
@@ -370,25 +377,25 @@ INSERT INTO fooditem (userid, foodCategoryid, name, quantity, unit, timestamp, b
 (3, 6, 'Yogurt', 342.44, 'kg', '2023-12-19 22:29:50', 'BN1298', '2024-06-04', 89.74), 
 (19, 4, 'Wine', 253.6, 'kg', '2023-12-19 22:29:50', 'BN1299', '2024-07-24', 11.87),
 (1, 7,'Fish',5652.55, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 59.22),
-(1, 1,'Olives',45.22, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 58.21),
+(1, 1,'Olive',45.22, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 58.21),
 (1, 1,'Garlic',154.2, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 12.54),
 (1, 1,'Potato',14.22, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 15.21),
 (1, 1,'Tomato',487.23, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 58.12),
-(1, 2,'Figs',154.21, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 151.21),
+(1, 2,'Fig',154.21, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 151.21),
 (1, 10,'Honey',124.2, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 75.12),
-(1, 2,'Oranges',1522.01, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 1.25),
+(1, 2,'Orange',1522.01, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 1.25),
 (1, 1,'Lettuce',562.89, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 6.21),
-(1, 2,'Apples',1225.05, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 54.25),
+(1, 2,'Apple',1225.05, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 54.25),
 (1, 11,'Indian Curry',152.65, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10',78.54 ),
 (1, 6,'Yogurt',895.77, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 96.21),
 (1, 8,'Turkey',772.14, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 32.21),
 (1, 11,'Rosemary',128.33, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 51.21),
-(1,12, 'Udon',1477.22, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 1.20),
+(1,15, 'Udon',1477.22, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 1.20),
 (1, 1,'Spinach',662.32, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 6.32),
 (1, 12,'Quinoa',124.25, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 9.65),
-(1, 11,'Peppers',124.55, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 8.21),
-(1, 9,'Eggs',1452.22, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 55.51),
-(1,2, 'Nectarines',1252.33, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 96.12),
+(1, 11,'Pepper',124.55, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 8.21),
+(1, 9,'Egg',1452.22, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 55.51),
+(1,2, 'Nectarine',1252.33, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 96.12),
 (1, 5,'Bread',112.02, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 69.52),
 (1, 11,'Basil',232.67, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 14.25),
 (1, 11,'Cinnamon',452.11, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 54.32),
@@ -400,299 +407,299 @@ INSERT INTO fooditem (userid, foodCategoryid, name, quantity, unit, timestamp, b
 (1, 8,'Venison',587.24, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 11.21),
 (1, 8,'Lamb',147.21, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 35.21),
 (1,11, 'Thyme',154.21, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 21.02),
-(1, 1,'Carrots',355.58, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 6.21),
-(1, 2,'Raspberries',124.21, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10',6.32 ),
+(1, 1,'Carrot',355.58, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 6.21),
+(1, 2,'Raspberry',124.21, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10',6.32 ),
 (1,15, 'Pasta',125.36, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 3.21),
-(1, 2,'Bananas',98.25, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 1.20),
-(1, 13,'Hazelnuts',94.5, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 6.32),
+(1, 2,'Banana',98.25, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 1.20),
+(1, 13,'Hazelnut',94.5, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 6.32),
 (1, 8,'Duck',145.24, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 9.52),
-(1, 2,'Oranges',54.21, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 3.21);
+(1, 2,'Orange',54.21, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 3.21);
 
 INSERT INTO transactionlog (userid, fooditemid, quantity, unit, priceperunit, timestamp, act, newexpirydate) VALUES 
-(17, 65, 18.85, 'kg', 4.35, '2022-04-11 00:00:00', 'USE', '2023-06-20')
-,(3, 2, 17.57, 'kg', 14.89, '2023-07-29 00:00:00', 'USE', '2024-06-20')
-,(5, 76, 19.65, 'kg', 4.67, '2023-11-06 00:00:00', 'ADD', '2025-11-06')
-,(18, 249, 53.87, 'kg', 9.99, '2019-05-13 00:00:00', 'WASTE', '2020-06-20')
-,(8, 166, 18.27, 'kg', 87.75, '2021-06-19 00:00:00', 'ADD', '2022-06-19')
-,(2, 84, 110.93, 'kg', 68.65, '2020-04-02 00:00:00', 'WASTE', '2023-06-20')
-,(2, 210, 5.93, 'kg', 65.14, '2019-08-11 00:00:00', 'ADD', '2020-08-10')
-,(7, 148, 7.56, 'kg', 66.98, '2023-07-03 00:00:00', 'ADD', '2024-07-02')
-,(17, 95, 11.65, 'kg', 35.81, '2019-12-17 00:00:00', 'USE', '2020-06-20')
-,(10, 172, 65.3, 'kg', 7.08, '2023-07-18 00:00:00', 'WASTE', '2025-06-20')
-,(10, 113, 13.07, 'kg', 94.3, '2019-05-02 00:00:00', 'USE', '2020-06-20')
-,(4, 88, 9.67, 'kg', 9.54, '2023-12-14 00:00:00', 'USE', '2025-06-20')
-,(8, 84, 65.84, 'kg', 24.88, '2019-04-21 00:00:00', 'WASTE', '2021-06-20')
-,(16, 229, 184.56, 'kg', 12.8, '2020-09-05 00:00:00', 'WASTE', '2023-06-20')
-,(4, 210, 10.9, 'kg', 83.16, '2023-08-02 00:00:00', 'USE', '2025-06-20')
-,(16, 156, 125.53, 'kg', 69.7, '2020-05-26 00:00:00', 'WASTE', '2025-06-20')
-,(3, 215, 111.52, 'kg', 36.26, '2019-01-23 00:00:00', 'WASTE', '2020-06-20')
-,(13, 200, 2.42, 'kg', 85.34, '2019-10-24 00:00:00', 'USE', '2020-06-20')
-,(6, 63, 81.94, 'kg', 67.04, '2021-10-27 00:00:00', 'WASTE', '2022-06-20')
-,(13, 83, 96.0, 'kg', 89.43, '2019-09-16 00:00:00', 'WASTE', '2020-06-20')
-,(14, 59, 6.43, 'kg', 71.13, '2023-06-27 00:00:00', 'ADD', '2025-06-27')
-,(11, 50, 98.42, 'kg', 93.71, '2023-12-12 00:00:00', 'WASTE', '2025-06-20')
-,(4, 56, 1.42, 'kg', 35.83, '2023-09-01 00:00:00', 'USE', '2025-06-20')
-,(18, 89, 500.14, 'kg', 60.61, '2023-04-26 00:00:00', 'WASTE', '2025-06-20')
-,(1, 210, 1.48, 'kg', 20.39, '2019-08-05 00:00:00', 'USE', '2020-06-20')
-,(1, 210, 5.22, 'kg', 6.15, '2019-08-05 00:00:00', 'WASTE', '2020-06-20')
-,(14, 177, 18.5, 'kg', 19.67, '2021-12-13 00:00:00', 'USE', '2023-06-20')
-,(16, 142, 4.88, 'kg', 93.97, '2019-10-04 00:00:00', 'USE', '2021-06-20')
-,(10, 82, 108.32, 'kg', 63.11, '2020-07-31 00:00:00', 'WASTE', '2022-06-20')
-,(1, 11, 18.36, 'kg', 5.65, '2023-07-14 00:00:00', 'ADD', '2024-07-13')
-,(1, 11, 5.22, 'kg', 5.65, '2023-07-14 00:00:00', 'USE', '2024-07-13')
-,(1, 11, 2.58, 'kg', 5.65, '2023-07-14 00:00:00', 'WASTE', '2024-07-13')
-,(3, 129, 9.88, 'kg', 5.64, '2020-03-21 00:00:00', 'ADD', '2021-03-21')
-,(7, 247, 100.3, 'kg', 78.03, '2019-09-09 00:00:00', 'WASTE', '2020-06-20')
-,(10, 212, 104.24, 'kg', 1.25, '2023-06-04 00:00:00', 'WASTE', '2025-06-20')
-,(9, 119, 1.53, 'kg', 66.51, '2023-03-14 00:00:00', 'USE', '2025-06-20')
-,(14, 64, 104.19, 'kg', 96.83, '2023-02-05 00:00:00', 'WASTE', '2025-06-20')
-,(9, 237, 1.05, 'kg', 54.56, '2022-02-26 00:00:00', 'ADD', '2023-02-26')
-,(11, 251, 13.62, 'kg', 15.21, '2023-03-23 00:00:00', 'USE', '2025-04-01')
-,(19, 131, 104.59, 'kg', 67.95, '2021-09-10 00:00:00', 'WASTE', '2022-04-01')
-,(8, 47, 17.02, 'kg', 69.35, '2023-09-13 00:00:00', 'ADD', '2025-09-13')
-,(5, 133, 16.06, 'kg', 9.79, '2023-08-21 00:00:00', 'ADD', '2024-08-20')
-,(13, 262, 17.81, 'kg', 20.57, '2021-04-13 00:00:00', 'USE', '2023-04-01')
-,(4, 53, 150.52, 'kg', 2.01, '2023-05-11 00:00:00', 'WASTE', '2024-04-01')
-,(20, 154, 11.05, 'kg', 15.4, '2023-02-17 00:00:00', 'USE', '2025-04-01')
-,(17, 236, 11.23, 'kg', 48.5, '2020-06-07 00:00:00', 'USE', '2022-04-01')
-,(9, 258, 15.02, 'kg', 33.73, '2019-05-22 00:00:00', 'ADD', '2020-05-21')
-,(19, 99, 1.77, 'kg', 68.11, '2021-02-11 00:00:00', 'USE', '2023-04-01')
-,(14, 259, 10.4, 'kg', 33.4, '2023-06-27 00:00:00', 'ADD', '2024-06-26')
-,(17, 174, 106.81, 'kg', 93.73, '2023-06-28 00:00:00', 'WASTE', '2025-04-01')
-,(20, 21, 5.97, 'kg', 43.29, '2022-10-03 00:00:00', 'USE', '2023-04-01')
-,(1, 270, 14.05, 'kg', 34.36, '2019-05-04 00:00:00', 'USE', '2020-04-01')
-,(1, 270, 1.55, 'kg', 34.36, '2019-05-04 00:00:00', 'WASTE', '2020-04-01')
-,(15, 7, 6.06, 'kg', 22.06, '2023-12-23 00:00:00', 'ADD', '2024-12-22')
-,(6, 147, 18.8, 'kg', 52.13, '2020-07-25 00:00:00', 'ADD', '2021-07-25')
-,(15, 59, 6.83, 'kg', 58.47, '2022-03-30 00:00:00', 'ADD', '2023-03-30')
-,(10, 25, 101.01, 'kg', 97.82, '2022-09-06 00:00:00', 'WASTE', '2023-04-01')
-,(15, 32, 107.43, 'kg', 25.16, '2022-07-28 00:00:00', 'WASTE', '2023-04-01')
-,(7, 173, 80.09, 'kg', 82.03, '2021-06-22 00:00:00', 'WASTE', '2023-04-01')
-,(6, 193, 14.28, 'kg', 7.41, '2019-11-11 00:00:00', 'ADD', '2020-11-10')
-,(18, 252, 7.28, 'kg', 12.14, '2019-11-25 00:00:00', 'USE', '2020-04-01')
-,(9, 26, 18.75, 'kg', 85.01, '2021-09-24 00:00:00', 'ADD', '2022-09-24')
-,(4, 209, 9.33, 'kg', 23.78, '2021-07-13 00:00:00', 'USE', '2023-04-01')
-,(2, 197, 5.86, 'kg', 20.95, '2023-12-29 00:00:00', 'USE', '2024-04-01')
-,(13, 195, 13.13, 'kg', 29.48, '2023-06-08 00:00:00', 'USE', '2025-04-01')
-,(5, 117, 17.42, 'kg', 34.92, '2023-07-05 00:00:00', 'ADD', '2025-07-05')
-,(9, 119, 6.18, 'kg', 19.39, '2019-05-25 00:00:00', 'ADD', '2020-05-24')
-,(13, 72, 6.39, 'kg', 71.63, '2023-06-22 00:00:00', 'USE', '2025-04-01')
-,(9, 259, 1.4, 'kg', 60.95, '2023-06-18 00:00:00', 'ADD', '2024-06-17')
-,(5, 38, 30.63, 'kg', 85.19, '2020-03-31 00:00:00', 'WASTE', '2020-04-01')
-,(20, 37, 100.39, 'kg', 93.59, '2023-04-28 00:00:00', 'WASTE', '2025-04-01')
-,(4, 50, 100.14, 'kg', 32.23, '2020-04-22 00:00:00', 'WASTE', '2022-04-01')
-,(17, 51, 8.55, 'kg', 31.57, '2022-06-10 00:00:00', 'ADD', '2023-06-10')
-,(8, 237, 8.96, 'kg', 78.61, '2020-10-18 00:00:00', 'USE', '2021-04-01')
-,(17, 89, 7.59, 'kg', 54.06, '2020-02-22 00:00:00', 'ADD', '2021-02-21')
-,(20, 18, 4.73, 'kg', 36.56, '2023-11-05 00:00:00', 'ADD', '2024-11-04')
-,(10, 35, 7.63, 'kg', 76.09, '2023-12-30 00:00:00', 'USE', '2025-04-01')
-,(18, 274, 15.62, 'kg', 80.14, '2019-09-09 00:00:00', 'USE', '2020-04-01')
-,(3, 253, 18.63, 'kg', 26.82, '2023-05-22 00:00:00', 'WASTE', '2025-04-01')
-,(15, 177, 17.23, 'kg', 50.01, '2021-04-28 00:00:00', 'WASTE', '2022-04-01')
-,(14, 114, 3.52, 'kg', 11.1, '2022-01-02 00:00:00', 'ADD', '2023-01-02')
-,(12, 237, 17.61, 'kg', 7.71, '2023-03-31 00:00:00', 'USE', '2025-04-01')
-,(18, 87, 6.53, 'kg', 74.86, '2023-03-09 00:00:00', 'WASTE', '2025-04-01')
-,(5, 14, 7.98, 'kg', 36.29, '2023-02-04 00:00:00', 'USE', '2023-04-01')
-,(11, 166, 1.1, 'kg', 48.96, '2020-02-26 00:00:00', 'WASTE', '2023-04-01')
-,(11, 187, 15.8, 'kg', 99.94, '2022-01-11 00:00:00', 'USE', '2023-07-30')
-,(11, 213, 14.72, 'kg', 57.26, '2023-11-10 00:00:00', 'USE', '2025-07-30')
-,(12, 270, 13.95, 'kg', 85.26, '2023-06-10 00:00:00', 'WASTE', '2025-07-30')
-,(1, 82, 6.36, 'kg', 20.4, '2020-09-22 00:00:00', 'ADD', '2021-09-22')
-,(1, 82, 2.55, 'kg', 20.4, '2020-09-22 00:00:00', 'USE', '2021-09-22')
-,(1, 82, 1.97, 'kg', 20.4, '2020-09-22 00:00:00', 'WASTE', '2021-09-22')
-,(4, 78, 4.4, 'kg', 93.51, '2022-01-05 00:00:00', 'USE', '2025-07-30')
-,(17, 100, 15.72, 'kg', 10.53, '2023-12-03 00:00:00', 'WASTE', '2025-07-30')
-,(11, 86, 7.67, 'kg', 42.59, '2023-08-03 00:00:00', 'ADD', '2024-08-02')
-,(19, 186, 13.08, 'kg', 1.93, '2023-05-28 00:00:00', 'ADD', '2024-05-27')
-,(4, 271, 1.25, 'kg', 89.72, '2023-10-21 00:00:00', 'ADD', '2024-10-20')
-,(7, 122, 19.62, 'kg', 17.32, '2023-12-10 00:00:00', 'ADD', '2024-12-09')
-,(5, 209, 3.55, 'kg', 99.34, '2020-08-03 00:00:00', 'ADD', '2021-08-03')
-,(20, 86, 18.41, 'kg', 21.26, '2023-03-07 00:00:00', 'USE', 'None')
-,(20, 243, 17.45, 'kg', 61.67, '2022-01-13 00:00:00', 'WASTE', 'None')
-,(2, 243, 3.32, 'kg', 68.22, '2022-04-01 00:00:00', 'ADD', '2023-04-01')
-,(1, 217, 1.34, 'kg', 36.95, '2022-05-16 00:00:00', 'WASTE', '2025-07-30')
-,(1, 217, 2.14, 'kg', 36.95, '2022-05-16 00:00:00', 'USE', '2025-07-30')
-,(17, 102, 17.23, 'kg', 47.49, '2023-01-10 00:00:00', 'ADD', '2024-01-10')
-,(16, 224, 15.47, 'kg', 34.25, '2021-01-06 00:00:00', 'ADD', '2022-01-06')
-,(14, 64, 9.19, 'kg', 95.79, '2023-04-14 00:00:00', 'WASTE', '2025-07-30')
-,(3, 141, 14.13, 'kg', 37.51, '2023-06-06 00:00:00', 'USE', '2025-07-30')
-,(18, 150, 4.25, 'kg', 21.39, '2023-10-30 00:00:00', 'WASTE', '2025-07-30')
-,(3, 265, 12.66, 'kg', 75.51, '2019-04-17 00:00:00', 'WASTE', '2020-07-30')
-,(13, 248, 19.44, 'kg', 76.86, '2021-01-12 00:00:00', 'WASTE', '2022-07-30')
-,(6, 52, 13.99, 'kg', 17.28, '2020-05-28 00:00:00', 'WASTE', '2021-07-30')
-,(3, 40, 10.18, 'kg', 71.72, '2019-10-12 00:00:00', 'WASTE', '2020-07-30')
-,(16, 164, 19.3, 'kg', 33.62, '2022-10-01 00:00:00', 'ADD', '2023-10-01')
-,(14, 86, 15.61, 'kg', 32.16, '2023-06-08 00:00:00', 'WASTE', '2024-07-30')
-,(6, 52, 1.9, 'kg', 8.78, '2022-11-16 00:00:00', 'USE', '2023-07-30')
-,(13, 186, 15.53, 'kg', 84.2, '2019-02-27 00:00:00', 'USE', '2020-07-30')
-,(10, 141, 15.41, 'kg', 34.05, '2022-11-15 00:00:00', 'ADD', '2023-11-15')
-,(7, 212, 14.33, 'kg', 7.85, '2020-11-23 00:00:00', 'USE', '2022-07-30')
-,(12, 57, 12.9, 'kg', 65.56, '2022-04-08 00:00:00', 'WASTE', '2023-07-30')
-,(5, 188, 4.36, 'kg', 46.21, '2023-10-19 00:00:00', 'ADD', '2024-10-18')
-,(9, 85, 8.69, 'kg', 64.98, '2023-01-21 00:00:00', 'ADD', '2024-01-21')
-,(19, 205, 17.08, 'kg', 36.38, '2019-01-05 00:00:00', 'USE', '2020-07-30')
-,(2, 3, 6.27, 'kg', 95.29, '2020-02-20 00:00:00', 'USE', '2022-07-30')
-,(19, 116, 5.56, 'kg', 68.41, '2019-10-05 00:00:00', 'WASTE', '2022-07-30')
-,(13, 39, 16.91, 'kg', 21.3, '2022-09-30 00:00:00', 'ADD', '2023-09-30')
-,(20, 269, 15.42, 'kg', 54.5, '2023-03-26 00:00:00', 'ADD', '2024-03-25')
-,(5, 21, 16.03, 'kg', 28.24, '2022-07-12 00:00:00', 'WASTE', '2025-07-30')
-,(18, 131, 18.98, 'kg', 8.38, '2019-08-10 00:00:00', 'ADD', '2020-08-09')
-,(12, 31, 2.3, 'kg', 93.21, '2023-05-02 00:00:00', 'USE', '2025-07-30')
-,(19, 165, 13.44, 'kg', 55.8, '2020-09-18 00:00:00', 'USE', '2022-07-30')
-,(17, 72, 5.21, 'kg', 81.12, '2021-10-26 00:00:00', 'USE', '2023-07-30')
-,(17, 233, 17.64, 'kg', 95.1, '2023-08-23 00:00:00', 'ADD', '2025-08-23')
-,(4, 32, 5.11, 'kg', 60.43, '2023-05-31 00:00:00', 'ADD', '2024-05-30')
-,(15, 159, 19.64, 'kg', 60.67, '2020-12-08 00:00:00', 'USE', '2022-07-30')
-,(15, 219, 10.19, 'kg', 83.99, '2022-12-30 00:00:00', 'USE', '2024-07-30')
-,(20, 250, 18.7, 'kg', 34.48, '2020-01-11 00:00:00', 'USE', '2021-07-30')
-,(6, 191, 2.46, 'kg', 33.82, '2019-04-01 00:00:00', 'ADD', '2020-03-31')
-,(4, 18, 18.64, 'kg', 62.19, '2019-12-08 00:00:00', 'USE', '2020-07-30')
-,(1, 63, 11.7, 'kg', 88.03, '2022-10-25 00:00:00', 'WASTE', '2023-07-30')
-,(1, 63, 2.3, 'kg', 88.03, '2022-10-25 00:00:00', 'USE', '2023-07-30')
-,(4, 113, 3.08, 'kg', 88.76, '2023-05-26 00:00:00', 'ADD', '2025-05-26')
-,(15, 177, 14.74, 'kg', 97.09, '2021-02-16 00:00:00', 'USE', '2023-07-30')
-,(18, 68, 4.26, 'kg', 89.67, '2022-06-23 00:00:00', 'WASTE', '2025-07-30')
-,(18, 177, 12.91, 'kg', 42.53, '2019-05-13 00:00:00', 'WASTE', '2022-07-30')
-,(17, 193, 10.91, 'kg', 54.57, '2020-01-14 00:00:00', 'WASTE', '2022-07-30')
-,(3, 52, 6.6, 'kg', 12.99, '2022-05-10 00:00:00', 'WASTE', '2025-07-30')
-,(1, 85, 5.82, 'kg', 41.24, '2022-05-18 00:00:00', 'WASTE', '2025-07-30')
-,(1, 85, 3.42, 'kg', 41.24, '2022-05-18 00:00:00', 'USE', '2025-07-30')
-,(15, 145, 6.41, 'kg', 89.57, '2021-10-30 00:00:00', 'ADD', '2022-10-30')
-,(3, 172, 19.09, 'kg', 81.81, '2022-12-11 00:00:00', 'USE', '2025-07-30')
-,(9, 271, 6.74, 'kg', 9.46, '2023-05-09 00:00:00', 'WASTE', '2025-07-30')
-,(10, 187, 11.43, 'kg', 43.53, '2022-03-19 00:00:00', 'WASTE', '2025-07-30')
-,(10, 44, 1.01, 'kg', 6.01, '2023-02-28 00:00:00', 'ADD', '2024-02-28')
-,(2, 49, 17.46, 'kg', 46.35, '2023-08-03 00:00:00', 'WASTE', '2025-07-30')
-,(4, 17, 14.25, 'kg', 1.66, '2023-10-29 00:00:00', 'WASTE', '2025-07-30')
-,(5, 135, 4.09, 'kg', 76.27, '2020-08-21 00:00:00', 'ADD', '2021-08-21')
-,(17, 230, 14.53, 'kg', 19.15, '2022-04-06 00:00:00', 'WASTE', '2025-07-30')
-,(2, 64, 3.54, 'kg', 35.25, '2023-11-04 00:00:00', 'WASTE', '2025-07-30')
-,(15, 144, 11.9, 'kg', 35.08, '2021-10-24 00:00:00', 'WASTE', '2022-07-30')
-,(16, 206, 10.65, 'kg', 97.83, '2019-11-21 00:00:00', 'USE', '2020-07-30')
-,(3, 53, 14.4, 'kg', 29.24, '2023-07-30 00:00:00', 'ADD', '2025-07-30')
-,(20, 150, 9.94, 'kg', 41.48, '2020-10-30 00:00:00', 'WASTE', '2023-07-30')
-,(15, 123, 6.22, 'kg', 96.45, '2020-09-10 00:00:00', 'USE', '2023-07-30')
-,(20, 256, 17.37, 'kg', 56.03, '2023-01-14 00:00:00', 'USE', '2025-07-30')
-,(18, 221, 15.87, 'kg', 50.09, '2020-08-22 00:00:00', 'WASTE', '2021-04-11')
-,(5, 174, 8.55, 'kg', 73.25, '2022-10-11 00:00:00', 'ADD', '2023-10-11')
-,(14, 233, 2.53, 'kg', 56.83, '2019-05-11 00:00:00', 'USE', '2021-04-11')
-,(16, 142, 19.39, 'kg', 19.7, '2019-06-21 00:00:00', 'WASTE', '2021-04-11')
-,(9, 123, 16.87, 'kg', 51.68, '2020-02-27 00:00:00', 'USE', '2021-04-11')
-,(19, 134, 10.99, 'kg', 10.69, '2022-08-25 00:00:00', 'WASTE', '2023-04-11')
-,(13, 195, 11.47, 'kg', 57.08, '2023-04-05 00:00:00', 'WASTE', '2024-04-11')
-,(12, 48, 15.08, 'kg', 94.72, '2023-03-17 00:00:00', 'ADD', '2024-03-16')
-,(13, 169, 2.07, 'kg', 56.43, '2020-07-26 00:00:00', 'USE', '2024-04-11')
-,(6, 262, 9.23, 'kg', 34.69, '2020-08-01 00:00:00', 'WASTE', '2024-04-11')
-,(7, 30, 18.54, 'kg', 10.93, '2022-10-05 00:00:00', 'WASTE', '2024-04-11')
-,(14, 244, 13.17, 'kg', 9.35, '2022-09-09 00:00:00', 'WASTE', '2024-04-11')
-,(5, 46, 3.38, 'kg', 60.03, '2023-02-21 00:00:00', 'WASTE', '2024-04-11')
-,(10, 159, 1.59, 'kg', 66.38, '2023-11-23 00:00:00', 'WASTE', '2024-04-11')
-,(15, 262, 5.49, 'kg', 28.47, '2023-10-11 00:00:00', 'WASTE', '2025-04-11')
-,(10, 56, 8.42, 'kg', 48.97, '2023-02-23 00:00:00', 'USE', '2024-04-11')
-,(2, 242, 17.77, 'kg', 51.65, '2023-09-19 00:00:00', 'USE', '2025-04-11')
-,(11, 154, 11.6, 'kg', 20.82, '2019-03-28 00:00:00', 'USE', '2021-04-11')
-,(8, 215, 13.98, 'kg', 95.43, '2020-10-31 00:00:00', 'WASTE', '2021-04-11')
-,(19, 117, 3.17, 'kg', 34.47, '2023-01-16 00:00:00', 'USE', '2024-04-11')
-,(4, 146, 8.77, 'kg', 36.6, '2023-10-20 00:00:00', 'WASTE', '2024-04-11')
-,(1, 192, 4.27, 'kg', 23.25, '2022-09-06 00:00:00', 'WASTE', '2023-04-11')
-,(1, 192, 8.55, 'kg', 23.25, '2022-09-06 00:00:00', 'USE', '2023-04-11')
-,(20, 165, 19.66, 'kg', 2.52, '2022-11-10 00:00:00', 'ADD', '2023-11-10')
-,(2, 204, 4.68, 'kg', 27.33, '2020-04-11 00:00:00', 'ADD', '2021-04-11')
-,(12, 159, 5.53, 'kg', 89.47, '2020-04-13 00:00:00', 'WASTE', '2021-04-11')
-,(5, 35, 10.22, 'kg', 72.46, '2023-03-26 00:00:00', 'WASTE', '2025-04-11')
-,(16, 211, 13.98, 'kg', 61.62, '2019-12-11 00:00:00', 'ADD', '2020-12-10')
-,(16, 89, 2.52, 'kg', 81.04, '2019-07-14 00:00:00', 'USE', '2021-04-11')
-,(20, 193, 16.9, 'kg', 50.41, '2019-11-29 00:00:00', 'WASTE', '2021-04-11')
-,(8, 200, 16.79, 'kg', 7.53, '2023-05-10 00:00:00', 'ADD', '2025-05-10')
-,(13, 63, 17.99, 'kg', 5.67, '2022-06-17 00:00:00', 'WASTE', '2023-11-05')
-,(9, 124, 4.12, 'kg', 58.06, '2020-05-23 00:00:00', 'WASTE', '2021-11-05')
-,(8, 11, 4.63, 'kg', 69.22, '2021-12-14 00:00:00', 'ADD', '2022-12-14')
-,(14, 87, 14.04, 'kg', 48.69, '2022-02-09 00:00:00', 'USE', '2023-11-05')
-,(6, 210, 11.46, 'kg', 57.6, '2023-03-09 00:00:00', 'WASTE', '2025-11-05')
-,(3, 122, 0.65, 'kg', 21.02, '2023-06-06 00:00:00', 'WASTE', '2025-11-05')
-,(19, 117, 12.25, 'kg', 30.14, '2023-09-11 00:00:00', 'USE', '2025-11-05')
-,(10, 68, 9.72, 'kg', 13.46, '2019-03-29 00:00:00', 'USE', '2025-11-05')
-,(6, 9, 5.67, 'kg', 47.95, '2023-12-17 00:00:00', 'ADD', '2024-12-16')
-,(17, 133, 3.59, 'kg', 66.7, '2023-11-19 00:00:00', 'USE', '2025-11-05')
-,(12, 238, 9.35, 'kg', 82.9, '2023-06-13 00:00:00', 'ADD', '2024-06-12')
-,(2, 80, 16.57, 'kg', 79.1, '2023-12-29 00:00:00', 'USE', '2025-11-05')
-,(20, 146, 12.16, 'kg', 5.68, '2019-10-02 00:00:00', 'WASTE', '2025-11-05')
-,(11, 114, 1.93, 'kg', 62.21, '2020-06-29 00:00:00', 'WASTE', '2025-11-05')
-,(14, 238, 19.17, 'kg', 90.86, '2019-11-14 00:00:00', 'WASTE', '2025-11-05')
-,(3, 146, 7.55, 'kg', 37.73, '2023-03-28 00:00:00', 'USE', '2025-11-05')
-,(17, 159, 0.8, 'kg', 71.86, '2023-07-28 00:00:00', 'WASTE', '2025-08-22')
-,(9, 46, 7.28, 'kg', 70.84, '2019-08-10 00:00:00', 'USE', '2021-08-22')
-,(9, 12, 19.11, 'kg', 95.22, '2023-04-07 00:00:00', 'ADD', '2024-04-06')
-,(7, 126, 19.17, 'kg', 32.24, '2021-01-28 00:00:00', 'ADD', '2022-01-28')
-,(12, 270, 13.74, 'kg', 51.14, '2020-11-22 00:00:00', 'USE', '2021-08-22')
-,(18, 154, 8.38, 'kg', 33.46, '2021-05-28 00:00:00', 'ADD', '2022-05-28')
-,(8, 221, 5.07, 'kg', 50.22, '2023-10-25 00:00:00', 'ADD', '2025-10-25')
-,(11, 122, 18.05, 'kg', 52.27, '2019-11-08 00:00:00', 'WASTE', '2021-08-22')
-,(14, 234, 19.42, 'kg', 66.4, '2022-12-20 00:00:00', 'WASTE', '2024-08-22')
-,(3, 39, 17.05, 'kg', 50.74, '2022-10-15 00:00:00', 'WASTE', '2023-08-22')
-,(11, 137, 10.76, 'kg', 84.46, '2019-01-29 00:00:00', 'USE', '2021-08-22')
-,(14, 142, 0.9, 'kg', 66.65, '2020-08-22 00:00:00', 'ADD', '2021-08-22')
-,(9, 73, 19.09, 'kg', 92.51, '2023-12-06 00:00:00', 'USE', '2025-11-05')
-,(9, 95, 4.72, 'kg', 97.22, '2023-08-29 00:00:00', 'ADD', '2025-08-29')
-,(10, 16, 18.93, 'kg', 30.88, '2022-09-07 00:00:00', 'ADD', '2023-09-07')
-,(13, 154, 8.19, 'kg', 50.28, '2021-04-22 00:00:00', 'ADD', '2022-04-22')
-,(12, 227, 8.94, 'kg', 6.66, '2023-06-25 00:00:00', 'WASTE', '2024-11-05')
-,(6, 71, 8.49, 'kg', 20.46, '2020-07-16 00:00:00', 'WASTE', '2024-11-05')
-,(5, 60, 9.42, 'kg', 83.6, '2022-09-06 00:00:00', 'WASTE', '2024-11-05')
-,(3, 146, 2.75, 'kg', 66.45, '2021-12-24 00:00:00', 'USE', '2024-11-05')
-,(16, 234, 6.66, 'kg', 79.99, '2023-02-18 00:00:00', 'ADD', '2024-02-18')
-,(3, 171, 3.44, 'kg', 13.94, '2023-08-01 00:00:00', 'USE', '2025-11-05')
-,(8, 111, 6.87, 'kg', 97.06, '2022-06-28 00:00:00', 'WASTE', '2025-11-05')
-,(16, 3, 6.05, 'kg', 66.27, '2019-08-11 00:00:00', 'ADD', '2020-08-10')
-,(10, 251, 6.95, 'kg', 57.18, '2023-12-04 00:00:00', 'USE', '2025-11-05')
-,(15, 209, 1.63, 'kg', 45.5, '2019-12-12 00:00:00', 'ADD', '2020-12-11')
-,(4, 198, 3.45, 'kg', 35.38, '2021-08-10 00:00:00', 'USE', '2024-11-05')
-,(18, 93, 15.85, 'kg', 72.71, '2021-12-09 00:00:00', 'USE', '2024-11-05')
-,(13, 259, 17.99, 'kg', 60.93, '2019-11-30 00:00:00', 'USE', '2024-11-05')
-,(18, 182, 15.14, 'kg', 71.49, '2021-01-02 00:00:00', 'ADD', '2022-01-02')
-,(3, 200, 9.71, 'kg', 4.48, '2022-07-02 00:00:00', 'USE', '2023-07-02')
-,(6, 33, 13.4, 'kg', 52.78, '2023-02-06 00:00:00', 'WASTE', '2025-11-05')
-,(19, 45, 12.6, 'kg', 92.18, '2019-04-06 00:00:00', 'ADD', '2020-04-05')
-,(16, 179, 14.6, 'kg', 15.17, '2021-03-20 00:00:00', 'ADD', '2022-03-20')
-,(7, 51, 15.24, 'kg', 63.09, '2021-06-17 00:00:00', 'USE', '2024-03-25')
-,(6, 149, 5.32, 'kg', 88.72, '2022-05-14 00:00:00', 'USE', '2024-03-25')
-,(20, 183, 5.58, 'kg', 44.1, '2022-12-21 00:00:00', 'USE', '2024-03-25')
-,(6, 95, 1.29, 'kg', 23.74, '2022-09-02 00:00:00', 'USE', '2024-03-25')
-,(18, 118, 7.51, 'kg', 20.98, '2022-04-14 00:00:00', 'USE', '2024-03-25')
-,(1, 258, 18.41, 'kg', 33.99, '2021-06-06 00:00:00', 'WASTE', '2024-03-25')
-,(1, 258, 6.87, 'kg', 33.99, '2021-06-06 00:00:00', 'USE', '2024-03-25')
-,(11, 95, 2.57, 'kg', 67.45, '2023-10-26 00:00:00', 'WASTE', '2024-03-25')
-,(19, 101, 11.31, 'kg', 89.36, '2020-02-13 00:00:00', 'USE', '2024-03-25')
-,(14, 152, 13.44, 'kg', 46.35, '2023-03-26 00:00:00', 'ADD', '2024-03-25')
-,(16, 234, 12.28, 'kg', 73.85, '2021-04-14 00:00:00', 'WASTE', '2024-03-25')
-,(1, 16, 5.1, 'kg', 11.53, '2022-11-06 00:00:00', 'ADD', '2023-11-06')
-,(14, 231, 14.45, 'kg', 23.52, '2023-03-18 00:00:00', 'WASTE', '2024-03-25')
-,(11, 85, 1.13, 'kg', 80.01, '2022-02-20 00:00:00', 'WASTE', '2024-05-12')
-,(1, 7, 19.17, 'kg', 18.46, '2023-05-22 00:00:00', 'USE', '2024-09-12')
-,(1, 7, 2.28, 'kg', 18.46, '2023-05-22 00:00:00', 'WASTE', '2024-09-12')
-,(16, 151, 12.63, 'kg', 58.93, '2022-06-23 00:00:00', 'USE', '2024-05-12')
-,(18, 241, 8.75, 'kg', 48.89, '2022-03-04 00:00:00', 'USE', '2024-05-12')
-,(17, 13, 1.19, 'kg', 30.05, '2019-08-30 00:00:00', 'USE', '2024-05-12')
-,(16, 114, 19.2, 'kg', 92.18, '2022-06-21 00:00:00', 'USE', '2024-05-12')
-,(19, 13, 1.65, 'kg', 36.38, '2022-01-13 00:00:00', 'ADD', '2023-01-13')
-,(20, 29, 18.57, 'kg', 10.71, '2023-04-29 00:00:00', 'ADD', '2024-04-28')
-,(5, 153, 8.73, 'kg', 3.41, '2022-12-01 00:00:00', 'WASTE', '2024-05-12')
-,(19, 69, 4.56, 'kg', 70.93, '2020-07-25 00:00:00', 'ADD', '2021-07-25')
-,(5, 181, 19.01, 'kg', 87.37, '2023-06-19 00:00:00', 'WASTE', '2024-05-12')
-,(9, 137, 19.42, 'kg', 35.31, '2019-05-07 00:00:00', 'ADD', '2020-05-06')
-,(8, 128, 8.0, 'kg', 4.12, '2019-09-21 00:00:00', 'USE', '2024-05-12')
-,(8, 244, 2.93, 'kg', 15.62, '2020-07-29 00:00:00', 'ADD', '2021-07-29')
-,(3, 211, 9.57, 'kg', 91.97, '2023-05-13 00:00:00', 'ADD', '2024-05-12')
-,(2, 56, 12.41, 'kg', 44.5, '2019-08-01 00:00:00', 'USE', '2020-10-21')
-,(13, 259, 1.25, 'kg', 24.79, '2022-12-05 00:00:00', 'USE', '2024-10-21')
-,(19, 161, 14.2, 'kg', 18.8, '2020-02-22 00:00:00', 'WASTE', '2020-10-21')
-,(17, 147, 11.43, 'kg', 68.64, '2023-12-11 00:00:00', 'WASTE', '2025-10-21')
-,(11, 269, 7.97, 'kg', 45.96, '2020-08-09 00:00:00', 'WASTE', '2020-10-21')
-,(14, 254, 17.34, 'kg', 24.1, '2019-10-22 00:00:00', 'ADD', '2020-10-21')
-,(3, 250, 14.81, 'kg', 45.52, '2020-10-06 00:00:00', 'WASTE', '2020-10-21')
-,(12, 160, 8.45, 'kg', 13.18, '2023-04-05 00:00:00', 'USE', '2024-10-21')
-,(9, 136, 7.32, 'kg', 87.58, '2022-05-24 00:00:00', 'WASTE', '2024-10-21')
-,(19, 51, 2.61, 'kg', 24.8, '2023-06-26 00:00:00', 'USE', '2025-10-21'),
+(17, 65, 18.85, 'kg', 4.35, '2022-04-11 00:00:00', 'USE', '2023-06-20'),
+(3, 2, 17.57, 'kg', 14.89, '2023-07-29 00:00:00', 'USE', '2024-06-20'),
+(5, 76, 19.65, 'kg', 4.67, '2023-11-06 00:00:00', 'ADD', '2025-11-06'),
+(18, 249, 53.87, 'kg', 9.99, '2019-05-13 00:00:00', 'WASTE', '2020-06-20'),
+(8, 166, 18.27, 'kg', 87.75, '2021-06-19 00:00:00', 'ADD', '2022-06-19'),
+(2, 84, 110.93, 'kg', 68.65, '2020-04-02 00:00:00', 'WASTE', '2023-06-20'),
+(2, 210, 5.93, 'kg', 65.14, '2019-08-11 00:00:00', 'ADD', '2020-08-10'),
+(7, 148, 7.56, 'kg', 66.98, '2023-07-03 00:00:00', 'ADD', '2024-07-02'),
+(17, 95, 11.65, 'kg', 35.81, '2019-12-17 00:00:00', 'USE', '2020-06-20'),
+(10, 172, 65.3, 'kg', 7.08, '2023-07-18 00:00:00', 'WASTE', '2025-06-20'),
+(10, 113, 13.07, 'kg', 94.3, '2019-05-02 00:00:00', 'USE', '2020-06-20'),
+(4, 88, 9.67, 'kg', 9.54, '2023-12-14 00:00:00', 'USE', '2025-06-20'),
+(8, 84, 65.84, 'kg', 24.88, '2019-04-21 00:00:00', 'WASTE', '2021-06-20'),
+(16, 229, 184.56, 'kg', 12.8, '2020-09-05 00:00:00', 'WASTE', '2023-06-20'),
+(4, 210, 10.9, 'kg', 83.16, '2023-08-02 00:00:00', 'USE', '2025-06-20'),
+(16, 156, 125.53, 'kg', 69.7, '2020-05-26 00:00:00', 'WASTE', '2025-06-20'),
+(3, 215, 111.52, 'kg', 36.26, '2019-01-23 00:00:00', 'WASTE', '2020-06-20'),
+(13, 200, 2.42, 'kg', 85.34, '2019-10-24 00:00:00', 'USE', '2020-06-20'),
+(6, 63, 81.94, 'kg', 67.04, '2021-10-27 00:00:00', 'WASTE', '2022-06-20'),
+(13, 83, 96.0, 'kg', 89.43, '2019-09-16 00:00:00', 'WASTE', '2020-06-20'),
+(14, 59, 6.43, 'kg', 71.13, '2023-06-27 00:00:00', 'ADD', '2025-06-27'),
+(11, 50, 98.42, 'kg', 93.71, '2023-12-12 00:00:00', 'WASTE', '2025-06-20'),
+(4, 56, 1.42, 'kg', 35.83, '2023-09-01 00:00:00', 'USE', '2025-06-20'),
+(18, 89, 500.14, 'kg', 60.61, '2023-04-26 00:00:00', 'WASTE', '2025-06-20'),
+(1, 210, 1.48, 'kg', 20.39, '2019-08-05 00:00:00', 'USE', '2020-06-20'),
+(1, 210, 5.22, 'kg', 6.15, '2019-08-05 00:00:00', 'WASTE', '2020-06-20'),
+(14, 177, 18.5, 'kg', 19.67, '2021-12-13 00:00:00', 'USE', '2023-06-20'),
+(16, 142, 4.88, 'kg', 93.97, '2019-10-04 00:00:00', 'USE', '2021-06-20'),
+(10, 82, 108.32, 'kg', 63.11, '2020-07-31 00:00:00', 'WASTE', '2022-06-20'),
+(1, 11, 18.36, 'kg', 5.65, '2023-07-14 00:00:00', 'ADD', '2024-07-13'),
+(1, 11, 5.22, 'kg', 5.65, '2023-07-14 00:00:00', 'USE', '2024-07-13'),
+(1, 11, 2.58, 'kg', 5.65, '2023-07-14 00:00:00', 'WASTE', '2024-07-13'),
+(3, 129, 9.88, 'kg', 5.64, '2020-03-21 00:00:00', 'ADD', '2021-03-21'),
+(7, 247, 100.3, 'kg', 78.03, '2019-09-09 00:00:00', 'WASTE', '2020-06-20'),
+(10, 212, 104.24, 'kg', 1.25, '2023-06-04 00:00:00', 'WASTE', '2025-06-20'),
+(9, 119, 1.53, 'kg', 66.51, '2023-03-14 00:00:00', 'USE', '2025-06-20'),
+(14, 64, 104.19, 'kg', 96.83, '2023-02-05 00:00:00', 'WASTE', '2025-06-20'),
+(9, 237, 1.05, 'kg', 54.56, '2022-02-26 00:00:00', 'ADD', '2023-02-26'),
+(11, 251, 13.62, 'kg', 15.21, '2023-03-23 00:00:00', 'USE', '2025-04-01'),
+(19, 131, 104.59, 'kg', 67.95, '2021-09-10 00:00:00', 'WASTE', '2022-04-01'),
+(8, 47, 17.02, 'kg', 69.35, '2023-09-13 00:00:00', 'ADD', '2025-09-13'),
+(5, 133, 16.06, 'kg', 9.79, '2023-08-21 00:00:00', 'ADD', '2024-08-20'),
+(13, 262, 17.81, 'kg', 20.57, '2021-04-13 00:00:00', 'USE', '2023-04-01'),
+(4, 53, 150.52, 'kg', 2.01, '2023-05-11 00:00:00', 'WASTE', '2024-04-01'),
+(20, 154, 11.05, 'kg', 15.4, '2023-02-17 00:00:00', 'USE', '2025-04-01'),
+(17, 236, 11.23, 'kg', 48.5, '2020-06-07 00:00:00', 'USE', '2022-04-01'),
+(9, 258, 15.02, 'kg', 33.73, '2019-05-22 00:00:00', 'ADD', '2020-05-21'),
+(19, 99, 1.77, 'kg', 68.11, '2021-02-11 00:00:00', 'USE', '2023-04-01'),
+(14, 259, 10.4, 'kg', 33.4, '2023-06-27 00:00:00', 'ADD', '2024-06-26'),
+(17, 174, 106.81, 'kg', 93.73, '2023-06-28 00:00:00', 'WASTE', '2025-04-01'),
+(20, 21, 5.97, 'kg', 43.29, '2022-10-03 00:00:00', 'USE', '2023-04-01'),
+(1, 270, 14.05, 'kg', 34.36, '2019-05-04 00:00:00', 'USE', '2020-04-01'),
+(1, 270, 1.55, 'kg', 34.36, '2019-05-04 00:00:00', 'WASTE', '2020-04-01'),
+(15, 7, 6.06, 'kg', 22.06, '2023-12-23 00:00:00', 'ADD', '2024-12-22'),
+(6, 147, 18.8, 'kg', 52.13, '2020-07-25 00:00:00', 'ADD', '2021-07-25'),
+(15, 59, 6.83, 'kg', 58.47, '2022-03-30 00:00:00', 'ADD', '2023-03-30'),
+(10, 25, 101.01, 'kg', 97.82, '2022-09-06 00:00:00', 'WASTE', '2023-04-01'),
+(15, 32, 107.43, 'kg', 25.16, '2022-07-28 00:00:00', 'WASTE', '2023-04-01'),
+(7, 173, 80.09, 'kg', 82.03, '2021-06-22 00:00:00', 'WASTE', '2023-04-01'),
+(6, 193, 14.28, 'kg', 7.41, '2019-11-11 00:00:00', 'ADD', '2020-11-10'),
+(18, 252, 7.28, 'kg', 12.14, '2019-11-25 00:00:00', 'USE', '2020-04-01'),
+(9, 26, 18.75, 'kg', 85.01, '2021-09-24 00:00:00', 'ADD', '2022-09-24'),
+(4, 209, 9.33, 'kg', 23.78, '2021-07-13 00:00:00', 'USE', '2023-04-01'),
+(2, 197, 5.86, 'kg', 20.95, '2023-12-29 00:00:00', 'USE', '2024-04-01'),
+(13, 195, 13.13, 'kg', 29.48, '2023-06-08 00:00:00', 'USE', '2025-04-01'),
+(5, 117, 17.42, 'kg', 34.92, '2023-07-05 00:00:00', 'ADD', '2025-07-05'),
+(9, 119, 6.18, 'kg', 19.39, '2019-05-25 00:00:00', 'ADD', '2020-05-24'),
+(13, 72, 6.39, 'kg', 71.63, '2023-06-22 00:00:00', 'USE', '2025-04-01'),
+(9, 259, 1.4, 'kg', 60.95, '2023-06-18 00:00:00', 'ADD', '2024-06-17'),
+(5, 38, 30.63, 'kg', 85.19, '2020-03-31 00:00:00', 'WASTE', '2020-04-01'),
+(20, 37, 100.39, 'kg', 93.59, '2023-04-28 00:00:00', 'WASTE', '2025-04-01'),
+(4, 50, 100.14, 'kg', 32.23, '2020-04-22 00:00:00', 'WASTE', '2022-04-01'),
+(17, 51, 8.55, 'kg', 31.57, '2022-06-10 00:00:00', 'ADD', '2023-06-10'),
+(8, 237, 8.96, 'kg', 78.61, '2020-10-18 00:00:00', 'USE', '2021-04-01'),
+(17, 89, 7.59, 'kg', 54.06, '2020-02-22 00:00:00', 'ADD', '2021-02-21'),
+(20, 18, 4.73, 'kg', 36.56, '2023-11-05 00:00:00', 'ADD', '2024-11-04'),
+(10, 35, 7.63, 'kg', 76.09, '2023-12-30 00:00:00', 'USE', '2025-04-01'),
+(18, 274, 15.62, 'kg', 80.14, '2019-09-09 00:00:00', 'USE', '2020-04-01'),
+(3, 253, 18.63, 'kg', 26.82, '2023-05-22 00:00:00', 'WASTE', '2025-04-01'),
+(15, 177, 17.23, 'kg', 50.01, '2021-04-28 00:00:00', 'WASTE', '2022-04-01'),
+(14, 114, 3.52, 'kg', 11.1, '2022-01-02 00:00:00', 'ADD', '2023-01-02'),
+(12, 237, 17.61, 'kg', 7.71, '2023-03-31 00:00:00', 'USE', '2025-04-01'),
+(18, 87, 6.53, 'kg', 74.86, '2023-03-09 00:00:00', 'WASTE', '2025-04-01'),
+(5, 14, 7.98, 'kg', 36.29, '2023-02-04 00:00:00', 'USE', '2023-04-01'),
+(11, 166, 1.1, 'kg', 48.96, '2020-02-26 00:00:00', 'WASTE', '2023-04-01'),
+(11, 187, 15.8, 'kg', 99.94, '2022-01-11 00:00:00', 'USE', '2023-07-30'),
+(11, 213, 14.72, 'kg', 57.26, '2023-11-10 00:00:00', 'USE', '2025-07-30'),
+(12, 270, 13.95, 'kg', 85.26, '2023-06-10 00:00:00', 'WASTE', '2025-07-30'),
+(1, 82, 6.36, 'kg', 20.4, '2020-09-22 00:00:00', 'ADD', '2021-09-22'),
+(1, 82, 2.55, 'kg', 20.4, '2020-09-22 00:00:00', 'USE', '2021-09-22'),
+(1, 82, 1.97, 'kg', 20.4, '2020-09-22 00:00:00', 'WASTE', '2021-09-22'),
+(4, 78, 4.4, 'kg', 93.51, '2022-01-05 00:00:00', 'USE', '2025-07-30'),
+(17, 100, 15.72, 'kg', 10.53, '2023-12-03 00:00:00', 'WASTE', '2025-07-30'),
+(11, 86, 7.67, 'kg', 42.59, '2023-08-03 00:00:00', 'ADD', '2024-08-02'),
+(19, 186, 13.08, 'kg', 1.93, '2023-05-28 00:00:00', 'ADD', '2024-05-27'),
+(4, 271, 1.25, 'kg', 89.72, '2023-10-21 00:00:00', 'ADD', '2024-10-20'),
+(7, 122, 19.62, 'kg', 17.32, '2023-12-10 00:00:00', 'ADD', '2024-12-09'),
+(5, 209, 3.55, 'kg', 99.34, '2020-08-03 00:00:00', 'ADD', '2021-08-03'),
+(20, 86, 18.41, 'kg', 21.26, '2023-03-07 00:00:00', 'USE', '2023-04-01'),
+(20, 243, 17.45, 'kg', 61.67, '2022-01-13 00:00:00', 'WASTE', '2023-04-01'),
+(2, 243, 3.32, 'kg', 68.22, '2022-04-01 00:00:00', 'ADD', '2023-04-01'),
+(1, 217, 1.34, 'kg', 36.95, '2022-05-16 00:00:00', 'WASTE', '2025-07-30'),
+(1, 217, 2.14, 'kg', 36.95, '2022-05-16 00:00:00', 'USE', '2025-07-30'),
+(17, 102, 17.23, 'kg', 47.49, '2023-01-10 00:00:00', 'ADD', '2024-01-10'),
+(16, 224, 15.47, 'kg', 34.25, '2021-01-06 00:00:00', 'ADD', '2022-01-06'),
+(14, 64, 9.19, 'kg', 95.79, '2023-04-14 00:00:00', 'WASTE', '2025-07-30'),
+(3, 141, 14.13, 'kg', 37.51, '2023-06-06 00:00:00', 'USE', '2025-07-30'),
+(18, 150, 4.25, 'kg', 21.39, '2023-10-30 00:00:00', 'WASTE', '2025-07-30'),
+(3, 265, 12.66, 'kg', 75.51, '2019-04-17 00:00:00', 'WASTE', '2020-07-30'),
+(13, 248, 19.44, 'kg', 76.86, '2021-01-12 00:00:00', 'WASTE', '2022-07-30'),
+(6, 52, 13.99, 'kg', 17.28, '2020-05-28 00:00:00', 'WASTE', '2021-07-30'),
+(3, 40, 10.18, 'kg', 71.72, '2019-10-12 00:00:00', 'WASTE', '2020-07-30'),
+(16, 164, 19.3, 'kg', 33.62, '2022-10-01 00:00:00', 'ADD', '2023-10-01'),
+(14, 86, 15.61, 'kg', 32.16, '2023-06-08 00:00:00', 'WASTE', '2024-07-30'),
+(6, 52, 1.9, 'kg', 8.78, '2022-11-16 00:00:00', 'USE', '2023-07-30'),
+(13, 186, 15.53, 'kg', 84.2, '2019-02-27 00:00:00', 'USE', '2020-07-30'),
+(10, 141, 15.41, 'kg', 34.05, '2022-11-15 00:00:00', 'ADD', '2023-11-15'),
+(7, 212, 14.33, 'kg', 7.85, '2020-11-23 00:00:00', 'USE', '2022-07-30'),
+(12, 57, 12.9, 'kg', 65.56, '2022-04-08 00:00:00', 'WASTE', '2023-07-30'),
+(5, 188, 4.36, 'kg', 46.21, '2023-10-19 00:00:00', 'ADD', '2024-10-18'),
+(9, 85, 8.69, 'kg', 64.98, '2023-01-21 00:00:00', 'ADD', '2024-01-21'),
+(19, 205, 17.08, 'kg', 36.38, '2019-01-05 00:00:00', 'USE', '2020-07-30'),
+(2, 3, 6.27, 'kg', 95.29, '2020-02-20 00:00:00', 'USE', '2022-07-30'),
+(19, 116, 5.56, 'kg', 68.41, '2019-10-05 00:00:00', 'WASTE', '2022-07-30'),
+(13, 39, 16.91, 'kg', 21.3, '2022-09-30 00:00:00', 'ADD', '2023-09-30'),
+(20, 269, 15.42, 'kg', 54.5, '2023-03-26 00:00:00', 'ADD', '2024-03-25'),
+(5, 21, 16.03, 'kg', 28.24, '2022-07-12 00:00:00', 'WASTE', '2025-07-30'),
+(18, 131, 18.98, 'kg', 8.38, '2019-08-10 00:00:00', 'ADD', '2020-08-09'),
+(12, 31, 2.3, 'kg', 93.21, '2023-05-02 00:00:00', 'USE', '2025-07-30'),
+(19, 165, 13.44, 'kg', 55.8, '2020-09-18 00:00:00', 'USE', '2022-07-30'),
+(17, 72, 5.21, 'kg', 81.12, '2021-10-26 00:00:00', 'USE', '2023-07-30'),
+(17, 233, 17.64, 'kg', 95.1, '2023-08-23 00:00:00', 'ADD', '2025-08-23'),
+(4, 32, 5.11, 'kg', 60.43, '2023-05-31 00:00:00', 'ADD', '2024-05-30'),
+(15, 159, 19.64, 'kg', 60.67, '2020-12-08 00:00:00', 'USE', '2022-07-30'),
+(15, 219, 10.19, 'kg', 83.99, '2022-12-30 00:00:00', 'USE', '2024-07-30'),
+(20, 250, 18.7, 'kg', 34.48, '2020-01-11 00:00:00', 'USE', '2021-07-30'),
+(6, 191, 2.46, 'kg', 33.82, '2019-04-01 00:00:00', 'ADD', '2020-03-31'),
+(4, 18, 18.64, 'kg', 62.19, '2019-12-08 00:00:00', 'USE', '2020-07-30'),
+(1, 63, 11.7, 'kg', 88.03, '2022-10-25 00:00:00', 'WASTE', '2023-07-30'),
+(1, 63, 2.3, 'kg', 88.03, '2022-10-25 00:00:00', 'USE', '2023-07-30'),
+(4, 113, 3.08, 'kg', 88.76, '2023-05-26 00:00:00', 'ADD', '2025-05-26'),
+(15, 177, 14.74, 'kg', 97.09, '2021-02-16 00:00:00', 'USE', '2023-07-30'),
+(18, 68, 4.26, 'kg', 89.67, '2022-06-23 00:00:00', 'WASTE', '2025-07-30'),
+(18, 177, 12.91, 'kg', 42.53, '2019-05-13 00:00:00', 'WASTE', '2022-07-30'),
+(17, 193, 10.91, 'kg', 54.57, '2020-01-14 00:00:00', 'WASTE', '2022-07-30'),
+(3, 52, 6.6, 'kg', 12.99, '2022-05-10 00:00:00', 'WASTE', '2025-07-30'),
+(1, 85, 5.82, 'kg', 41.24, '2022-05-18 00:00:00', 'WASTE', '2025-07-30'),
+(1, 85, 3.42, 'kg', 41.24, '2022-05-18 00:00:00', 'USE', '2025-07-30'),
+(15, 145, 6.41, 'kg', 89.57, '2021-10-30 00:00:00', 'ADD', '2022-10-30'),
+(3, 172, 19.09, 'kg', 81.81, '2022-12-11 00:00:00', 'USE', '2025-07-30'),
+(9, 271, 6.74, 'kg', 9.46, '2023-05-09 00:00:00', 'WASTE', '2025-07-30'),
+(10, 187, 11.43, 'kg', 43.53, '2022-03-19 00:00:00', 'WASTE', '2025-07-30'),
+(10, 44, 1.01, 'kg', 6.01, '2023-02-28 00:00:00', 'ADD', '2024-02-28'),
+(2, 49, 17.46, 'kg', 46.35, '2023-08-03 00:00:00', 'WASTE', '2025-07-30'),
+(4, 17, 14.25, 'kg', 1.66, '2023-10-29 00:00:00', 'WASTE', '2025-07-30'),
+(5, 135, 4.09, 'kg', 76.27, '2020-08-21 00:00:00', 'ADD', '2021-08-21'),
+(17, 230, 14.53, 'kg', 19.15, '2022-04-06 00:00:00', 'WASTE', '2025-07-30'),
+(2, 64, 3.54, 'kg', 35.25, '2023-11-04 00:00:00', 'WASTE', '2025-07-30'),
+(15, 144, 11.9, 'kg', 35.08, '2021-10-24 00:00:00', 'WASTE', '2022-07-30'),
+(16, 206, 10.65, 'kg', 97.83, '2019-11-21 00:00:00', 'USE', '2020-07-30'),
+(3, 53, 14.4, 'kg', 29.24, '2023-07-30 00:00:00', 'ADD', '2025-07-30'),
+(20, 150, 9.94, 'kg', 41.48, '2020-10-30 00:00:00', 'WASTE', '2023-07-30'),
+(15, 123, 6.22, 'kg', 96.45, '2020-09-10 00:00:00', 'USE', '2023-07-30'),
+(20, 256, 17.37, 'kg', 56.03, '2023-01-14 00:00:00', 'USE', '2025-07-30'),
+(18, 221, 15.87, 'kg', 50.09, '2020-08-22 00:00:00', 'WASTE', '2021-04-11'),
+(5, 174, 8.55, 'kg', 73.25, '2022-10-11 00:00:00', 'ADD', '2023-10-11'),
+(14, 233, 2.53, 'kg', 56.83, '2019-05-11 00:00:00', 'USE', '2021-04-11'),
+(16, 142, 19.39, 'kg', 19.7, '2019-06-21 00:00:00', 'WASTE', '2021-04-11'),
+(9, 123, 16.87, 'kg', 51.68, '2020-02-27 00:00:00', 'USE', '2021-04-11'),
+(19, 134, 10.99, 'kg', 10.69, '2022-08-25 00:00:00', 'WASTE', '2023-04-11'),
+(13, 195, 11.47, 'kg', 57.08, '2023-04-05 00:00:00', 'WASTE', '2024-04-11'),
+(12, 48, 15.08, 'kg', 94.72, '2023-03-17 00:00:00', 'ADD', '2024-03-16'),
+(13, 169, 2.07, 'kg', 56.43, '2020-07-26 00:00:00', 'USE', '2024-04-11'),
+(6, 262, 9.23, 'kg', 34.69, '2020-08-01 00:00:00', 'WASTE', '2024-04-11'),
+(7, 30, 18.54, 'kg', 10.93, '2022-10-05 00:00:00', 'WASTE', '2024-04-11'),
+(14, 244, 13.17, 'kg', 9.35, '2022-09-09 00:00:00', 'WASTE', '2024-04-11'),
+(5, 46, 3.38, 'kg', 60.03, '2023-02-21 00:00:00', 'WASTE', '2024-04-11'),
+(10, 159, 1.59, 'kg', 66.38, '2023-11-23 00:00:00', 'WASTE', '2024-04-11'),
+(15, 262, 5.49, 'kg', 28.47, '2023-10-11 00:00:00', 'WASTE', '2025-04-11'),
+(10, 56, 8.42, 'kg', 48.97, '2023-02-23 00:00:00', 'USE', '2024-04-11'),
+(2, 242, 17.77, 'kg', 51.65, '2023-09-19 00:00:00', 'USE', '2025-04-11'),
+(11, 154, 11.6, 'kg', 20.82, '2019-03-28 00:00:00', 'USE', '2021-04-11'),
+(8, 215, 13.98, 'kg', 95.43, '2020-10-31 00:00:00', 'WASTE', '2021-04-11'),
+(19, 117, 3.17, 'kg', 34.47, '2023-01-16 00:00:00', 'USE', '2024-04-11'),
+(4, 146, 8.77, 'kg', 36.6, '2023-10-20 00:00:00', 'WASTE', '2024-04-11'),
+(1, 192, 4.27, 'kg', 23.25, '2022-09-06 00:00:00', 'WASTE', '2023-04-11'),
+(1, 192, 8.55, 'kg', 23.25, '2022-09-06 00:00:00', 'USE', '2023-04-11'),
+(20, 165, 19.66, 'kg', 2.52, '2022-11-10 00:00:00', 'ADD', '2023-11-10'),
+(2, 204, 4.68, 'kg', 27.33, '2020-04-11 00:00:00', 'ADD', '2021-04-11'),
+(12, 159, 5.53, 'kg', 89.47, '2020-04-13 00:00:00', 'WASTE', '2021-04-11'),
+(5, 35, 10.22, 'kg', 72.46, '2023-03-26 00:00:00', 'WASTE', '2025-04-11'),
+(16, 211, 13.98, 'kg', 61.62, '2019-12-11 00:00:00', 'ADD', '2020-12-10'),
+(16, 89, 2.52, 'kg', 81.04, '2019-07-14 00:00:00', 'USE', '2021-04-11'),
+(20, 193, 16.9, 'kg', 50.41, '2019-11-29 00:00:00', 'WASTE', '2021-04-11'),
+(8, 200, 16.79, 'kg', 7.53, '2023-05-10 00:00:00', 'ADD', '2025-05-10'),
+(13, 63, 17.99, 'kg', 5.67, '2022-06-17 00:00:00', 'WASTE', '2023-11-05'),
+(9, 124, 4.12, 'kg', 58.06, '2020-05-23 00:00:00', 'WASTE', '2021-11-05'),
+(8, 11, 4.63, 'kg', 69.22, '2021-12-14 00:00:00', 'ADD', '2022-12-14'),
+(14, 87, 14.04, 'kg', 48.69, '2022-02-09 00:00:00', 'USE', '2023-11-05'),
+(6, 210, 11.46, 'kg', 57.6, '2023-03-09 00:00:00', 'WASTE', '2025-11-05'),
+(3, 122, 0.65, 'kg', 21.02, '2023-06-06 00:00:00', 'WASTE', '2025-11-05'),
+(19, 117, 12.25, 'kg', 30.14, '2023-09-11 00:00:00', 'USE', '2025-11-05'),
+(10, 68, 9.72, 'kg', 13.46, '2019-03-29 00:00:00', 'USE', '2025-11-05'),
+(6, 9, 5.67, 'kg', 47.95, '2023-12-17 00:00:00', 'ADD', '2024-12-16'),
+(17, 133, 3.59, 'kg', 66.7, '2023-11-19 00:00:00', 'USE', '2025-11-05'),
+(12, 238, 9.35, 'kg', 82.9, '2023-06-13 00:00:00', 'ADD', '2024-06-12'),
+(2, 80, 16.57, 'kg', 79.1, '2023-12-29 00:00:00', 'USE', '2025-11-05'),
+(20, 146, 12.16, 'kg', 5.68, '2019-10-02 00:00:00', 'WASTE', '2025-11-05'),
+(11, 114, 1.93, 'kg', 62.21, '2020-06-29 00:00:00', 'WASTE', '2025-11-05'),
+(14, 238, 19.17, 'kg', 90.86, '2019-11-14 00:00:00', 'WASTE', '2025-11-05'),
+(3, 146, 7.55, 'kg', 37.73, '2023-03-28 00:00:00', 'USE', '2025-11-05'),
+(17, 159, 0.8, 'kg', 71.86, '2023-07-28 00:00:00', 'WASTE', '2025-08-22'),
+(9, 46, 7.28, 'kg', 70.84, '2019-08-10 00:00:00', 'USE', '2021-08-22'),
+(9, 12, 19.11, 'kg', 95.22, '2023-04-07 00:00:00', 'ADD', '2024-04-06'),
+(7, 126, 19.17, 'kg', 32.24, '2021-01-28 00:00:00', 'ADD', '2022-01-28'),
+(12, 270, 13.74, 'kg', 51.14, '2020-11-22 00:00:00', 'USE', '2021-08-22'),
+(18, 154, 8.38, 'kg', 33.46, '2021-05-28 00:00:00', 'ADD', '2022-05-28'),
+(8, 221, 5.07, 'kg', 50.22, '2023-10-25 00:00:00', 'ADD', '2025-10-25'),
+(11, 122, 18.05, 'kg', 52.27, '2019-11-08 00:00:00', 'WASTE', '2021-08-22'),
+(14, 234, 19.42, 'kg', 66.4, '2022-12-20 00:00:00', 'WASTE', '2024-08-22'),
+(3, 39, 17.05, 'kg', 50.74, '2022-10-15 00:00:00', 'WASTE', '2023-08-22'),
+(11, 137, 10.76, 'kg', 84.46, '2019-01-29 00:00:00', 'USE', '2021-08-22'),
+(14, 142, 0.9, 'kg', 66.65, '2020-08-22 00:00:00', 'ADD', '2021-08-22'),
+(9, 73, 19.09, 'kg', 92.51, '2023-12-06 00:00:00', 'USE', '2025-11-05'),
+(9, 95, 4.72, 'kg', 97.22, '2023-08-29 00:00:00', 'ADD', '2025-08-29'),
+(10, 16, 18.93, 'kg', 30.88, '2022-09-07 00:00:00', 'ADD', '2023-09-07'),
+(13, 154, 8.19, 'kg', 50.28, '2021-04-22 00:00:00', 'ADD', '2022-04-22'),
+(12, 227, 8.94, 'kg', 6.66, '2023-06-25 00:00:00', 'WASTE', '2024-11-05'),
+(6, 71, 8.49, 'kg', 20.46, '2020-07-16 00:00:00', 'WASTE', '2024-11-05'),
+(5, 60, 9.42, 'kg', 83.6, '2022-09-06 00:00:00', 'WASTE', '2024-11-05'),
+(3, 146, 2.75, 'kg', 66.45, '2021-12-24 00:00:00', 'USE', '2024-11-05'),
+(16, 234, 6.66, 'kg', 79.99, '2023-02-18 00:00:00', 'ADD', '2024-02-18'),
+(3, 171, 3.44, 'kg', 13.94, '2023-08-01 00:00:00', 'USE', '2025-11-05'),
+(8, 111, 6.87, 'kg', 97.06, '2022-06-28 00:00:00', 'WASTE', '2025-11-05'),
+(16, 3, 6.05, 'kg', 66.27, '2019-08-11 00:00:00', 'ADD', '2020-08-10'),
+(10, 251, 6.95, 'kg', 57.18, '2023-12-04 00:00:00', 'USE', '2025-11-05'),
+(15, 209, 1.63, 'kg', 45.5, '2019-12-12 00:00:00', 'ADD', '2020-12-11'),
+(4, 198, 3.45, 'kg', 35.38, '2021-08-10 00:00:00', 'USE', '2024-11-05'),
+(18, 93, 15.85, 'kg', 72.71, '2021-12-09 00:00:00', 'USE', '2024-11-05'),
+(13, 259, 17.99, 'kg', 60.93, '2019-11-30 00:00:00', 'USE', '2024-11-05'),
+(18, 182, 15.14, 'kg', 71.49, '2021-01-02 00:00:00', 'ADD', '2022-01-02'),
+(3, 200, 9.71, 'kg', 4.48, '2022-07-02 00:00:00', 'USE', '2023-07-02'),
+(6, 33, 13.4, 'kg', 52.78, '2023-02-06 00:00:00', 'WASTE', '2025-11-05'),
+(19, 45, 12.6, 'kg', 92.18, '2019-04-06 00:00:00', 'ADD', '2020-04-05'),
+(16, 179, 14.6, 'kg', 15.17, '2021-03-20 00:00:00', 'ADD', '2022-03-20'),
+(7, 51, 15.24, 'kg', 63.09, '2021-06-17 00:00:00', 'USE', '2024-03-25'),
+(6, 149, 5.32, 'kg', 88.72, '2022-05-14 00:00:00', 'USE', '2024-03-25'),
+(20, 183, 5.58, 'kg', 44.1, '2022-12-21 00:00:00', 'USE', '2024-03-25'),
+(6, 95, 1.29, 'kg', 23.74, '2022-09-02 00:00:00', 'USE', '2024-03-25'),
+(18, 118, 7.51, 'kg', 20.98, '2022-04-14 00:00:00', 'USE', '2024-03-25'),
+(1, 258, 18.41, 'kg', 33.99, '2021-06-06 00:00:00', 'WASTE', '2024-03-25'),
+(1, 258, 6.87, 'kg', 33.99, '2021-06-06 00:00:00', 'USE', '2024-03-25'),
+(11, 95, 2.57, 'kg', 67.45, '2023-10-26 00:00:00', 'WASTE', '2024-03-25'),
+(19, 101, 11.31, 'kg', 89.36, '2020-02-13 00:00:00', 'USE', '2024-03-25'),
+(14, 152, 13.44, 'kg', 46.35, '2023-03-26 00:00:00', 'ADD', '2024-03-25'),
+(16, 234, 12.28, 'kg', 73.85, '2021-04-14 00:00:00', 'WASTE', '2024-03-25'),
+(1, 16, 5.1, 'kg', 11.53, '2022-11-06 00:00:00', 'ADD', '2023-11-06'),
+(14, 231, 14.45, 'kg', 23.52, '2023-03-18 00:00:00', 'WASTE', '2024-03-25'),
+(11, 85, 1.13, 'kg', 80.01, '2022-02-20 00:00:00', 'WASTE', '2024-05-12'),
+(1, 7, 19.17, 'kg', 18.46, '2023-05-22 00:00:00', 'USE', '2024-09-12'),
+(1, 7, 2.28, 'kg', 18.46, '2023-05-22 00:00:00', 'WASTE', '2024-09-12'),
+(16, 151, 12.63, 'kg', 58.93, '2022-06-23 00:00:00', 'USE', '2024-05-12'),
+(18, 241, 8.75, 'kg', 48.89, '2022-03-04 00:00:00', 'USE', '2024-05-12'),
+(17, 13, 1.19, 'kg', 30.05, '2019-08-30 00:00:00', 'USE', '2024-05-12'),
+(16, 114, 19.2, 'kg', 92.18, '2022-06-21 00:00:00', 'USE', '2024-05-12'),
+(19, 13, 1.65, 'kg', 36.38, '2022-01-13 00:00:00', 'ADD', '2023-01-13'),
+(20, 29, 18.57, 'kg', 10.71, '2023-04-29 00:00:00', 'ADD', '2024-04-28'),
+(5, 153, 8.73, 'kg', 3.41, '2022-12-01 00:00:00', 'WASTE', '2024-05-12'),
+(19, 69, 4.56, 'kg', 70.93, '2020-07-25 00:00:00', 'ADD', '2021-07-25'),
+(5, 181, 19.01, 'kg', 87.37, '2023-06-19 00:00:00', 'WASTE', '2024-05-12'),
+(9, 137, 19.42, 'kg', 35.31, '2019-05-07 00:00:00', 'ADD', '2020-05-06'),
+(8, 128, 8.0, 'kg', 4.12, '2019-09-21 00:00:00', 'USE', '2024-05-12'),
+(8, 244, 2.93, 'kg', 15.62, '2020-07-29 00:00:00', 'ADD', '2021-07-29'),
+(3, 211, 9.57, 'kg', 91.97, '2023-05-13 00:00:00', 'ADD', '2024-05-12'),
+(2, 56, 12.41, 'kg', 44.5, '2019-08-01 00:00:00', 'USE', '2020-10-21'),
+(13, 259, 1.25, 'kg', 24.79, '2022-12-05 00:00:00', 'USE', '2024-10-21'),
+(19, 161, 14.2, 'kg', 18.8, '2020-02-22 00:00:00', 'WASTE', '2020-10-21'),
+(17, 147, 11.43, 'kg', 68.64, '2023-12-11 00:00:00', 'WASTE', '2025-10-21'),
+(11, 269, 7.97, 'kg', 45.96, '2020-08-09 00:00:00', 'WASTE', '2020-10-21'),
+(14, 254, 17.34, 'kg', 24.1, '2019-10-22 00:00:00', 'ADD', '2020-10-21'),
+(3, 250, 14.81, 'kg', 45.52, '2020-10-06 00:00:00', 'WASTE', '2020-10-21'),
+(12, 160, 8.45, 'kg', 13.18, '2023-04-05 00:00:00', 'USE', '2024-10-21'),
+(9, 136, 7.32, 'kg', 87.58, '2022-05-24 00:00:00', 'WASTE', '2024-10-21'),
+(19, 51, 2.61, 'kg', 24.8, '2023-06-26 00:00:00', 'USE', '2025-10-21'),
 (1, 238,2.15, 'kg', 59.22,'2021-02-31 23:59:59','USE','2025-01-10'),
 (1, 239,1.22, 'kg', 12.54,'2022-01-31 23:59:59','USE','2025-01-10'),
 (1, 241,4.18, 'kg', 15.21,'2021-01-31 23:59:59','USE','2025-01-10'),
@@ -779,7 +786,14 @@ INSERT INTO transactionlog (userid, fooditemid, quantity, unit, priceperunit, ti
 (1, 203,  1.61, 'kg', 77.94, '2023-01-19 22:29:50', 'WASTE', '2024-04-04'), 
 (1, 224, 11.12, 'kg', 40.43, '2023-02-19 22:29:50', 'WASTE', '2024-01-05'), 
 (1, 227, 6.33, 'kg', 91.09, '2022-02-19 22:29:50', 'WASTE', '2024-01-23'), 
-(1, 231, 4.87, 'kg', 78.54, '2021-12-19 22:29:50', 'WASTE', '2024-10-22'); 
+(1, 231, 4.87, 'kg', 78.54, '2021-12-19 22:29:50', 'WASTE', '2024-10-22'),
+(1, 227, 1.25, 'kg', 91.09, '2024-01-15 22:29:50', 'WASTE', '2024-01-23'), 
+(1, 231, 0.22, 'kg', 78.54, '2024-01-15 22:29:50', 'WASTE', '2024-10-22'),
+(1,252,0.21, 'kg', 1.20,'2024-01-15 22:29:50','USE','2025-01-14'),
+(1, 253,0.84, 'kg', 6.32,'2024-01-15 22:29:59','USE','2025-08-10'),
+(1, 254,0.54, 'kg', 9.65,'2024-01-15 22:29:50','USE','2025-08-14'),
+(1, 255,1.25, 'kg', 8.21,'2024-01-15 22:29:50','USE','2025-08-14');
+
 
 INSERT INTO menu (dishid,userid, dishname,dishpic, ingredientname, weight, preservationtime) VALUES
 (1, 1,'Mediterranean Grilled Fish', 'dish1.jpg' , 'Fish', 2, '2 days'),
@@ -831,3 +845,468 @@ INSERT INTO menu (dishid,userid, dishname,dishpic, ingredientname, weight, prese
 (19, 1,'Banana Hazelnut Smoothie','dish19.jpg', 'Sugar', 1.2, '2 days'),
 (20, 1,'Duck Confit with Orange Sauce', 'dish20.jpg', 'Duck', 3.5, '2 days'),
 (20, 1,'Duck Confit with Orange Sauce', 'dish20.jpg', 'Oranges', 5, '2 days');
+
+
+INSERT INTO categoryassociation (categoryid, categoryname, itemname) VALUES 
+(1, 'Vegetables', 'Artichoke'),
+(1, 'Vegetables', 'Arugula'),
+(1, 'Vegetables', 'Asparagus'),
+(1, 'Vegetables', 'Aubergine'),
+(1, 'Vegetables', 'Amaranth Leaves'),
+(1, 'Vegetables', 'Avocado'),
+(1, 'Vegetables', 'Bamboo Shoots'),
+(1, 'Vegetables', 'Bean Sprouts'),
+(1, 'Vegetables', 'Beets'),
+(1, 'Vegetables', 'Bell Pepper'),
+(1, 'Vegetables', 'Bitter Melon'),
+(1, 'Vegetables', 'Black Beans'),
+(1, 'Vegetables', 'Bok Choy'),
+(1, 'Vegetables', 'Broccoli'),
+(1, 'Vegetables', 'Brussels Sprouts'),
+(1, 'Vegetables', 'Butternut Squash'),
+(1, 'Vegetables', 'Cabbage'),
+(1, 'Vegetables', 'Carrot'),
+(1, 'Vegetables', 'Cauliflower'),
+(1, 'Vegetables', 'Celery'),
+(1, 'Vegetables', 'Chard'),
+(1, 'Vegetables', 'Chickpeas'),
+(1, 'Vegetables', 'Chili Pepper'),
+(1, 'Vegetables', 'Chinese Broccoli'),
+(1, 'Vegetables', 'Cilantro'),
+(1, 'Vegetables', 'Collard Greens'),
+(1, 'Vegetables', 'Corn'),
+(1, 'Vegetables', 'Cucumber'),
+(1, 'Vegetables', 'Daikon Radish'),
+(1, 'Vegetables', 'Dandelion Greens'),
+(1, 'Vegetables', 'Edamame'),
+(1, 'Vegetables', 'Eggplant'),
+(1, 'Vegetables', 'Endive'),
+(1, 'Vegetables', 'Fennel'),
+(1, 'Vegetables', 'Garlic'),
+(1, 'Vegetables', 'Ginger'),
+(1, 'Vegetables', 'Green Beans'),
+(1, 'Vegetables', 'Horseradish'),
+(1, 'Vegetables', 'Jalapeno'),
+(1, 'Vegetables', 'Kale'),
+(1, 'Vegetables', 'Kohlrabi'),
+(1, 'Vegetables', 'Leek'),
+(1, 'Vegetables', 'Lentils'),
+(1, 'Vegetables', 'Lettuce'),
+(1, 'Vegetables', 'Lima Beans'),
+(1, 'Vegetables', 'Mushrooms'),
+(1, 'Vegetables', 'Mustard Greens'),
+(1, 'Vegetables', 'Okra'),
+(1, 'Vegetables', 'Onion'),
+(1, 'Vegetables', 'Parsnip'),
+(2, 'Fruits', 'Apple'),
+(2, 'Fruits', 'Apricot'),
+(2, 'Fruits', 'Avocado'),
+(2, 'Fruits', 'Banana'),
+(2, 'Fruits', 'Blackberry'),
+(2, 'Fruits', 'Blueberry'),
+(2, 'Fruits', 'Boysenberry'),
+(2, 'Fruits', 'Cantaloupe'),
+(2, 'Fruits', 'Cherry'),
+(2, 'Fruits', 'Clementine'),
+(2, 'Fruits', 'Coconut'),
+(2, 'Fruits', 'Cranberry'),
+(2, 'Fruits', 'Date'),
+(2, 'Fruits', 'Dragonfruit'),
+(2, 'Fruits', 'Durian'),
+(2, 'Fruits', 'Elderberry'),
+(2, 'Fruits', 'Feijoa'),
+(2, 'Fruits', 'Fig'),
+(2, 'Fruits', 'Goji Berry'),
+(2, 'Fruits', 'Gooseberry'),
+(2, 'Fruits', 'Grape'),
+(2, 'Fruits', 'Grapefruit'),
+(2, 'Fruits', 'Guava'),
+(2, 'Fruits', 'Honeydew Melon'),
+(2, 'Fruits', 'Jackfruit'),
+(2, 'Fruits', 'Kiwi'),
+(2, 'Fruits', 'Kumquat'),
+(2, 'Fruits', 'Lemon'),
+(2, 'Fruits', 'Lime'),
+(2, 'Fruits', 'Lychee'),
+(2, 'Fruits', 'Mango'),
+(2, 'Fruits', 'Mulberry'),
+(2, 'Fruits', 'Nectarine'),
+(2, 'Fruits', 'Orange'),
+(2, 'Fruits', 'Papaya'),
+(2, 'Fruits', 'Passionfruit'),
+(2, 'Fruits', 'Peach'),
+(2, 'Fruits', 'Pear'),
+(2, 'Fruits', 'Persimmon'),
+(2, 'Fruits', 'Pineapple'),
+(2, 'Fruits', 'Plum'),
+(2, 'Fruits', 'Pomegranate'),
+(2, 'Fruits', 'Quince'),
+(2, 'Fruits', 'Raspberry'),
+(2, 'Fruits', 'Red Currant'),
+(2, 'Fruits', 'Starfruit'),
+(2, 'Fruits', 'Strawberry'),
+(2, 'Fruits', 'Tangerine'),
+(2, 'Fruits', 'Ugli Fruit'),
+(2, 'Fruits', 'Watermelon'),
+(3, 'Beverages', 'Apple Juice'),
+(3, 'Beverages', 'Black Tea'),
+(3, 'Beverages', 'Coffee'),
+(3, 'Beverages', 'Espresso'),
+(3, 'Beverages', 'Green Tea'),
+(3, 'Beverages', 'Herbal Tea'),
+(3, 'Beverages', 'Hot Chocolate'),
+(3, 'Beverages', 'Iced Coffee'),
+(3, 'Beverages', 'Iced Tea'),
+(3, 'Beverages', 'Lemonade'),
+(3, 'Beverages', 'Mango Juice'),
+(3, 'Beverages', 'Mineral Water'),
+(3, 'Beverages', 'Orange Juice'),
+(3, 'Beverages', 'Peach Juice'),
+(3, 'Beverages', 'Pineapple Juice'),
+(3, 'Beverages', 'Raspberry Juice'),
+(3, 'Beverages', 'Root Beer'),
+(3, 'Beverages', 'Seltzer Water'),
+(3, 'Beverages', 'Soda'),
+(3, 'Beverages', 'Soy Milk'),
+(3, 'Beverages', 'Sports Drink'),
+(3, 'Beverages', 'Strawberry Juice'),
+(3, 'Beverages', 'Tomato Juice'),
+(3, 'Beverages', 'Vanilla Milkshake'),
+(3, 'Beverages', 'Vegetable Juice'),
+(3, 'Beverages', 'Water'),
+(3, 'Beverages', 'Wheatgrass Juice'),
+(3, 'Beverages', 'White Tea'),
+(3, 'Beverages', 'Yogurt Smoothie'),
+(3, 'Beverages', 'Zucchini Juice'),
+(3, 'Beverages', 'Juice'),
+(3, 'Beverages', 'Soda'),
+(4, 'Alcoholic Beverages', 'Beer'),
+(4, 'Alcoholic Beverages', 'Whiskey'),
+(4, 'Alcoholic Beverages', 'Vodka'),
+(4, 'Alcoholic Beverages', 'Tequila'),
+(4, 'Alcoholic Beverages', 'Rum'),
+(4, 'Alcoholic Beverages', 'Red Wine'),
+(4, 'Alcoholic Beverages', 'White Wine'),
+(4, 'Alcoholic Beverages', 'Champagne'),
+(4, 'Alcoholic Beverages', 'Gin'),
+(4, 'Alcoholic Beverages', 'Brandy'),
+(4, 'Alcoholic Beverages', 'Cognac'),
+(4, 'Alcoholic Beverages', 'Sake'),
+(4, 'Alcoholic Beverages', 'Mead'),
+(4, 'Alcoholic Beverages', 'Bourbon'),
+(4, 'Alcoholic Beverages', 'Scotch'),
+(4, 'Alcoholic Beverages', 'Margarita'),
+(4, 'Alcoholic Beverages', 'Mojito'),
+(4, 'Alcoholic Beverages', 'Martini'),
+(4, 'Alcoholic Beverages', 'Cosmopolitan'),
+(4, 'Alcoholic Beverages', 'Pina Colada'),
+(4, 'Alcoholic Beverages', 'Bloody Mary'),
+(4, 'Alcoholic Beverages', 'Irish Coffee'),
+(4, 'Alcoholic Beverages', 'Sangria'),
+(4, 'Alcoholic Beverages', 'Mimosa'),
+(4, 'Alcoholic Beverages', 'Port Wine'),
+(5, 'Bakery', 'Bagel'),
+(5, 'Bakery', 'Baguette'),
+(5, 'Bakery', 'Biscotti'),
+(5, 'Bakery', 'Biscuit'),
+(5, 'Bakery', 'Bread'),
+(5, 'Bakery', 'Bread Roll'),
+(5, 'Bakery', 'Brioche'),
+(5, 'Bakery', 'Brownie'),
+(5, 'Bakery', 'Bundt Cake'),
+(5, 'Bakery', 'Butter Croissant'),
+(5, 'Bakery', 'Cheese Danish'),
+(5, 'Bakery', 'Chocolate Cake'),
+(5, 'Bakery', 'Chocolate Chip Cookie'),
+(5, 'Bakery', 'Cinnamon Roll'),
+(5, 'Bakery', 'Ciabatta'),
+(5, 'Bakery', 'Croissant'),
+(5, 'Bakery', 'Cupcake'),
+(5, 'Bakery', 'Donut'),
+(5, 'Bakery', 'Eclair'),
+(5, 'Bakery', 'Flatbread'),
+(5, 'Bakery', 'Focaccia'),
+(5, 'Bakery', 'French Bread'),
+(5, 'Bakery', 'Garlic Bread'),
+(5, 'Bakery', 'Gingerbread'),
+(5, 'Bakery', 'Hot Cross Bun'),
+(5, 'Bakery', 'Macaron'),
+(5, 'Bakery', 'Muffin'),
+(5, 'Bakery', 'Naan'),
+(5, 'Bakery', 'Panettone'),
+(5, 'Bakery', 'Pita Bread'),
+(5, 'Bakery', 'Pound Cake'),
+(5, 'Bakery', 'Pretzel'),
+(5, 'Bakery', 'Rye Bread'),
+(5, 'Bakery', 'Scone'),
+(5, 'Bakery', 'Shortbread'),
+(5, 'Bakery', 'Sourdough Bread'),
+(5, 'Bakery', 'Tart'),
+(6, 'Dairy Products', 'Blue Cheese'),
+(6, 'Dairy Products', 'Butter'),
+(6, 'Dairy Products', 'Buttermilk'),
+(6, 'Dairy Products', 'Cheddar Cheese'),
+(6, 'Dairy Products', 'Condensed Milk'),
+(6, 'Dairy Products', 'Cottage Cheese'),
+(6, 'Dairy Products', 'Cream Cheese'),
+(6, 'Dairy Products', 'Evaporated Milk'),
+(6, 'Dairy Products', 'Feta Cheese'),
+(6, 'Dairy Products', 'Gelato'),
+(6, 'Dairy Products', 'Goat Milk'),
+(6, 'Dairy Products', 'Gouda Cheese'),
+(6, 'Dairy Products', 'Greek Yogurt'),
+(6, 'Dairy Products', 'Heavy Cream'),
+(6, 'Dairy Products', 'Ice Cream'),
+(6, 'Dairy Products', 'Kefir'),
+(6, 'Dairy Products', 'Milk'),
+(6, 'Dairy Products', 'Mozzarella Cheese'),
+(6, 'Dairy Products', 'Parmesan Cheese'),
+(6, 'Dairy Products', 'Powdered Milk'),
+(6, 'Dairy Products', 'Ricotta Cheese'),
+(6, 'Dairy Products', 'Skim Milk'),
+(6, 'Dairy Products', 'Sour Cream'),
+(6, 'Dairy Products', 'Swiss Cheese'),
+(6, 'Dairy Products', 'Whole Milk'),
+(6, 'Dairy Products', 'Yogurt'),
+(7, 'Seafood', 'Anchovy'),
+(7, 'Seafood', 'Barramundi'),
+(7, 'Seafood', 'Bass'),
+(7, 'Seafood', 'Calamari'),
+(7, 'Seafood', 'Catfish'),
+(7, 'Seafood', 'Clam'),
+(7, 'Seafood', 'Cod'),
+(7, 'Seafood', 'Crab'),
+(7, 'Seafood', 'Crayfish'),
+(7, 'Seafood', 'Eel'),
+(7, 'Seafood', 'Flounder'),
+(7, 'Seafood', 'Fish'),
+(7, 'Seafood', 'Grouper'),
+(7, 'Seafood', 'Haddock'),
+(7, 'Seafood', 'Halibut'),
+(7, 'Seafood', 'Herring'),
+(7, 'Seafood', 'Lobster'),
+(7, 'Seafood', 'Mackerel'),
+(7, 'Seafood', 'Mahi Mahi'),
+(7, 'Seafood', 'Mussel'),
+(7, 'Seafood', 'Octopus'),
+(7, 'Seafood', 'Oyster'),
+(7, 'Seafood', 'Perch'),
+(7, 'Seafood', 'Pike'),
+(7, 'Seafood', 'Pollock'),
+(7, 'Seafood', 'Prawn'),
+(7, 'Seafood', 'Salmon'),
+(7, 'Seafood', 'Sardine'),
+(7, 'Seafood', 'Scallop'),
+(7, 'Seafood', 'Shrimp'),
+(7, 'Seafood', 'Trout'),
+(8, 'Meat', 'Bacon'),
+(8, 'Meat', 'Beef'),
+(8, 'Meat', 'Beef Ribs'),
+(8, 'Meat', 'Brisket'),
+(8, 'Meat', 'Chicken'),
+(8, 'Meat', 'Chicken Breast'),
+(8, 'Meat', 'Chicken Thighs'),
+(8, 'Meat', 'Chicken Wings'),
+(8, 'Meat', 'Corned Beef'),
+(8, 'Meat', 'Duck'),
+(8, 'Meat', 'Goat'),
+(8, 'Meat', 'Ground Beef'),
+(8, 'Meat', 'Ham'),
+(8, 'Meat', 'Hot Dogs'),
+(8, 'Meat', 'Lamb'),
+(8, 'Meat', 'Lamb Chops'),
+(8, 'Meat', 'Liver'),
+(8, 'Meat', 'Meatballs'),
+(8, 'Meat', 'Mutton'),
+(8, 'Meat', 'Pork'),
+(8, 'Meat', 'Pork Belly'),
+(8, 'Meat', 'Pork Chops'),
+(8, 'Meat', 'Pork Ribs'),
+(8, 'Meat', 'Prosciutto'),
+(8, 'Meat', 'Roast Beef'),
+(8, 'Meat', 'Salami'),
+(8, 'Meat', 'Sausage'),
+(8, 'Meat', 'Steak'),
+(8, 'Meat', 'Turkey'),
+(8, 'Meat', 'Veal'),
+(9, 'Egg Products', 'Boiled Eggs'),
+(9, 'Egg Products', 'Cage-Free Eggs'),
+(9, 'Egg Products', 'Deviled Eggs'),
+(9, 'Egg Products', 'Duck Eggs'),
+(9, 'Egg Products', 'Egg'),
+(9, 'Egg Products', 'Egg Salad'),
+(9, 'Egg Products', 'Egg Whites'),
+(9, 'Egg Products', 'Egg Yolks'),
+(9, 'Egg Products', 'Eggnog'),
+(9, 'Egg Products', 'Fried Eggs'),
+(9, 'Egg Products', 'Hard-Boiled Eggs'),
+(9, 'Egg Products', 'Liquid Egg Product'),
+(9, 'Egg Products', 'Omelettes'),
+(9, 'Egg Products', 'Organic Eggs'),
+(9, 'Egg Products', 'Poached Eggs'),
+(9, 'Egg Products', 'Quail Eggs'),
+(9, 'Egg Products', 'Scrambled Eggs'),
+(9, 'Egg Products', 'Soft-Boiled Eggs'),
+(9, 'Egg Products', 'Sunny-Side Up Eggs'),
+(9, 'Egg Products', 'Tamagoyaki'),
+(9, 'Egg Products', 'Turkey Eggs'),
+(10, 'Confectionery', 'Apple Pie'),
+(10, 'Confectionery', 'Brownies'),
+(10, 'Confectionery', 'Butterscotch'),
+(10, 'Confectionery', 'Candy Canes'),
+(10, 'Confectionery', 'Caramel'),
+(10, 'Confectionery', 'Cheesecake'),
+(10, 'Confectionery', 'Chocolate'),
+(10, 'Confectionery', 'Chocolate Bars'),
+(10, 'Confectionery', 'Chocolate Chip Cookies'),
+(10, 'Confectionery', 'Cotton Candy'),
+(10, 'Confectionery', 'Cupcakes'),
+(10, 'Confectionery', 'Doughnuts'),
+(10, 'Confectionery', 'Fruitcake'),
+(10, 'Confectionery', 'Fudge'),
+(10, 'Confectionery', 'Gelato'),
+(10, 'Confectionery', 'Gingerbread'),
+(10, 'Confectionery', 'Gumdrops'),
+(10, 'Confectionery', 'Gummies'),
+(10, 'Confectionery', 'Hard Candy'),
+(10, 'Confectionery', 'Ice Cream'),
+(10, 'Confectionery', 'Jelly Beans'),
+(10, 'Confectionery', 'Lollipops'),
+(10, 'Confectionery', 'Macarons'),
+(10, 'Confectionery', 'Marshmallows'),
+(10, 'Confectionery', 'Meringue'),
+(10, 'Confectionery', 'Muffins'),
+(10, 'Confectionery', 'Peanut Brittle'),
+(10, 'Confectionery', 'Pecan Pie'),
+(10, 'Confectionery', 'Pralines'),
+(10, 'Confectionery', 'Taffy'),
+(11, 'Condiments', 'Apple Cider Vinegar'),
+(11, 'Condiments', 'Balsamic Vinegar'),
+(11, 'Condiments', 'Barbecue Sauce'),
+(11, 'Condiments', 'Basil'),
+(11, 'Condiments', 'Bay Leaves'),
+(11, 'Condiments', 'Black Pepper'),
+(11, 'Condiments', 'Chili Powder'),
+(11, 'Condiments', 'Cinnamon'),
+(11, 'Condiments', 'Clove'),
+(11, 'Condiments', 'Cumin'),
+(11, 'Condiments', 'Curry Powder'),
+(11, 'Condiments', 'Dill'),
+(11, 'Condiments', 'Garlic Powder'),
+(11, 'Condiments', 'Honey Mustard'),
+(11, 'Condiments', 'Horseradish'),
+(11, 'Condiments', 'Hot Sauce'),
+(11, 'Condiments', 'Italian Seasoning'),
+(11, 'Condiments', 'Ketchup'),
+(11, 'Condiments', 'Mayo'),
+(11, 'Condiments', 'Mint'),
+(11, 'Condiments', 'Nutmeg'),
+(11, 'Condiments', 'Oregano'),
+(11, 'Condiments', 'Paprika'),
+(11, 'Condiments', 'Parsley'),
+(11, 'Condiments', 'Rosemary'),
+(11, 'Condiments', 'Sage'),
+(11, 'Condiments', 'Sea Salt'),
+(11, 'Condiments', 'Soy Sauce'),
+(11, 'Condiments', 'Thyme'),
+(11, 'Condiments', 'Worcestershire Sauce'),
+(12, 'Gluten-Free', 'Almond Flour'),
+(12, 'Gluten-Free', 'Brown Rice'),
+(12, 'Gluten-Free', 'Buckwheat'),
+(12, 'Gluten-Free', 'Coconut Flour'),
+(12, 'Gluten-Free', 'Cornstarch'),
+(12, 'Gluten-Free', 'Gluten-Free Bread'),
+(12, 'Gluten-Free', 'Gluten-Free Pasta'),
+(12, 'Gluten-Free', 'Millet'),
+(12, 'Gluten-Free', 'Oats'),
+(12, 'Gluten-Free', 'Polenta'),
+(12, 'Gluten-Free', 'Quinoa'),
+(12, 'Gluten-Free', 'Rice Noodles'),
+(12, 'Gluten-Free', 'Sorghum'),
+(12, 'Gluten-Free', 'Tapioca'),
+(12, 'Gluten-Free', 'Teff'),
+(13, 'Nuts and Seeds', 'Almonds'),
+(13, 'Nuts and Seeds', 'Brazil Nuts'),
+(13, 'Nuts and Seeds', 'Cashews'),
+(13, 'Nuts and Seeds', 'Chia Seeds'),
+(13, 'Nuts and Seeds', 'Flax Seeds'),
+(13, 'Nuts and Seeds', 'Hazelnuts'),
+(13, 'Nuts and Seeds', 'Hemp Seeds'),
+(13, 'Nuts and Seeds', 'Macadamia Nuts'),
+(13, 'Nuts and Seeds', 'Peanuts'),
+(13, 'Nuts and Seeds', 'Pecans'),
+(13, 'Nuts and Seeds', 'Pine Nuts'),
+(13, 'Nuts and Seeds', 'Pistachios'),
+(13, 'Nuts and Seeds', 'Pumpkin Seeds'),
+(13, 'Nuts and Seeds', 'Sesame Seeds'),
+(13, 'Nuts and Seeds', 'Sunflower Seeds'),
+(13, 'Nuts and Seeds', 'Walnuts'),
+(13, 'Nuts and Seeds', 'Almond Butter'),
+(13, 'Nuts and Seeds', 'Peanut Butter'),
+(13, 'Nuts and Seeds', 'Sunflower Butter'),
+(13, 'Nuts and Seeds', 'Tahini'),
+(14, 'Canned Foods', 'Baked Beans'),
+(14, 'Canned Foods', 'Canned Corn'),
+(14, 'Canned Foods', 'Canned Fruit Cocktail'),
+(14, 'Canned Foods', 'Canned Mushrooms'),
+(14, 'Canned Foods', 'Canned Peaches'),
+(14, 'Canned Foods', 'Canned Peas'),
+(14, 'Canned Foods', 'Canned Pineapple'),
+(14, 'Canned Foods', 'Canned Pumpkin'),
+(14, 'Canned Foods', 'Canned Sardines'),
+(14, 'Canned Foods', 'Canned Soup'),
+(14, 'Canned Foods', 'Canned Tomatoes'),
+(14, 'Canned Foods', 'Canned Tuna'),
+(14, 'Canned Foods', 'Canned Chicken'),
+(14, 'Canned Foods', 'Chili Con Carne'),
+(14, 'Canned Foods', 'Spaghetti in Tomato Sauce'),
+(15, 'Pasta', 'Angel Hair'),
+(15, 'Pasta', 'Cannelloni'),
+(15, 'Pasta', 'Cavatappi'),
+(15, 'Pasta', 'Farfalle'),
+(15, 'Pasta', 'Fettuccine'),
+(15, 'Pasta', 'Fusilli'),
+(15, 'Pasta', 'Gnocchi'),
+(15, 'Pasta', 'Lasagna'),
+(15, 'Pasta', 'Linguine'),
+(15, 'Pasta', 'Macaroni'),
+(15, 'Pasta', 'Orzo'),
+(15, 'Pasta', 'Pappardelle'),
+(15, 'Pasta', 'Penne'),
+(15, 'Pasta', 'Ravioli'),
+(15, 'Pasta', 'Rigatoni'),
+(15, 'Pasta', 'Rotini'),
+(15, 'Pasta', 'Spaghetti'),
+(15, 'Pasta', 'Tagliatelle'),
+(15, 'Pasta', 'Tortellini'),
+(15, 'Pasta', 'Ziti'),
+(16, 'Rice', 'Arborio Rice'),
+(16, 'Rice', 'Basmati Rice'),
+(16, 'Rice', 'Black Rice'),
+(16, 'Rice', 'Brown Rice'),
+(16, 'Rice', 'Glutinous Rice'),
+(16, 'Rice', 'Jasmine Rice'),
+(16, 'Rice', 'Long Grain Rice'),
+(16, 'Rice', 'Medium Grain Rice'),
+(16, 'Rice', 'Parboiled Rice'),
+(16, 'Rice', 'Red Rice'),
+(16, 'Rice', 'Short Grain Rice'),
+(16, 'Rice', 'Sushi Rice'),
+(16, 'Rice', 'Valencia Rice'),
+(16, 'Rice', 'White Rice'),
+(16, 'Rice', 'Wild Rice'),
+(17, 'Oils and Fats', 'Avocado Oil'),
+(17, 'Oils and Fats', 'Butter'),
+(17, 'Oils and Fats', 'Canola Oil'),
+(17, 'Oils and Fats', 'Coconut Oil'),
+(17, 'Oils and Fats', 'Corn Oil'),
+(17, 'Oils and Fats', 'Flaxseed Oil'),
+(17, 'Oils and Fats', 'Ghee'),
+(17, 'Oils and Fats', 'Grapeseed Oil'),
+(17, 'Oils and Fats', 'Lard'),
+(17, 'Oils and Fats', 'Olive Oil'),
+(17, 'Oils and Fats', 'Palm Oil'),
+(17, 'Oils and Fats', 'Peanut Oil'),
+(17, 'Oils and Fats', 'Sesame Oil'),
+(17, 'Oils and Fats', 'Sunflower Oil'),
+(17, 'Oils and Fats', 'Vegetable Oil');
