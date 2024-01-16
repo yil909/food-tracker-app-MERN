@@ -6,15 +6,27 @@ function useFoodItem() {
   const [foodMetric, setFoodMetric] = useState([]);
   const [wasteMetric, setWasteMetric] = useState([]);
   const [usageWasteData, setUsageWasteData] = useState([]);
+  const [foodItemByCategory, setFoodItemByCategory] = useState([]);
 
   const getFoodItem = async () => {
     try {
       const response = await axios.get("http://localhost:5555/fooditems");
       setFoodItem(response.data);
+
     } catch (error) {
       console.error("Error fetching FoodItem data:", error);
     }
   };
+
+  const getFoodItemByCategory = async (categoryName) => {
+    try {
+      const response = await axios.get(`http://localhost:5555/fooditemssortbycategory/${categoryName}`);
+      setFoodItemByCategory(response.data);
+    }catch (error){
+      console.error("Error fetching FoodItem data:", error)
+    }
+  }
+
 
   const getFoodMetric = async () => {
     try {
@@ -95,6 +107,7 @@ function useFoodItem() {
   };
   return {
     foodItem,
+    foodItemByCategory,
     foodMetric,
     wasteMetric,
     usageWasteData,
@@ -105,6 +118,7 @@ function useFoodItem() {
     getFoodMetric,
     getWasteMetric,
     getUsageWasteData,
+    getFoodItemByCategory,
   };
 }
 
