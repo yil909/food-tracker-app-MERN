@@ -13,8 +13,8 @@ function Login() {
 
   return (
     <div className="login-container">
-      <div className="logo">
-      <img src={logoIcon} alt="logo" />
+      <div className="logo-pic">
+      <img src={logoIcon} alt="Logo" />
       </div>
       <div className="login-content">
         <div className="small-icon-and-welcome">
