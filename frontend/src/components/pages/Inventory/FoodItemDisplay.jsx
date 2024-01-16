@@ -4,6 +4,7 @@ import "./FoodItemDisplay.css";
 import Layout from "../../common/Layout";
 import EditDialogBox from "./EditDialogBox.jsx";
 import AddDialogBox from "./AddDialogBox.jsx";
+import CookMenu from "./CookMenu.jsx";
 import usePageTitleAndFavicon from "../../../hooks/usePageTitleAndFavicon.js";
 import logo from "../../../assets/icons/logo.png";
 import CustomModal from "../../common/CustomModal.jsx";
@@ -68,10 +69,12 @@ function FoodItemDisplay() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [isCookMenuOpen, setCookMenuOpen] = useState(false);
   // Constants for items per page in pagination
   const itemsPerPage = 10;
   // Custom hook for fetching food items
   const { foodMetric, foodItem, getFoodItem, getFoodMetric } = useFoodItem();
+  
 
   useEffect(() => {
     if (!isDialogOpen) {
@@ -135,6 +138,14 @@ function FoodItemDisplay() {
     // Add logic to handle adding the new food item to your data source
     // For example, you can update the state or make an API call
     console.log("Adding new food item:", newFoodItem);
+  };
+
+  const handleCookClick = () => {
+    setCookMenuOpen(true);
+  };
+
+  const closeCookMenu = () => {
+    setCookMenuOpen(false);
   };
 
   usePageTitleAndFavicon("Inventory - Food Waste Tracker", logo);
@@ -218,6 +229,11 @@ function FoodItemDisplay() {
         <div className="section-header">
           <h2>Food Items</h2>
           <div className="header-buttons">
+            <button className="cook-button" onClick={handleCookClick}>
+              Cook
+            </button>
+            {/* CookMenu modal */}
+            {isCookMenuOpen && <CookMenu onClose={closeCookMenu} />}
             <button className="edit-button" onClick={handleEditClick}>
               {isEditing ? <EditOutlined /> : <EditOutlined />} Edit
             </button>
