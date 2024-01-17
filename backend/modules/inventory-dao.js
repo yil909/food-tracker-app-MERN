@@ -287,3 +287,40 @@ async function getIngredientList(dishid, userid) {
 }
 
 export { getIngredientList };
+
+async function getMatchedFoodItem(foodname, userid) {
+  const db = await openDatabase();
+  const matchedFoodItem = await db.all(SQL`
+  SELECT
+  m.dishid,
+  m.userid,
+  m.dishname,
+  m.dishpic,
+  m.ingredientname,
+  m.weight,
+  m.preservationtime,
+  f.itemid AS fooditemid,
+  f.userid AS fooditem_userid,
+  f.foodCategoryid,
+  f.name AS fooditem_name,
+  f.quantity AS fooditem_quantity,
+  f.unit AS fooditem_unit,
+  f.timestamp AS fooditem_timestamp,
+  f.batchnumber AS fooditem_batchnumber,
+  f.expirydate AS fooditem_expirydate,
+  f.pricePerUnit AS fooditem_pricePerUnit
+FROM
+  menu m
+JOIN
+  fooditem f ON m.ingredientname = f.name
+WHERE
+  m.userid = ${userid} AND
+  m.ingredientname = ${foodname}
+ORDER BY
+  f.batchnumber ASC 
+LIMIT 1; 
+  `);
+  return matchedFoodItem;
+}
+
+export { getMatchedFoodItem };

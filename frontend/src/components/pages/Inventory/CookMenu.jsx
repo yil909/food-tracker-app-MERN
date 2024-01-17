@@ -4,7 +4,7 @@ import useFoodItem from "../../../hooks/useFoodItem";
 import "./CookMenu.css";
 
 const CookMenu = ({ onClose }) => {
-  const { cookMenu, getCookMenu, ingredientList, getIngredientList } =
+  const { cookMenu, getCookMenu, ingredientList, getIngredientList, cookDish } =
     useFoodItem();
   const [selectedDishId, setSelectedDishId] = useState(null);
 
@@ -24,6 +24,13 @@ const CookMenu = ({ onClose }) => {
     console.log("Selected Dish ID:", dishId);
     // Update the selected dish id
     setSelectedDishId(dishId);
+  };
+
+  const handleCookClick = () => {
+    if (selectedDishId !== null) {
+      // Cook the selected dish
+      cookDish(selectedDishId, 1); // Assuming userid is 1
+    }
   };
 
   return (
@@ -75,7 +82,9 @@ const CookMenu = ({ onClose }) => {
                     </tbody>
                   </table>
                 </div>
-                <button className="modal-button cook">Cook This</button>
+                <button className="modal-button cook" onClick={handleCookClick}>
+                  Cook This
+                </button>
               </div>
             </div>
           ))}
