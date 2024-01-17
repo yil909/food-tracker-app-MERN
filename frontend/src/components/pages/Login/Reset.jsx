@@ -28,7 +28,7 @@ function Reset() {
 
     return (
       <div className="reset-container">
-        <div className="logo">
+        <div className="logo-pic">
           <img src={logoIcon} alt="Logo" />
         </div>
         <div className="reset-content">
