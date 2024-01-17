@@ -7,6 +7,7 @@ import {
   createTransLog,
   getFoodMetricByUserId,
   getFoodItemWithAllColumn,
+  getFoodItemsByUserIdAndCategoryName,
   getCookMenuByUserId,
   getIngredientList,
   getMatchedFoodItem,
@@ -22,6 +23,17 @@ router.get("/fooditems", async (req, res) => {
     const foodItems = await getFoodItemByUserId(1);
     res.json(foodItems);
     //console.log(JSON.stringify(foodItems, null, 2));
+  } catch (error) {
+    console.error("Error retrieving food items:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+router.get("/fooditemssortbycategory/:categoryname", async (req, res) => {
+  try {
+    const {categoryname} = req.params;
+    const foodItems = await getFoodItemsByUserIdAndCategoryName(1, categoryname)
+    res.json(foodItems);
   } catch (error) {
     console.error("Error retrieving food items:", error);
     res.status(500).json({ error: "Internal Server Error" });
