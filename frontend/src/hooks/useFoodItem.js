@@ -7,13 +7,11 @@ function useFoodItem() {
   const [foodMetric, setFoodMetric] = useState([]);
   const [wasteMetric, setWasteMetric] = useState([]);
   const [usageWasteData, setUsageWasteData] = useState([]);
-<<<<<<< HEAD
   const [foodItemByCategory, setFoodItemByCategory] = useState([]);
-=======
   const [locationRanking, setLocationRanking] = useState([]);
   const [cookMenu, setCookMenu] = useState([]);
   const [ingredientList, setIngrdList] = useState([]);
->>>>>>> 73a8caf8745fa64311f7db311f0ff5327d503ec5
+
 
   const getFoodItem = async () => {
     try {
@@ -27,7 +25,8 @@ function useFoodItem() {
 
   const getFoodItemByCategory = async (categoryName) => {
     try {
-      const response = await axios.get(`http://localhost:5555/fooditemssortbycategory/${categoryName}`);
+      const response = await axios.get(`http://`+LOCAL_IP+`:`+PORT+`/fooditemssortbycategory/${categoryName}`);
+
       setFoodItemByCategory(response.data);
     }catch (error){
       console.error("Error fetching FoodItem data:", error)
@@ -162,13 +161,11 @@ function useFoodItem() {
     getFoodMetric,
     getWasteMetric,
     getUsageWasteData,
-<<<<<<< HEAD
     getFoodItemByCategory,
-=======
     getLocationRanking,
     getCookMenu,
     getIngredientList,
->>>>>>> 73a8caf8745fa64311f7db311f0ff5327d503ec5
+
   };
 }
 

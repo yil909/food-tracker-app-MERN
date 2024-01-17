@@ -6,6 +6,7 @@ import Layout from "../../common/Layout.jsx";
 import "./ProfilePage.css"; // Ensure you have the CSS file in the correct path
 import usePageTitleAndFavicon from "../../../hooks/usePageTitleAndFavicon";
 import logo from "../../../assets/icons/logo.png";
+import {LOCAL_IP, PORT} from "../../../../../backend/config.js";
 
 const ProfilePage = () => {
   usePageTitleAndFavicon("Profile - Food Waste Tracker", logo);
@@ -15,7 +16,7 @@ const ProfilePage = () => {
 
   async function getRestInfo() {
     try {
-      const response = await axios.get("http://localhost:5555/restInfo");
+      const response = await axios.get(`http://${LOCAL_IP}:${PORT}/restInfo`);
       setRestInfo(response.data);
     } catch (error) {
       console.log("Error fetching data:", error);
