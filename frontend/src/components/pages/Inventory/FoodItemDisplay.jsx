@@ -77,8 +77,8 @@ function FoodItemDisplay() {
   const itemsPerPage = 10;
   // Custom hook for fetching food items
 
-  const { foodMetric, foodItem,foodItemByCategory,getFoodItemByCategory, getFoodItem, getFoodMetric } = useFoodItem();
-  const { foodCategory, getFoodCategory} = useFoodCategory();
+  const {foodMetric, foodItem, foodItemByCategory, getFoodItemByCategory, getFoodItem, getFoodMetric} = useFoodItem();
+  const {foodCategory, getFoodCategory} = useFoodCategory();
 
 
   useEffect(() => {
@@ -214,7 +214,7 @@ function FoodItemDisplay() {
     setIsFilterOpen(true);
   };
 
-  const handleCategorySelect = (category) =>{
+  const handleCategorySelect = (category) => {
     setSelectedCategory(category);
   };
 
@@ -240,191 +240,221 @@ function FoodItemDisplay() {
     console.log(foodItemByCategory);
   }, [foodItemByCategory]);
 
-  function isFilterClicked (isFilterClicked){
+  function isFilterClicked(isFilterClicked) {
     setFilterClicked(isFilterClicked);
 
   }
 
+//sorting logic
+  const [sortColumn, setSortColumn] = useState('');
+  const [sortDirection, setSortDirection] = useState('asc'); // 'asc' 或 'desc'
+
+  // 处理点击排序
+  const handleSort = (column) => {
+    if (sortColumn === column) {
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortColumn(column);
+      setSortDirection('asc');
+    }
+  };
+
+  // 排序数据
+  const sortedFoodItems = () => {
+    let itemsToSort = filterClicked ? foodItemByCategory : foodItem;
+    if (!sortColumn) return itemsToSort;
+
+    return [...itemsToSort].sort((a, b) => {
+      if (a[sortColumn] < b[sortColumn]) {
+        return sortDirection === 'asc' ? -1 : 1;
+      }
+      if (a[sortColumn] > b[sortColumn]) {
+        return sortDirection === 'asc' ? 1 : -1;
+      }
+      return 0;
+    });
+  };
+
 
   return (
-    <Layout>
-      {showCustomModal && (
-        <CustomModal
-          message="Please select an item to edit."
-          onClose={() => setShowCustomModal(false)}
-        />
-      )}
-      {/* Section for inventory statistics */}
-      {!isDialogOpen && isLoading && <p>Loading...</p>}
-      <h1 className="inventory-title">Inventory</h1>
-      <div className="inventory-stats">
-        {/* Stat boxes for different inventory metrics */}
-        <div className="stat-box categories">
-          <h3 style={{ fontFamily: "Arial, sans-serif" }}>Categories</h3>
-          <span>{foodMetric[0]?.categories}</span>
-          <div className="subtext">Last 7 days</div>
-        </div>
-        <div className="stat-box total-items">
-          <h3 style={{ fontFamily: "Arial, sans-serif" }}>Total Items</h3>
-          <span style={{ fontFamily: "Arial, sans-serif" }}>
+      <Layout>
+        {showCustomModal && (
+            <CustomModal
+                message="Please select an item to edit."
+                onClose={() => setShowCustomModal(false)}
+            />
+        )}
+        {/* Section for inventory statistics */}
+        {!isDialogOpen && isLoading && <p>Loading...</p>}
+        <h1 className="inventory-title">Inventory</h1>
+        <div className="inventory-stats">
+          {/* Stat boxes for different inventory metrics */}
+          <div className="stat-box categories">
+            <h3 style={{fontFamily: "Arial, sans-serif"}}>Categories</h3>
+            <span>{foodMetric[0]?.categories}</span>
+            <div className="subtext">Last 7 days</div>
+          </div>
+          <div className="stat-box total-items">
+            <h3 style={{fontFamily: "Arial, sans-serif"}}>Total Items</h3>
+            <span style={{fontFamily: "Arial, sans-serif"}}>
             {foodMetric[0]?.totalItems}
-            <small> kg</small>
+              <small> kg</small>
           </span>
-          <div className="subtext">Last 7 days</div>
-        </div>
+            <div className="subtext">Last 7 days</div>
+          </div>
 
-        <div className="stat-box used-items">
-          <h3>Used</h3>
-          <span style={{ fontFamily: "Arial, sans-serif" }}>
+          <div className="stat-box used-items">
+            <h3>Used</h3>
+            <span style={{fontFamily: "Arial, sans-serif"}}>
             {foodMetric[0]?.used}
-            <small> kg</small>
+              <small> kg</small>
           </span>
-          <div className="subtext">Last 7 days</div>
-        </div>
-        <div className="stat-box wasted-items">
-          <h3>Wasted</h3>
-          <span style={{ fontFamily: "Arial, sans-serif" }}>
+            <div className="subtext">Last 7 days</div>
+          </div>
+          <div className="stat-box wasted-items">
+            <h3>Wasted</h3>
+            <span style={{fontFamily: "Arial, sans-serif"}}>
             {foodMetric[0]?.wasted}
-            <small> kg</small>
+              <small> kg</small>
           </span>
-          <div className="subtext">Last 7 days</div>
-        </div>
-        {/* <p></p>
+            <div className="subtext">Last 7 days</div>
+          </div>
+          {/* <p></p>
           <h3>Expired</h3>
           <span>{foodMetric[0]?.expired}</span>
           <div className="subtext">Last 7 days</div>
         </div> */}
-        <div className="stat-box high-risk">
-          <h3>High Risk of Waste</h3>
-          <span style={{ fontFamily: "Arial, sans-serif" }}>
+          <div className="stat-box high-risk">
+            <h3>High Risk of Waste</h3>
+            <span style={{fontFamily: "Arial, sans-serif"}}>
             {foodMetric[0]?.highRisk} <small> kg</small>{" "}
           </span>
-          <div className="subtext">Expire in 4 weeks</div>
+            <div className="subtext">Expire in 4 weeks</div>
+          </div>
         </div>
-      </div>
 
-      {/* Section for food items table */}
-      <div className="food-items-section">
-        <div className="section-header">
-          <h2>Food Items</h2>
-          <div className="header-buttons">
-            <button className="cook-button" onClick={handleCookClick}>
-              Cook
-            </button>
-            {/* CookMenu modal */}
-            {isCookMenuOpen && <CookMenu onClose={closeCookMenu} />}
-            <button className="edit-button" onClick={handleEditClick}>
-              {isEditing ? <EditOutlined /> : <EditOutlined />} Edit
-            </button>
-            <button className="add-item-button" onClick={handleAddClick}>
-              <PlusOutlined /> Add Item
-            </button>
+        {/* Section for food items table */}
+        <div className="food-items-section">
+          <div className="section-header">
+            <h2>Food Items</h2>
+            <div className="header-buttons">
+              <button className="cook-button" onClick={handleCookClick}>
+                Cook
+              </button>
+              {/* CookMenu modal */}
+              {isCookMenuOpen && <CookMenu onClose={closeCookMenu}/>}
+              <button className="edit-button" onClick={handleEditClick}>
+                {isEditing ? <EditOutlined/> : <EditOutlined/>} Edit
+              </button>
+              <button className="add-item-button" onClick={handleAddClick}>
+                <PlusOutlined/> Add Item
+              </button>
 
-            <button className="filters-button" onClick={handleFilterClick}>
-              <FilterOutlined /> Filters
-            </button>
+              <button className="filters-button" onClick={handleFilterClick}>
+                <FilterOutlined/> Filters
+              </button>
 
-            <button className="download-button" onClick={handleDownload}>
-              <DownloadOutlined /> Download all
+              <button className="download-button" onClick={handleDownload}>
+                <DownloadOutlined/> Download all
+              </button>
+            </div>
+          </div>
+
+          <table className="food-items-table">
+            <thead>
+            <tr>
+              {isEditing && <th className="checkbox-header"></th>}
+              <th></th>
+              <th onClick={() => handleSort('categoryname')}>Category</th>
+              <th onClick={() => handleSort('name')}>Name</th>
+              <th onClick={() => handleSort('quantity')}>Original Qty</th>
+              <th onClick={() => handleSort('usedQuantity')}>Used</th>
+              <th onClick={() => handleSort('wastedQuantity')}>Wasted</th>
+              <th onClick={() => handleSort('remainingQuantity')}>Remaining</th>
+              <th onClick={() => handleSort('unit')}>Unit</th>
+              <th onClick={() => handleSort('pricePerUnit')}>Price/Unit</th>
+              <th onClick={() => handleSort('expiryDate')}>Expiry Date</th>
+              <th onClick={() => handleSort('daysUntilExpiry')}>Days Until Expiry</th>
+              {isEditing && <th className="checkbox-header"></th>}
+            </tr>
+            </thead>
+            <tbody>
+            {sortedFoodItems()
+                .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+                .map((item) => (
+                    <tr key={item.itemid}>
+                      {isEditing && (
+                          <td>
+                            <input
+                                type="radio"
+                                name="selectedRow"
+                                value={item.itemid}
+                                checked={selectedItemId === item.itemid}
+                                onChange={handleRadioChange}
+                            />
+                          </td>
+                      )}
+                      <td>{/* 可能用于显示序号或其他信息 */}</td>
+                      <td>{item.categoryname}</td>
+                      <td>{item.name}</td>
+                      <td>{item.quantity}</td>
+                      <td>{item.usedQuantity}</td>
+                      <td>{item.wastedQuantity}</td>
+                      <td>{item.remainingQuantity}</td>
+                      <td>{item.unit}</td>
+                      <td>{item.pricePerUnit}</td>
+                      <td>{item.expiryDate}</td>
+                      <td>{item.daysUntilExpiry}</td>
+                      {isEditing && <td>{/* 可能用于编辑按钮或其他功能 */}</td>}
+                    </tr>
+                ))}
+            </tbody>
+          </table>
+
+          {/* Conditional rendering for 'Edit Selected' button */}
+          {/* Render the dialog box if isDialogOpen is true */}
+          {isDialogOpen && (
+              <EditDialogBox
+                  foodItemDetails={foodItem.find(
+                      (item) => item.itemid === selectedItemId
+                  )}
+                  onClose={closeDialog}
+              />
+          )}
+
+          {/* Render the Adddialog box if isAddDialogOpen is true */}
+          {isAddDialogOpen && (
+              <AddDialogBox onClose={() => setIsAddDialogOpen(false)}/>
+          )}
+
+          {isFilterOpen && (
+              <FilterDialogBox allCategories={allCategoryName} onClose={() => setIsFilterOpen(false)}
+                               onCategorySelect={handleCategorySelect} filterClickChange={isFilterClicked}/>
+          )}
+
+          {/* Pagination controls */}
+          <div className="pagination">
+            <button
+                className="previous-button"
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+            >
+              Previous
+            </button>
+            <span className="page-info">
+            Page {currentPage} of {totalPages}
+          </span>
+            <button
+                className="next-button"
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+            >
+              Next
             </button>
           </div>
         </div>
-        <table className="food-items-table">
-          <thead>
-          <tr>
-            {/* Conditional rendering for edit mode */}
-            {isEditing && <th className="checkbox-header"></th>}
-            {/* Table headers */}
-            <th></th>
-            <th>Category</th>
-            <th>Name</th>
-            <th>Original Qty</th>
-            <th>Used</th>
-            <th>Wasted</th>
-            <th>Remaining</th>
-            <th>Unit</th>
-            <th>Price/Unit</th>
-            <th>Expiry Date</th>
-            <th>Days Until Expiry</th>
-
-            <th className={`checkbox-header ${!isEditing && "hidden"}`}></th>
-          </tr>
-          </thead>
-          <tbody>
-          {/* Mapping food items to table rows based on filterClicked */}
-          {(filterClicked ? foodItemByCategory : foodItem)
-              .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
-              .map((item) => (
-                  <tr key={item.itemid}>
-                    <td>
-                      <input
-                          type="radio"
-                          name="selectedRow"
-                          value={item.itemid}
-                          checked={selectedItemId === item.itemid}
-                          onChange={handleRadioChange}
-                      />
-                    </td>
-                    <td>{item.categoryname}</td>
-                    <td>{item.name}</td>
-                    <td>{item.quantity}</td>
-                    <td>{item.usedQuantity}</td>
-                    <td>{item.wastedQuantity}</td>
-                    <td>{item.remainingQuantity}</td>
-                    <td>{item.unit}</td>
-                    <td>{item.pricePerUnit}</td>
-                    <td>{item.expiryDate}</td>
-                    <td>{item.daysUntilExpiry}</td>
-                    {/* Add more table cells for other columns */}
-                  </tr>
-              ))}
-          </tbody>
-
-        </table>
-        {/* Conditional rendering for 'Edit Selected' button */}
-        {/* Render the dialog box if isDialogOpen is true */}
-        {isDialogOpen && (
-            <EditDialogBox
-                foodItemDetails={foodItem.find(
-                    (item) => item.itemid === selectedItemId
-                )}
-                onClose={closeDialog}
-            />
-        )}
-
-        {/* Render the Adddialog box if isAddDialogOpen is true */}
-        {isAddDialogOpen && (
-            <AddDialogBox onClose={() => setIsAddDialogOpen(false)}/>
-        )}
-
-        {isFilterOpen && (
-            <FilterDialogBox allCategories={allCategoryName} onClose={() => setIsFilterOpen(false)}
-                             onCategorySelect={handleCategorySelect} filterClickChange={isFilterClicked}/>
-        )}
-
-        {/* Pagination controls */}
-        <div className="pagination">
-          <button
-              className="previous-button"
-              onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-          >
-            Previous
-          </button>
-          <span className="page-info">
-            Page {currentPage} of {totalPages}
-          </span>
-          <button
-            className="next-button"
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
-          >
-            Next
-          </button>
-        </div>
-      </div>
-    </Layout>
+      </Layout>
   );
-}
 
-export default FoodItemDisplay;
+}
+  export default FoodItemDisplay;
