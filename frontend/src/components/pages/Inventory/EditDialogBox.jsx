@@ -41,9 +41,9 @@ const EditDialogBox = ({ foodItemDetails, onClose }) => {
   // Update API request to send the updated "foodStatus" property
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
-        <div className="modal-title">
+    <div className="edit-modal-overlay">
+      <div className="edit-modal-content">
+        <div className="edit-modal-title">
           <h2>Edit Food Item</h2>
         </div>
 

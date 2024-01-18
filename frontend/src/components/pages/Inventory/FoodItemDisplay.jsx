@@ -14,10 +14,11 @@ import {
   PlusOutlined,
   FilterOutlined,
   DownloadOutlined,
+  FireOutlined,
 } from "@ant-design/icons";
 import FilterDialogBox from "./FilterDialogBox.jsx";
 import useFoodCategory from "../../../hooks/useFoodCategory.js";
-import {all} from "axios";
+import { all } from "axios";
 
 function convertArrayOfObjectsToCSV(array) {
   let result;
@@ -77,9 +78,15 @@ function FoodItemDisplay() {
   const itemsPerPage = 10;
   // Custom hook for fetching food items
 
-  const { foodMetric, foodItem,foodItemByCategory,getFoodItemByCategory, getFoodItem, getFoodMetric } = useFoodItem();
-  const { foodCategory, getFoodCategory} = useFoodCategory();
-
+  const {
+    foodMetric,
+    foodItem,
+    foodItemByCategory,
+    getFoodItemByCategory,
+    getFoodItem,
+    getFoodMetric,
+  } = useFoodItem();
+  const { foodCategory, getFoodCategory } = useFoodCategory();
 
   useEffect(() => {
     if (!isDialogOpen) {
@@ -178,7 +185,6 @@ function FoodItemDisplay() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [filterClicked, setFilterClicked] = useState(false);
 
-
   useEffect(() => {
     const fetchFoodCategory = async () => {
       try {
@@ -194,7 +200,6 @@ function FoodItemDisplay() {
   useEffect(() => {
     setAllCategoryName(foodCategory);
   }, [foodCategory]);
-
 
   useEffect(() => {
     const fetchFoodItems = async (categoryName) => {
@@ -214,7 +219,7 @@ function FoodItemDisplay() {
     setIsFilterOpen(true);
   };
 
-  const handleCategorySelect = (category) =>{
+  const handleCategorySelect = (category) => {
     setSelectedCategory(category);
   };
 
@@ -240,11 +245,9 @@ function FoodItemDisplay() {
     console.log(foodItemByCategory);
   }, [foodItemByCategory]);
 
-  function isFilterClicked (isFilterClicked){
+  function isFilterClicked(isFilterClicked) {
     setFilterClicked(isFilterClicked);
-
   }
-
 
   return (
     <Layout>
@@ -309,6 +312,7 @@ function FoodItemDisplay() {
           <h2>Food Items</h2>
           <div className="header-buttons">
             <button className="cook-button" onClick={handleCookClick}>
+              <FireOutlined />
               Cook
             </button>
             {/* CookMenu modal */}
@@ -331,82 +335,88 @@ function FoodItemDisplay() {
         </div>
         <table className="food-items-table">
           <thead>
-          <tr>
-            {/* Conditional rendering for edit mode */}
-            {isEditing && <th className="checkbox-header"></th>}
-            {/* Table headers */}
-            <th></th>
-            <th>Category</th>
-            <th>Name</th>
-            <th>Original Qty</th>
-            <th>Used</th>
-            <th>Wasted</th>
-            <th>Remaining</th>
-            <th>Unit</th>
-            <th>Price/Unit</th>
-            <th>Expiry Date</th>
-            <th>Days Until Expiry</th>
+            <tr>
+              {/* Conditional rendering for edit mode */}
+              {isEditing && <th className="checkbox-header"></th>}
+              {/* Table headers */}
+              <th></th>
+              <th>Category</th>
+              <th>Name</th>
+              <th>Original Qty</th>
+              <th>Used</th>
+              <th>Wasted</th>
+              <th>Remaining</th>
+              <th>Unit</th>
+              <th>Price/Unit</th>
+              <th>Expiry Date</th>
+              <th>Days Until Expiry</th>
 
-            <th className={`checkbox-header ${!isEditing && "hidden"}`}></th>
-          </tr>
+              <th className={`checkbox-header ${!isEditing && "hidden"}`}></th>
+            </tr>
           </thead>
           <tbody>
-          {/* Mapping food items to table rows based on filterClicked */}
-          {(filterClicked ? foodItemByCategory : foodItem)
-              .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+            {/* Mapping food items to table rows based on filterClicked */}
+            {(filterClicked ? foodItemByCategory : foodItem)
+              .slice(
+                (currentPage - 1) * itemsPerPage,
+                currentPage * itemsPerPage
+              )
               .map((item) => (
-                  <tr key={item.itemid}>
-                    <td>
-                      <input
-                          type="radio"
-                          name="selectedRow"
-                          value={item.itemid}
-                          checked={selectedItemId === item.itemid}
-                          onChange={handleRadioChange}
-                      />
-                    </td>
-                    <td>{item.categoryname}</td>
-                    <td>{item.name}</td>
-                    <td>{item.quantity}</td>
-                    <td>{item.usedQuantity}</td>
-                    <td>{item.wastedQuantity}</td>
-                    <td>{item.remainingQuantity}</td>
-                    <td>{item.unit}</td>
-                    <td>{item.pricePerUnit}</td>
-                    <td>{item.expiryDate}</td>
-                    <td>{item.daysUntilExpiry}</td>
-                    {/* Add more table cells for other columns */}
-                  </tr>
+                <tr key={item.itemid}>
+                  <td>
+                    <input
+                      type="radio"
+                      name="selectedRow"
+                      value={item.itemid}
+                      checked={selectedItemId === item.itemid}
+                      onChange={handleRadioChange}
+                    />
+                  </td>
+                  <td>{item.categoryname}</td>
+                  <td>{item.name}</td>
+                  <td>{item.quantity}</td>
+                  <td>{item.usedQuantity}</td>
+                  <td>{item.wastedQuantity}</td>
+                  <td>{item.remainingQuantity}</td>
+                  <td>{item.unit}</td>
+                  <td>{item.pricePerUnit}</td>
+                  <td>{item.expiryDate}</td>
+                  <td>{item.daysUntilExpiry}</td>
+                  {/* Add more table cells for other columns */}
+                </tr>
               ))}
           </tbody>
-
         </table>
         {/* Conditional rendering for 'Edit Selected' button */}
         {/* Render the dialog box if isDialogOpen is true */}
         {isDialogOpen && (
-            <EditDialogBox
-                foodItemDetails={foodItem.find(
-                    (item) => item.itemid === selectedItemId
-                )}
-                onClose={closeDialog}
-            />
+          <EditDialogBox
+            foodItemDetails={foodItem.find(
+              (item) => item.itemid === selectedItemId
+            )}
+            onClose={closeDialog}
+          />
         )}
 
         {/* Render the Adddialog box if isAddDialogOpen is true */}
         {isAddDialogOpen && (
-            <AddDialogBox onClose={() => setIsAddDialogOpen(false)}/>
+          <AddDialogBox onClose={() => setIsAddDialogOpen(false)} />
         )}
 
         {isFilterOpen && (
-            <FilterDialogBox allCategories={allCategoryName} onClose={() => setIsFilterOpen(false)}
-                             onCategorySelect={handleCategorySelect} filterClickChange={isFilterClicked}/>
+          <FilterDialogBox
+            allCategories={allCategoryName}
+            onClose={() => setIsFilterOpen(false)}
+            onCategorySelect={handleCategorySelect}
+            filterClickChange={isFilterClicked}
+          />
         )}
 
         {/* Pagination controls */}
         <div className="pagination">
           <button
-              className="previous-button"
-              onClick={() => handlePageChange(currentPage - 1)}
+            className="previous-button"
+            onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
           >
             Previous

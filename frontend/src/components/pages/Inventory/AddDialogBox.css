@@ -1,15 +1,18 @@
-.modal-overlay {
+.add-modal-overlay {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* Darker overlay */
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
 }
-.modal-box {
+
+.add-modal-box {
   background: #fff;
   padding: 20px;
   border-radius: 8px;
@@ -24,23 +27,23 @@
   align-items: center;
 }
 
-.modal-box h2 {
+.add-modal-box h2 {
   font-size: 1.5rem; /* Increase font size for the heading */
   color: #333; /* Dark grey color for better readability */
   margin-bottom: 20px;
   font-family:Arial, Helvetica, sans-serif;
 }
 
-.modal-box form {
+.add-modal-box form {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.modal-box form label,
-.modal-box form input,
-.modal-box form select {
+.add-modal-box form label,
+.add-modal-box form input,
+.add-modal-box form select {
   width: 100%;
   max-width: 300px; /* Match input width to the modal width */
   margin: 4px 0; /* Add some vertical space between elements */
@@ -48,8 +51,8 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.modal-box form input,
-.modal-box form select {
+.add-modal-box form input,
+.add-modal-box form select {
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -57,7 +60,7 @@
   font-family:Arial, Helvetica, sans-serif;
 }
 
-.modal-actions {
+.add-modal-actions {
   width: 100%;
   max-width: 350px; /* Match button width to the input width */
   display: flex;
@@ -65,7 +68,7 @@
   margin-top: 20px; /* Add some space above the button area */
 }
 
-.modal-button {
+.add-modal-button {
   padding: 10px 0; /* More vertical padding for a taller button */
   border-radius: 8px; /* Match the input border-radius */
   font-size: 1rem; /* Match the font size of inputs */
@@ -74,17 +77,17 @@
   border: none;
 }
 
-.modal-button.add {
+.add-modal-button.add {
   background-color: #4CAF50;
   color: white;
 }
 
-.modal-button.cancel {
+.add-modal-button.cancel {
   background-color: #F44336; /* A more vibrant red */
   /* border-color: #D32F2F; */
   color: white;
 }
 
-.modal-button:hover {
+.add-modal-button:hover {
   filter: brightness(90%); /* Subtle hover effect */
 }

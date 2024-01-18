@@ -1,25 +1,47 @@
-/* CookMenu.css */
+.dish-card input[type='radio'] {
+  display: none;
+}
 
 /* Style for the modal overlay */
-.modal-overlay {
+.cook-modal-overlay {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* Darker overlay */
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  
+}
+
+.cook-modal-close-icon {
+  position: absolute; /* Absolute position to place the icon at the top-right corner */
+  top: 16px; /* Adjust top position to align the icon as needed */
+  right: 16px; /* Adjust right position to align the icon as needed */
+  font-size: 24px; /* Adjust icon size as needed */
+  color: #333; /* Set the color of the close icon */
+  cursor: pointer; /* Change cursor to pointer to indicate a clickable element */
+}
+
+.cook-modal-close-icon:hover {
+  color: #f00; 
 }
 
 /* Style for the modal box */
-.modal-box {
+.cook-modal-box {
+  overflow-y: auto; /* Enable vertical scrolling if content is taller than the box */
+  max-height: 90vh; /* Limit the height of the modal to 90% of the viewport height */
+  position: relative; 
   background-color: #fff; /* White background for the modal */
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Drop shadow effect */
-  max-width: 80%; /* Adjust the maximum width as needed */
+  max-width: 100%; /* Adjust the maximum width as needed */
+  z-index: 10; 
 }
 
 /* Style for the dish card container (grid) */
@@ -74,13 +96,13 @@
 }
 
 /* Style for the modal actions (e.g., close button) */
-.modal-actions {
+.cook-modal-actions {
   margin-top: 20px;
   text-align: center;
 }
 
 /* Style for the modal button */
-.modal-button {
+.cook-modal-button {
   padding: 10px 10px;
   margin: 0 10px;
   cursor: pointer;
@@ -90,8 +112,6 @@
 }
 
 /* Style for the close button */
-.modal-button.close {
+.cook-modal-button.close {
   background-color: #ddd; /* Light gray background */
 }
-
-/* Additional styles can be added as needed */

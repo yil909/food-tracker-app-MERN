@@ -36,8 +36,8 @@ const AddDialogBox = ({ onClose }) => {
   };
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-box">
+    <div className="add-modal-overlay">
+      <div className="add-modal-box">
         <h2>Add New Food Item</h2>
         <form onSubmit={handleSubmit}>
           <label>
@@ -94,13 +94,13 @@ const AddDialogBox = ({ onClose }) => {
               onChange={(e) => setPrice(e.target.value)}
             />
           </label>
-          <div className="modal-actions">
-            <button type="submit" className="modal-button add">
+          <div className="add-modal-actions">
+            <button type="submit" className="add-modal-button add">
               Add Item
             </button>
             <button
               type="button"
-              className="modal-button cancel"
+              className="add-modal-button cancel"
               onClick={onClose}
             >
               Cancel
