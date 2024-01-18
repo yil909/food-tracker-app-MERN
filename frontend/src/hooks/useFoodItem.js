@@ -1,3 +1,4 @@
+//useFoodItem.js
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { LOCAL_IP, PORT } from "../../../backend/config";
@@ -15,7 +16,9 @@ function useFoodItem() {
 
   const getFoodItem = async () => {
     try {
-      const response = await axios.get('http://'+LOCAL_IP+':'+PORT+'/fooditems');
+      const response = await axios.get(
+        "http://" + LOCAL_IP + ":" + PORT + "/fooditems"
+      );
       setFoodItem(response.data);
 
     } catch (error) {
@@ -36,7 +39,9 @@ function useFoodItem() {
 
   const getFoodMetric = async () => {
     try {
-      const response = await axios.get('http://'+LOCAL_IP+':'+PORT+'/foodmetrics');
+      const response = await axios.get(
+        "http://" + LOCAL_IP + ":" + PORT + "/foodmetrics"
+      );
       setFoodMetric(response.data);
       //console.log("Hello world!");
       //console.log(JSON.stringify(foodMetric, null, 2));
@@ -47,7 +52,9 @@ function useFoodItem() {
 
   const getWasteMetric = async () => {
     try {
-      const response = await axios.get('http://'+LOCAL_IP+':'+PORT+'/wastemetrics');
+      const response = await axios.get(
+        "http://" + LOCAL_IP + ":" + PORT + "/wastemetrics"
+      );
       setWasteMetric(response.data);
       //console.log("Hello world!");
       //console.log(JSON.stringify(wasteMetric, null, 2));
@@ -58,7 +65,9 @@ function useFoodItem() {
 
   const getUsageWasteData = async () => {
     try {
-      const response = await axios.get('http://'+LOCAL_IP+':'+PORT+'/usagewaste');
+      const response = await axios.get(
+        "http://" + LOCAL_IP + ":" + PORT + "/usagewaste"
+      );
       setUsageWasteData(response.data);
       console.log("Hello world 2!");
       console.log(JSON.stringify(usageWasteData, null, 2));
@@ -69,7 +78,9 @@ function useFoodItem() {
 
   const getLocationRanking = async () => {
     try {
-      const response = await axios.get('http://'+LOCAL_IP+':'+PORT+'/locationranking');
+      const response = await axios.get(
+        "http://" + LOCAL_IP + ":" + PORT + "/locationranking"
+      );
       setLocationRanking(response.data);
       console.log("Hello world 333!");
       console.log(JSON.stringify(locationRanking, null, 2));
@@ -80,7 +91,9 @@ function useFoodItem() {
 
   const getCookMenu = async () => {
     try {
-      const response = await axios.get('http://'+LOCAL_IP+':'+PORT+'/cookmenu');
+      const response = await axios.get(
+        "http://" + LOCAL_IP + ":" + PORT + "/cookmenu"
+      );
       setCookMenu(response.data);
       console.log("Hello world 444!");
       console.log(JSON.stringify(cookMenu, null, 2));
@@ -91,7 +104,9 @@ function useFoodItem() {
 
   const getIngredientList = async (dishid, userid) => {
     try {
-      const response = await axios.get(`http://${LOCAL_IP}:${PORT}/ingredientList?dishid=${dishid}&userid=${userid}`);
+      const response = await axios.get(
+        `http://${LOCAL_IP}:${PORT}/ingredientList?dishid=${dishid}&userid=${userid}`
+      );
       setIngrdList(response.data);
       console.log("Hello world 555!");
       console.log(JSON.stringify(response.data, null, 2)); // Use response.data instead of ingrdList
@@ -99,12 +114,25 @@ function useFoodItem() {
       console.error("Error fetching ingredient list:", error);
     }
   };
-  
+
+  const cookDish = async (dishid, userid) => {
+    try {
+      const response = await axios.put(
+        `http://${LOCAL_IP}:${PORT}/cookdish`,
+        { dishId: dishid, userId: userid } // Pass dishid and userid in the request body
+      );
+
+      console.log("Dish cooked successfully!");
+      console.log(JSON.stringify(response.data, null, 2));
+    } catch (error) {
+      console.error("Error cooking dish:", error);
+    }
+  };
 
   const updateFoodItem = async (updatedData) => {
     try {
       const response = await axios.put(
-        'http://'+LOCAL_IP+':5555/updatefooditems',
+        "http://" + LOCAL_IP + ":5555/updatefooditems",
         updatedData
       );
       console.log(JSON.stringify(updatedData, null, 2));
@@ -119,7 +147,7 @@ function useFoodItem() {
   const createFoodItem = async (newData) => {
     try {
       const response = await axios.put(
-        'http://'+LOCAL_IP+':'+PORT+'/createfooditems',
+        "http://" + LOCAL_IP + ":" + PORT + "/createfooditems",
         newData
       );
       //console.log(JSON.stringify(updatedData, null, 2));
@@ -134,7 +162,7 @@ function useFoodItem() {
   const createTransLog = async (updatedData) => {
     try {
       const response = await axios.put(
-        'http://'+LOCAL_IP+':'+PORT+'/createtranslog',
+        "http://" + LOCAL_IP + ":" + PORT + "/createtranslog",
         updatedData
       );
       //console.log(JSON.stringify(updatedData, null, 2));
@@ -165,7 +193,7 @@ function useFoodItem() {
     getLocationRanking,
     getCookMenu,
     getIngredientList,
-
+    cookDish,
   };
 }
 

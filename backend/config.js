@@ -1,2 +1,3 @@
-export const PORT = 8080;
-export const LOCAL_IP =  "172.24.84.163"; //"192.168.68.63";"172.23.161.128"
+
+export const PORT = 5555;
+export const LOCAL_IP = "172.23.183.179";  //"192.168.68.57"; 
