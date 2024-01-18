@@ -24,28 +24,35 @@ async function getFoodItemByUserId(id) {
   fi.unit,
   fi.timestamp,
   fi.batchnumber,
-  COALESCE(t.newexpirydate, fi.expirydate) AS expiryDate,
-  round(fi.pricePerUnit,2) AS pricePerUnit,
+  COALESCE(latestTransaction.newexpirydate, fi.expirydate) AS expiryDate,
+  ROUND(fi.pricePerUnit, 2) AS pricePerUnit,
   fi.foodcategoryid,
   fc.categoryname,
   fc.description,
-  round(julianday(COALESCE(t.newexpirydate, fi.expirydate)) - julianday('now')) AS daysUntilExpiry,
-  round(SUM(CASE WHEN t.act = 'USE' THEN t.quantity ELSE 0 END),2) AS usedQuantity,
-  round(SUM(CASE WHEN t.act = 'WASTE' THEN t.quantity ELSE 0 END),2) AS wastedQuantity,
-  round((fi.quantity - SUM(CASE WHEN t.act IN ('WASTE', 'USE') THEN t.quantity ELSE 0 END)),2) AS remainingQuantity
+  ROUND(julianday(COALESCE(latestTransaction.newexpirydate, fi.expirydate)) - julianday('now')) AS daysUntilExpiry,
+  ROUND(SUM(CASE WHEN t.act = 'USE' THEN t.quantity ELSE 0 END), 2) AS usedQuantity,
+  ROUND(SUM(CASE WHEN t.act = 'WASTE' THEN t.quantity ELSE 0 END), 2) AS wastedQuantity,
+  ROUND((fi.quantity - SUM(CASE WHEN t.act IN ('WASTE', 'USE') THEN t.quantity ELSE 0 END)), 2) AS remainingQuantity
 FROM fooditem fi
+LEFT JOIN foodcategory fc ON fi.foodCategoryid = fc.categoryid
+LEFT JOIN (
+  SELECT fooditemid, newexpirydate
+  FROM transactionlog
+  ORDER BY timestamp DESC
+  LIMIT 1
+) AS latestTransaction ON fi.itemid = latestTransaction.fooditemid
 LEFT JOIN transactionlog t ON fi.itemid = t.fooditemid
-LEFT JOIN foodcategory fc on fi.foodCategoryid = fc.categoryid
 WHERE fi.userid = ${id}
 GROUP BY fi.itemid, fc.categoryname
 ORDER BY daysUntilExpiry;
+
  `);
   return fooditems;
 }
 
 async function getFoodItemsByUserIdAndCategoryName(id, categoryName) {
-    const db = await openDatabase();
-    const fooditems = await db.all(SQL`
+  const db = await openDatabase();
+  const fooditems = await db.all(SQL`
   SELECT
   fi.itemid,
   fi.userid,
@@ -54,7 +61,7 @@ async function getFoodItemsByUserIdAndCategoryName(id, categoryName) {
   fi.unit,
   fi.timestamp,
   fi.batchnumber,
-  COALESCE(t.newexpirydate, fi.expirydate) AS expiryDate,
+  COALESCE(latestTransaction.newexpirydate, fi.expirydate) AS expiryDate,
   round(fi.pricePerUnit,2) AS pricePerUnit,
   fi.foodcategoryid,
   fc.categoryname,
@@ -65,12 +72,18 @@ async function getFoodItemsByUserIdAndCategoryName(id, categoryName) {
   round((fi.quantity - SUM(CASE WHEN t.act IN ('WASTE', 'USE') THEN t.quantity ELSE 0 END)),2) AS remainingQuantity
 FROM fooditem fi
 LEFT JOIN transactionlog t ON fi.itemid = t.fooditemid
+LEFT JOIN (
+  SELECT fooditemid, newexpirydate
+  FROM transactionlog
+  ORDER BY timestamp DESC
+  LIMIT 1
+) AS latestTransaction ON fi.itemid = latestTransaction.fooditemid
 LEFT JOIN foodcategory fc on fi.foodCategoryid = fc.categoryid
 WHERE fi.userid = ${id} AND fc.categoryname = ${categoryName}
 GROUP BY fi.itemid, fc.categoryname
 ORDER BY daysUntilExpiry;
  `);
-    return fooditems;
+  return fooditems;
 }
 
 //--and fi.userid = ${id};

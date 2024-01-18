@@ -234,7 +234,7 @@ function FoodItemDisplay() {
     if (selectedCategory) {
       fetchFoodByCertainCategory();
     }
-  }, [selectedCategory]);
+  }, [selectedCategory, isDialogOpen]);
 
   useEffect(() => {
     console.log(foodItemByCategory);
