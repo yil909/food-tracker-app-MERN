@@ -4,7 +4,7 @@ import { CloseCircleOutlined } from "@ant-design/icons";
 import "./CookMenu.css";
 
 const CookMenu = ({ onClose }) => {
-  const { cookMenu, getCookMenu, ingredientList, getIngredientList } =
+  const { cookMenu, getCookMenu, ingredientList, getIngredientList, cookDish } =
     useFoodItem();
   const [selectedDishId, setSelectedDishId] = useState(null);
 
@@ -27,6 +27,12 @@ const CookMenu = ({ onClose }) => {
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
       onClose(); // 调用关闭弹窗的函数
+    }
+  };
+  const handleCookClick = () => {
+    if (selectedDishId !== null) {
+      // Cook the selected dish
+      cookDish(selectedDishId, 1); // Assuming userid is 1
     }
   };
 
@@ -88,11 +94,6 @@ const CookMenu = ({ onClose }) => {
             </div>
           ))}
         </div>
-        {/* <div className="modal-actions">
-          <button className="modal-button close" onClick={onClose}>
-            Close
-          </button>
-        </div> */}
       </div>
     </div>
   );

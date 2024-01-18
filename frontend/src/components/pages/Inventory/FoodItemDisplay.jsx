@@ -86,6 +86,15 @@ function FoodItemDisplay() {
     getFoodItem,
     getFoodMetric,
   } = useFoodItem();
+
+  const {
+    foodMetric,
+    foodItem,
+    foodItemByCategory,
+    getFoodItemByCategory,
+    getFoodItem,
+    getFoodMetric,
+  } = useFoodItem();
   const { foodCategory, getFoodCategory } = useFoodCategory();
 
   useEffect(() => {
@@ -249,6 +258,36 @@ function FoodItemDisplay() {
     setFilterClicked(isFilterClicked);
   }
 
+  //sorting logic
+  const [sortColumn, setSortColumn] = useState("");
+  const [sortDirection, setSortDirection] = useState("asc"); // 'asc' 或 'desc'
+
+  // 处理点击排序
+  const handleSort = (column) => {
+    if (sortColumn === column) {
+      setSortDirection(sortDirection === "asc" ? "desc" : "asc");
+    } else {
+      setSortColumn(column);
+      setSortDirection("asc");
+    }
+  };
+
+  // 排序数据
+  const sortedFoodItems = () => {
+    let itemsToSort = filterClicked ? foodItemByCategory : foodItem;
+    if (!sortColumn) return itemsToSort;
+
+    return [...itemsToSort].sort((a, b) => {
+      if (a[sortColumn] < b[sortColumn]) {
+        return sortDirection === "asc" ? -1 : 1;
+      }
+      if (a[sortColumn] > b[sortColumn]) {
+        return sortDirection === "asc" ? 1 : -1;
+      }
+      return 0;
+    });
+  };
+
   return (
     <Layout>
       {showCustomModal && (
@@ -333,45 +372,47 @@ function FoodItemDisplay() {
             </button>
           </div>
         </div>
+
         <table className="food-items-table">
           <thead>
             <tr>
-              {/* Conditional rendering for edit mode */}
               {isEditing && <th className="checkbox-header"></th>}
-              {/* Table headers */}
               <th></th>
-              <th>Category</th>
-              <th>Name</th>
-              <th>Original Qty</th>
-              <th>Used</th>
-              <th>Wasted</th>
-              <th>Remaining</th>
-              <th>Unit</th>
-              <th>Price/Unit</th>
-              <th>Expiry Date</th>
-              <th>Days Until Expiry</th>
-
-              <th className={`checkbox-header ${!isEditing && "hidden"}`}></th>
+              <th onClick={() => handleSort("categoryname")}>Category</th>
+              <th onClick={() => handleSort("name")}>Name</th>
+              <th onClick={() => handleSort("quantity")}>Original Qty</th>
+              <th onClick={() => handleSort("usedQuantity")}>Used</th>
+              <th onClick={() => handleSort("wastedQuantity")}>Wasted</th>
+              <th onClick={() => handleSort("remainingQuantity")}>Remaining</th>
+              <th onClick={() => handleSort("unit")}>Unit</th>
+              <th onClick={() => handleSort("pricePerUnit")}>Price/Unit</th>
+              <th onClick={() => handleSort("expiryDate")}>Expiry Date</th>
+              <th onClick={() => handleSort("daysUntilExpiry")}>
+                Days Until Expiry
+              </th>
+              {isEditing && <th className="checkbox-header"></th>}
             </tr>
           </thead>
           <tbody>
-            {/* Mapping food items to table rows based on filterClicked */}
-            {(filterClicked ? foodItemByCategory : foodItem)
+            {sortedFoodItems()
               .slice(
                 (currentPage - 1) * itemsPerPage,
                 currentPage * itemsPerPage
               )
               .map((item) => (
                 <tr key={item.itemid}>
-                  <td>
-                    <input
-                      type="radio"
-                      name="selectedRow"
-                      value={item.itemid}
-                      checked={selectedItemId === item.itemid}
-                      onChange={handleRadioChange}
-                    />
-                  </td>
+                  {isEditing && (
+                    <td>
+                      <input
+                        type="radio"
+                        name="selectedRow"
+                        value={item.itemid}
+                        checked={selectedItemId === item.itemid}
+                        onChange={handleRadioChange}
+                      />
+                    </td>
+                  )}
+                  <td>{/* 可能用于显示序号或其他信息 */}</td>
                   <td>{item.categoryname}</td>
                   <td>{item.name}</td>
                   <td>{item.quantity}</td>
@@ -382,11 +423,12 @@ function FoodItemDisplay() {
                   <td>{item.pricePerUnit}</td>
                   <td>{item.expiryDate}</td>
                   <td>{item.daysUntilExpiry}</td>
-                  {/* Add more table cells for other columns */}
+                  {isEditing && <td>{/* 可能用于编辑按钮或其他功能 */}</td>}
                 </tr>
               ))}
           </tbody>
         </table>
+
         {/* Conditional rendering for 'Edit Selected' button */}
         {/* Render the dialog box if isDialogOpen is true */}
         {isDialogOpen && (
@@ -436,5 +478,4 @@ function FoodItemDisplay() {
     </Layout>
   );
 }
-
 export default FoodItemDisplay;
