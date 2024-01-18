@@ -87,14 +87,6 @@ function FoodItemDisplay() {
     getFoodMetric,
   } = useFoodItem();
 
-  const {
-    foodMetric,
-    foodItem,
-    foodItemByCategory,
-    getFoodItemByCategory,
-    getFoodItem,
-    getFoodMetric,
-  } = useFoodItem();
   const { foodCategory, getFoodCategory } = useFoodCategory();
 
   useEffect(() => {
