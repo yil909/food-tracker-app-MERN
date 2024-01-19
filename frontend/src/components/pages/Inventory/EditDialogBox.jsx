@@ -11,7 +11,7 @@ const EditDialogBox = ({ foodItemDetails, onClose }) => {
   ];
   // Custom hook for fetching food items
   const { foodCategory, getFoodCategory } = useFoodCategory();
-  const { updateFoodItem, createTransLog } = useFoodItem();
+  const { updateFoodItem, createTransLog, getFoodItemByCategory } = useFoodItem();
   const [foodStatus, setFoodStatus] = useState("USE"); // Initial value is "USE"
 
   useEffect(() => {
