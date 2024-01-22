@@ -10,17 +10,24 @@ export const useNotification = () => {
 export const NotificationProvider = ({ children }) => {
   const [notificationCount, setNotificationCount] = useState(0);
 
-  const incrementNotificationCount = (count = 1) => {
-    setNotificationCount((prevCount) => prevCount + count);
+  const incrementNotificationCount = (count) => {
+    // Set the count only if it's not already set (initial load)
+    if (notificationCount === 0) {
+      setNotificationCount(count);
+    }
   };
 
-  const decreaseNotificationCount = () => {
+  const decrementNotificationCount = () => {
     setNotificationCount((prevCount) => prevCount - 1);
   };
 
   return (
     <NotificationContext.Provider
-      value={{ notificationCount, incrementNotificationCount, decreaseNotificationCount }}
+      value={{
+        notificationCount,
+        incrementNotificationCount,
+        decrementNotificationCount,
+      }}
     >
       {children}
     </NotificationContext.Provider>

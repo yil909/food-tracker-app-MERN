@@ -13,7 +13,7 @@ import {
 import { useNotification } from "../../hooks/useNotification.jsx";
 
 const Notice = () => {
-  const { incrementNotificationCount, decreaseNotificationCount } =
+  const { incrementNotificationCount, decrementNotificationCount } =
     useNotification();
   const { foodItem, getFoodItem } = useFoodItemWithAllColumn();
   const { updateFoodItem } = useFoodItem();
@@ -39,7 +39,7 @@ const Notice = () => {
       newReadStatus[index] = true;
       setReadStatus(newReadStatus);
       // Decrease the notification count
-      decreaseNotificationCount();
+      decrementNotificationCount();
     } catch (error) {
       console.error("Error updating read status:", error);
     }
@@ -66,12 +66,10 @@ const Notice = () => {
       const newItemsCount = sortedItems.filter(
         (item) =>
           !itemNearExp.some((existingItem) => existingItem.id === item.id)
-      ).length;
-
+      );
+      //Increment the notification count by the count of new items
+      incrementNotificationCount(newItemsCount.length);
       setItemNearExp(sortedItems);
-
-      // Increment the notification count by the count of new items
-      incrementNotificationCount(newItemsCount);
     };
 
     fetchData();
