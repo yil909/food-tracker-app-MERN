@@ -15,7 +15,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  
 }
 
 .cook-modal-close-icon {
@@ -26,6 +25,7 @@
   color: #333; /* Set the color of the close icon */
   cursor: pointer; /* Change cursor to pointer to indicate a clickable element */
 }
+
 
 .cook-modal-close-icon:hover {
   color: #f00; 
@@ -77,6 +77,7 @@
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
+  
 }
 
 .dish-back {
@@ -92,14 +93,16 @@
 
 /* Style for the dish name */
 .dish-card h5 {
-  margin-top: 10px;
+  margin-top: 5px;
+  text-align: center;
 }
 
 /* Style for the modal actions (e.g., close button) */
 .cook-modal-actions {
-  margin-top: 20px;
+  margin-top: 2px;
   text-align: center;
 }
+
 
 /* Style for the modal button */
 .cook-modal-button {
@@ -111,7 +114,47 @@
   font-size: 14px;
 }
 
-/* Style for the close button */
-.cook-modal-button.close {
-  background-color: #ddd; /* Light gray background */
+
+
+.success-message  {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1010;
+  background-color: #dff0d8;
+  color: #3c763d;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.dish-name-back h5 {
+  font-size: 15px; 
+  margin-top: 10px; 
+  margin-bottom: 10px; 
+}
+
+
+.ingredient-list th,
+.ingredient-list td {
+  font-size: 15px; 
+}
+
+.cook-modal-button.cook {
+  display: block; /* Change to block level element */
+  width: fit-content; 
+  margin: 10px auto; 
+  padding: 8px 10px; 
+  font-size: 14px; 
+  background-color: #4CAF50; 
+  color: white; 
+  border: none; /* No border for a flat design */
+  border-radius: 4px; /* Rounded corners for the button */
+  cursor: pointer; /* Cursor to pointer to indicate a clickable button */
+}
+
+/* Add hover effect for the "Cook This" button */
+.cook-modal-button.cook:hover {
+  background-color: #367c39; /* Darker shade when hovered */
 }

@@ -7,6 +7,7 @@ const CookMenu = ({ onClose }) => {
   const { cookMenu, getCookMenu, ingredientList, getIngredientList, cookDish } =
     useFoodItem();
   const [selectedDishId, setSelectedDishId] = useState(null);
+  const [showSuccess, setShowSuccess] = useState(false); // State to control success message visibility
 
   useEffect(() => {
     getCookMenu();
@@ -19,20 +20,20 @@ const CookMenu = ({ onClose }) => {
   }, [selectedDishId]);
 
   const handleDishSelect = (dishId) => {
-    console.log("Selected Dish ID:", dishId);
     setSelectedDishId(dishId);
   };
 
-  // 用来处理点击外部时关闭弹窗的函数
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
-      onClose(); // 调用关闭弹窗的函数
+      onClose();
     }
   };
-  const handleCookClick = () => {
+
+  const handleCookClick = async () => {
     if (selectedDishId !== null) {
-      // Cook the selected dish
-      cookDish(selectedDishId, 1); // Assuming userid is 1
+      await cookDish(selectedDishId, 1); // Assuming userid is 1
+      setShowSuccess(true); // Show success message
+      setTimeout(() => setShowSuccess(false), 3000); // Hide success message after 3 seconds
     }
   };
 
@@ -72,6 +73,10 @@ const CookMenu = ({ onClose }) => {
               </div>
               <div className="dish-back">
                 <div className="ingredient-list">
+                  {/* Dish name on the back of the card */}
+                  <div className="dish-name-back">
+                    <h5>{dish.dishname}</h5>
+                  </div>
                   <table>
                     <thead>
                       <tr>
@@ -89,13 +94,23 @@ const CookMenu = ({ onClose }) => {
                     </tbody>
                   </table>
                 </div>
-                <button className="cook-modal-button cook">Cook This</button>
+
+                <button
+                  className="cook-modal-button cook"
+                  onClick={handleCookClick}
+                >
+                  Cook This
+                </button>
               </div>
             </div>
           ))}
         </div>
+        {showSuccess && (
+          <div className="success-message">Cooking successful!</div>
+        )}
       </div>
     </div>
+    // </div>
   );
 };
 

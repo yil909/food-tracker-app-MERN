@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./EditDialogBox.css";
 import useFoodCategory from "../../../hooks/useFoodCategory";
 import useFoodItem from "../../../hooks/useFoodItem";
+import "./EditDialogBox.css";
 
 const EditDialogBox = ({ foodItemDetails, onClose }) => {
   const [editedItem, setEditedItem] = useState({ ...foodItemDetails });
@@ -11,7 +12,8 @@ const EditDialogBox = ({ foodItemDetails, onClose }) => {
   ];
   // Custom hook for fetching food items
   const { foodCategory, getFoodCategory } = useFoodCategory();
-  const { updateFoodItem, createTransLog } = useFoodItem();
+  const { updateFoodItem, createTransLog, getFoodItemByCategory } =
+    useFoodItem();
   const [foodStatus, setFoodStatus] = useState("USE"); // Initial value is "USE"
 
   useEffect(() => {

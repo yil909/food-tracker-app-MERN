@@ -98,7 +98,7 @@ const Notice = () => {
                 or dispose of it appropriately.
               </p>
               <a href="#" onClick={toggleDetails}>
-                Learn more
+                Read Details
               </a>
               {showDetails && (
                 <div className="additional-details">
@@ -126,7 +126,7 @@ const Notice = () => {
                 Tomato inventory has dropped below the threshold level. Only 5
                 kg remaining. Consider reordering soon.
               </p>
-              <a href="#">Learn more</a>
+              <a href="#">Read Details</a>
             </div>
           </div>
         </div>

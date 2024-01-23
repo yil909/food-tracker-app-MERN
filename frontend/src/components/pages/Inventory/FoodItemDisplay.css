@@ -180,3 +180,7 @@
 .editing .food-items-table td input[type="checkbox"] {
   display: inline-block; /* Visible only in editing mode */
 }
+
+.custom-modal-content .message {
+  font-family: "Arial, sans-serif" !important;
+}
