@@ -3,27 +3,26 @@ import React, { useEffect, useState } from "react";
 import useFoodItem from "../../../hooks/useFoodItem";
 import "./CookMenu.css";
 
+// ... (imports and other code)
+
 const CookMenu = ({ onClose }) => {
-  const { cookMenu, getCookMenu, ingredientList, getIngredientList, cookDish } =
-    useFoodItem();
+  const { cookMenu, getCookMenu, cookDish } = useFoodItem();
   const [selectedDishId, setSelectedDishId] = useState(null);
+  const [flippedCards, setFlippedCards] = useState([]);
 
   useEffect(() => {
     getCookMenu();
   }, []);
 
-  useEffect(() => {
-    if (selectedDishId !== null) {
-      // Fetch ingredient list for the selected dish
-      getIngredientList(selectedDishId, 1); // Assuming userid is 1
-    }
-  }, [selectedDishId]);
-
   const handleDishSelect = (dishId) => {
     // Implement logic for handling the selected dish
     console.log("Selected Dish ID:", dishId);
+
     // Update the selected dish id
     setSelectedDishId(dishId);
+
+    // Update the flipped cards state
+    setFlippedCards((prevFlippedCards) => [...prevFlippedCards, dishId]);
   };
 
   const handleCookClick = () => {
@@ -40,10 +39,10 @@ const CookMenu = ({ onClose }) => {
         <div className="dish-card-container">
           {cookMenu.map((dish) => (
             <div
-              key={dish.dishid}
-              className={`dish-card ${
-                selectedDishId === dish.dishid ? "flipped" : ""
-              }`}
+            key={dish.dishid}
+            className={`dish-card ${
+              flippedCards.includes(dish.dishid) ? "flipped" : ""
+            }`}
             >
               <div
                 className="dish-front"
@@ -54,12 +53,7 @@ const CookMenu = ({ onClose }) => {
                     src={`./images/dishes/${dish.dishpic}`}
                     alt={dish.dishname}
                   />
-                  <input
-                    type="radio"
-                    name="selectedDish"
-                    id={`dish-${dish.dishid}`}
-                    onChange={() => handleDishSelect(dish.dishid)}
-                  />
+                  
                   <h5>{dish.dishname}</h5>
                 </label>
               </div>
@@ -73,7 +67,7 @@ const CookMenu = ({ onClose }) => {
                       </tr>
                     </thead>
                     <tbody>
-                      {ingredientList.map((ingredient) => (
+                      {dish.ingredients.map((ingredient) => (
                         <tr key={ingredient.ingredientname}>
                           <td>{ingredient.ingredientname}</td>
                           <td>{ingredient.weight}</td>
