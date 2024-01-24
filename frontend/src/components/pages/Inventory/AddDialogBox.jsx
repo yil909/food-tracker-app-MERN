@@ -1,4 +1,4 @@
-// AddDialogBox.jsx
+
 import React, { useEffect, useState } from "react";
 import useFoodCategory from "../../../hooks/useFoodCategory";
 import useFoodItem from "../../../hooks/useFoodItem";
@@ -13,7 +13,9 @@ const AddDialogBox = ({ onClose }) => {
   const [price, setPrice] = useState("");
 
   const { foodCategory, getFoodCategory } = useFoodCategory();
-  const { createFoodItem } = useFoodItem();
+  const { createFoodItem, getFoodItemSuggestions } = useFoodItem();
+
+  const [nameSuggestions, setNameSuggestions] = useState([]);
 
   useEffect(() => {
     getFoodCategory();
@@ -34,6 +36,31 @@ const AddDialogBox = ({ onClose }) => {
     createFoodItem(newFoodItem);
     onClose(); // Close modal after submission
   };
+
+  useEffect(() => {
+    const fetchSuggestions = async () => {
+      if (!foodCategoryid || !name.trim()) {
+        // If either categoryID or name is empty, do not fetch suggestions
+        return;
+      }
+
+      try {
+        const suggestions = await getFoodItemSuggestions(foodCategoryid, name);
+        const suggestionNames = suggestions.map(suggestion => suggestion.itemname);
+        setNameSuggestions(suggestionNames);
+      } catch (error) {
+        console.error("Error fetching suggestions:", error);
+      }
+    };
+
+    fetchSuggestions();
+  }, [foodCategoryid, name]);
+
+  const handleSuggestionClick = (suggestion) => {
+    setName(suggestion); // Set the name input field with the selected suggestion
+    setNameSuggestions([]); // Clear suggestions after selection
+  };
+
 
   return (
     <div className="modal-overlay">
@@ -59,8 +86,23 @@ const AddDialogBox = ({ onClose }) => {
             <input
               type="text"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => setName(e.target.value)
+            }
+              onBlur={() => {
+                // Delay hiding suggestions to allow click event to register
+                setTimeout(() => setNameSuggestions([]), 200);
+              }}
             />
+            {nameSuggestions.length > 0 && (
+                <ul className="suggestions-list">
+                  {nameSuggestions.map((suggestion, index) => (
+                      <li key={index} onClick={() => handleSuggestionClick(suggestion)}>
+                        {suggestion}
+                      </li>
+                  ))}
+                </ul>
+            )}
+
           </label>
           <label>
             Quantity:
