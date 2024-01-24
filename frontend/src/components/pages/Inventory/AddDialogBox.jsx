@@ -5,6 +5,11 @@ import useFoodItem from "../../../hooks/useFoodItem";
 import "./AddDialogBox.css";
 
 const AddDialogBox = ({ onClose }) => {
+  const handleOverlayClick = (e) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
   const [foodCategoryid, setFoodCategoryid] = useState("");
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState("");
@@ -36,8 +41,8 @@ const AddDialogBox = ({ onClose }) => {
   };
 
   return (
-    <div className="add-modal-overlay">
-      <div className="add-modal-box">
+    <div className="add-modal-overlay" onClick={handleOverlayClick}>
+      <div className="add-modal-box" onClick={(e) => e.stopPropagation()}>
         <h2>Add New Food Item</h2>
         <form onSubmit={handleSubmit}>
           <label>

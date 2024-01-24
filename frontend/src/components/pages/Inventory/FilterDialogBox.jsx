@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 import "./FilterDialogBox.css";
+import { CloseCircleOutlined } from "@ant-design/icons";
 
 const FilterDialogBox = ({
   allCategories,
@@ -8,6 +9,12 @@ const FilterDialogBox = ({
   onCategorySelect,
   filterClickChange,
 }) => {
+  function handleOverlayClick(e) {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  }
+
   const [selectedCategory, setSelectedCategory] = useState("");
 
   function handleCategoryChange(e) {
@@ -27,7 +34,7 @@ const FilterDialogBox = ({
   }
 
   return (
-    <div className="filter-modal-overlay">
+    <div className="filter-modal-overlay" onClick={handleOverlayClick}>
       <div className="filter-modal-box">
         <h2 style={{ fontFamily: "Arial, sans-serif" }}>Filter by Category</h2>
         <select value={selectedCategory} onChange={handleCategoryChange}>
@@ -45,9 +52,11 @@ const FilterDialogBox = ({
           <button className="filter-modal-button" onClick={handleSeeAllClick}>
             See All
           </button>
-          <button className="filter-modal-button cancel" onClick={onClose}>
-            Close
-          </button>
+
+          <CloseCircleOutlined
+            className="filter-modal-button-cancel"
+            onClick={onClose}
+          />
         </div>
       </div>
     </div>

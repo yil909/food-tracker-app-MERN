@@ -3,8 +3,14 @@ import "./EditDialogBox.css";
 import useFoodCategory from "../../../hooks/useFoodCategory";
 import useFoodItem from "../../../hooks/useFoodItem";
 import "./EditDialogBox.css";
+import { CloseCircleOutlined } from "@ant-design/icons";
 
 const EditDialogBox = ({ foodItemDetails, onClose }) => {
+  const handleOverlayClick = (e) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
   const [editedItem, setEditedItem] = useState({ ...foodItemDetails });
   const foodStatuses = [
     { value: "USE", label: "USE" },
@@ -43,8 +49,8 @@ const EditDialogBox = ({ foodItemDetails, onClose }) => {
   // Update API request to send the updated "foodStatus" property
 
   return (
-    <div className="edit-modal-overlay">
-      <div className="edit-modal-content">
+    <div className="edit-modal-overlay" onClick={handleOverlayClick}>
+      <div className="edit-modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="edit-modal-title">
           <h2>Edit Food Item</h2>
         </div>
@@ -147,12 +153,16 @@ const EditDialogBox = ({ foodItemDetails, onClose }) => {
         <div className="edit-modal-actions">
           {" "}
           {/* Updated class name */}
-          <button className="edit-modal-button save" onClick={handleSave}>
+          <button className="edit-modal-button-save" onClick={handleSave}>
             Save
           </button>
-          <button className="edit-modal-button close" onClick={onClose}>
+          {/* <button className="edit-modal-button close" onClick={onClose}>
             Close
-          </button>
+          </button> */}
+          <CloseCircleOutlined
+            className="edit-modal-button-close"
+            onClick={onClose}
+          />
         </div>
       </div>
     </div>

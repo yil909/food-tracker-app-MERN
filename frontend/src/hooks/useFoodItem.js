@@ -11,7 +11,7 @@ function useFoodItem() {
   const [foodItemByCategory, setFoodItemByCategory] = useState([]);
   const [locationRanking, setLocationRanking] = useState([]);
   const [cookMenu, setCookMenu] = useState([]);
-  const [ingredientList, setIngrdList] = useState([]);
+  //const [ingredientList, setIngrdList] = useState([]);
 
 
   const getFoodItem = async () => {
@@ -94,26 +94,28 @@ function useFoodItem() {
       const response = await axios.get(
         "http://" + LOCAL_IP + ":" + PORT + "/cookmenu"
       );
-      setCookMenu(response.data);
-      console.log("Hello world 444!");
-      console.log(JSON.stringify(cookMenu, null, 2));
+  
+      // Fetch ingredients for each dish and combine into a single JSON object
+      const combinedData = await Promise.all(
+        response.data.map(async (dish) => {
+          const ingredientResponse = await axios.get(
+            `http://${LOCAL_IP}:${PORT}/ingredientList?dishid=${dish.dishid}&userid=${dish.userid}`
+          );
+          const ingredients = ingredientResponse.data;
+          return {
+            ...dish,
+            ingredients,
+          };
+        })
+      );
+      console.log("Hello world 555!");
+      setCookMenu(combinedData);
+      console.log("Combined Data:", JSON.stringify(combinedData, null, 2));
     } catch (error) {
       console.error("Error fetching cook menu data:", error);
     }
   };
-
-  const getIngredientList = async (dishid, userid) => {
-    try {
-      const response = await axios.get(
-        `http://${LOCAL_IP}:${PORT}/ingredientList?dishid=${dishid}&userid=${userid}`
-      );
-      setIngrdList(response.data);
-      console.log("Hello world 555!");
-      console.log(JSON.stringify(response.data, null, 2)); // Use response.data instead of ingrdList
-    } catch (error) {
-      console.error("Error fetching ingredient list:", error);
-    }
-  };
+  
 
   const cookDish = async (dishid, userid) => {
     try {
@@ -181,7 +183,6 @@ function useFoodItem() {
     usageWasteData,
     locationRanking,
     cookMenu,
-    ingredientList,
     getFoodItem,
     updateFoodItem,
     createFoodItem,
@@ -192,7 +193,6 @@ function useFoodItem() {
     getFoodItemByCategory,
     getLocationRanking,
     getCookMenu,
-    getIngredientList,
     cookDish,
   };
 }

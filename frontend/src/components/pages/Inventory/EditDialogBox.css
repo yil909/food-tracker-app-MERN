@@ -10,6 +10,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
 }
 
 .edit-modal-content {
@@ -25,7 +26,7 @@
   flex-direction: column;
   align-items: flex-start;
   font-family:Arial, Helvetica, sans-serif;
-  
+  position: relative;
 }
 
 .edit-modal-form {
@@ -67,14 +68,14 @@
 }
 
 /* Button styles */
-.modal-actions {
+.edit-modal-actions {
   width: 100%;
   max-width: 350px;
   display: flex;
   justify-content: space-between;
 }
 
-.modal-button {
+.edit-modal-button {
   padding: 10px 0;
   border-radius: 8px;
   font-size: 1rem;
@@ -84,17 +85,12 @@
   cursor: pointer; /* Added cursor pointer */
 }
 
-.modal-button.save {
-  background-color: #4CAF50; /* Green background */
-  color: white;
-}
-
-.modal-button.cancel {
+.edit-modal-button.cancel {
   background-color: #F44336; /* Red background */
   color: white;
 }
 
-.modal-button:hover {
+.edit-modal-button:hover {
   filter: brightness(90%);
 }
 
@@ -110,19 +106,52 @@
   width: auto; /* Allow the buttons to size according to their content */
 }
 
-.edit-modal-button.save {
+.edit-modal-button-save {
   /* Specific style for the Save button */
   background-color: #4CAF50; /* Green color for Save */
   margin-right: auto;
+  width: 100%; 
+  display: block; 
+  margin: 10px 0; 
+  color: white;
+  padding: 10px 0; /* More vertical padding for a taller button */
+  border-radius: 8px; /* Match the input border-radius */
+  font-size: 1rem; /* Match the font size of inputs */
+  flex: 1; /* Distribute space evenly */
+  margin: 0 5px; /* Add space between buttons */
+  border: none;
 }
 
-.edit-modal-button.close {
-  /* Specific style for the Close button */
-  background-color: #F44336; /* Red color for Close */
+/* .edit-modal-button.close {
+ 
+  background-color: #F44336; 
   margin-left: auto;
+} */
+
+
+  .edit-modal-button-close {
+    position: absolute; 
+    top: 16px;
+    right: 16px;
+    font-size: 24px;
+    color: #333;
+    cursor: pointer;
+    z-index: 10;
+  }
+  
+
+
+.edit-modal-button-close:hover {
+  color: #f00; 
+
 }
 
 .edit-modal-button:hover {
+  /* Hover effect for buttons */
+  filter: brightness(90%);
+}
+
+.edit-modal-button-save:hover {
   /* Hover effect for buttons */
   filter: brightness(90%);
 }

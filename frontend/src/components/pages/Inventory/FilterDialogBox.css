@@ -13,6 +13,7 @@
   }
 
   .filter-modal-box {
+    position: relative; /* Added relative positioning */
     background: white;
     padding: 20px;
     border-radius: 5px;
@@ -71,11 +72,25 @@
     background-color: #4CAF50; /* Default green color */
   }
   
-  .filter-modal-button.cancel {
+  /* .filter-modal-button.cancel {
     background-color: #F44336; /* Red color for cancel/close buttons */
-  }
+
   
   .filter-modal-button:hover {
     filter: brightness(90%);
+  }
+
+  .filter-modal-button-cancel {
+    position: absolute; /* Absolute position to place the icon at the top-right corner */
+    top: 16px; /* Adjust top position to align the icon as needed */
+    right: 16px; /* Adjust right position to align the icon as needed */
+    font-size: 24px; /* Adjust icon size as needed */
+    color: #333; /* Set the color of the close icon */
+    cursor: pointer; /* Change cursor to pointer to indicate a clickable element */
+  }
+  
+
+  .filter-modal-button-cancel:hover {
+    color: #f00; 
   }
   

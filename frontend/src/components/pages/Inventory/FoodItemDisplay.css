@@ -108,6 +108,7 @@
 /* Add a thin grey line under each row */
 .food-items-table tr {
   border-bottom: 1px solid #ccc; /* Grey line */
+  cursor: pointer;
 }
 
 /* Mouse hover effect */
@@ -183,4 +184,9 @@
 
 .custom-modal-content .message {
   font-family: "Arial, sans-serif" !important;
+}
+
+
+.highlighted-row {
+  background-color: lightgrey; /* 您想要的高亮颜色 */
 }

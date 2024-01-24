@@ -1,82 +1,90 @@
 import React, { useEffect, useState } from "react";
 import useFoodItem from "../../../hooks/useFoodItem";
-import { CloseCircleOutlined } from "@ant-design/icons";
+import { CloseCircleOutlined, SyncOutlined } from "@ant-design/icons";
 import "./CookMenu.css";
 
 const CookMenu = ({ onClose }) => {
-  const { cookMenu, getCookMenu, ingredientList, getIngredientList, cookDish } =
-    useFoodItem();
-  const [selectedDishId, setSelectedDishId] = useState(null);
-  const [showSuccess, setShowSuccess] = useState(false); // State to control success message visibility
+  const { cookMenu, getCookMenu, cookDish } = useFoodItem();
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [flippedCards, setFlippedCards] = useState({});
 
   useEffect(() => {
     getCookMenu();
   }, []);
 
-  useEffect(() => {
-    if (selectedDishId !== null) {
-      getIngredientList(selectedDishId, 1); // Assuming userid is 1
-    }
-  }, [selectedDishId]);
-
-  const handleDishSelect = (dishId) => {
-    setSelectedDishId(dishId);
+  const handleDishFlip = (e, dishId) => {
+    e.stopPropagation(); // Prevents click event from reaching the overlay
+    setFlippedCards((prevFlippedCards) => ({
+      ...prevFlippedCards,
+      [dishId]: !prevFlippedCards[dishId], // Toggle the flipped state
+    }));
   };
 
-  const handleOverlayClick = (e) => {
-    if (e.target === e.currentTarget) {
-      onClose();
+  const handleFlipAll = (e) => {
+    e.stopPropagation();
+    const isAllFlipped = Object.values(flippedCards).every((state) => state);
+
+    if (isAllFlipped) {
+      // If all cards are flipped, set all to unflipped
+      const resetFlipped = cookMenu.reduce((acc, dish) => {
+        acc[dish.dishid] = false;
+        return acc;
+      }, {});
+      setFlippedCards(resetFlipped);
+    } else {
+      // If not all cards are flipped, set all to flipped
+      const allDishesFlipped = cookMenu.reduce((acc, dish) => {
+        acc[dish.dishid] = true;
+        return acc;
+      }, {});
+      setFlippedCards(allDishesFlipped);
     }
   };
 
-  const handleCookClick = async () => {
-    if (selectedDishId !== null) {
-      await cookDish(selectedDishId, 1); // Assuming userid is 1
-      setShowSuccess(true); // Show success message
-      setTimeout(() => setShowSuccess(false), 3000); // Hide success message after 3 seconds
-    }
+  const handleCookClick = async (e, dishId) => {
+    e.stopPropagation(); // Prevent click from triggering flip
+    await cookDish(dishId, 1); // Assuming userid is 1
+    setShowSuccess(true);
+    setTimeout(() => setShowSuccess(false), 3000);
   };
 
   return (
-    <div className="cook-modal-overlay" onClick={handleOverlayClick}>
+    <div className="cook-modal-overlay" onClick={onClose}>
       <div className="cook-modal-box" onClick={(e) => e.stopPropagation()}>
+        {/* Flip All button as an icon */}
+        <SyncOutlined className="flip-all-icon" onClick={handleFlipAll} />
         <CloseCircleOutlined
           className="cook-modal-close-icon"
           onClick={onClose}
         />
         <h1>Menu</h1>
+        {/* <button className="cook-modal-button flip-all" onClick={handleFlipAll}>
+          Flip All
+        </button> */}
         <div className="dish-card-container">
           {cookMenu.map((dish) => (
             <div
               key={dish.dishid}
               className={`dish-card ${
-                selectedDishId === dish.dishid ? "flipped" : ""
+                flippedCards[dish.dishid] ? "flipped" : ""
               }`}
+              onClick={(e) => handleDishFlip(e, dish.dishid)}
             >
-              <div
-                className="dish-front"
-                onClick={() => handleDishSelect(dish.dishid)}
-              >
-                <label className="dish-label">
-                  <img
-                    src={`./images/dishes/${dish.dishpic}`}
-                    alt={dish.dishname}
-                  />
-                  <input
-                    type="radio"
-                    name="selectedDish"
-                    id={`dish-${dish.dishid}`}
-                    onChange={() => handleDishSelect(dish.dishid)}
-                  />
-                  <h5>{dish.dishname}</h5>
-                </label>
+              <div className="dish-front">
+                <img
+                  src={`./images/dishes/${dish.dishpic}`}
+                  alt={dish.dishname}
+                />
+                <h5>{dish.dishname}</h5>
               </div>
               <div className="dish-back">
-                <div className="ingredient-list">
-                  {/* Dish name on the back of the card */}
+                {/* Render the dish name here if the card is flipped */}
+                {flippedCards[dish.dishid] && (
                   <div className="dish-name-back">
                     <h5>{dish.dishname}</h5>
                   </div>
+                )}
+                <div className="ingredient-list">
                   <table>
                     <thead>
                       <tr>
@@ -85,7 +93,7 @@ const CookMenu = ({ onClose }) => {
                       </tr>
                     </thead>
                     <tbody>
-                      {ingredientList.map((ingredient) => (
+                      {dish.ingredients.map((ingredient) => (
                         <tr key={ingredient.ingredientname}>
                           <td>{ingredient.ingredientname}</td>
                           <td>{ingredient.weight}</td>
@@ -93,14 +101,13 @@ const CookMenu = ({ onClose }) => {
                       ))}
                     </tbody>
                   </table>
+                  <button
+                    className="cook-modal-button cook"
+                    onClick={(e) => handleCookClick(e, dish.dishid)}
+                  >
+                    Cook This
+                  </button>
                 </div>
-
-                <button
-                  className="cook-modal-button cook"
-                  onClick={handleCookClick}
-                >
-                  Cook This
-                </button>
               </div>
             </div>
           ))}
@@ -110,7 +117,6 @@ const CookMenu = ({ onClose }) => {
         )}
       </div>
     </div>
-    // </div>
   );
 };
 

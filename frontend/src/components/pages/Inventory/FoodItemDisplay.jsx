@@ -119,17 +119,17 @@ function FoodItemDisplay() {
     setSelectedItemId(parseInt(event.target.value));
   };
 
-  // const handleEditClick = () => {
-  //   if (selectedItemId === null) {
-  //     alert("Please select an item to edit.");
-  //     return;
-  //   }
-
   const handleEditClick = () => {
     if (selectedItemId === null) {
-      setShowCustomModal(true);
+      alert("Please select an item to edit.");
       return;
     }
+
+    // const handleEditClick = () => {
+    //   if (selectedItemId === null) {
+    //     setShowCustomModal(true);
+    //     return;
+    //   }
 
     // Open the dialog box
     setIsDialogOpen(true);
@@ -360,7 +360,13 @@ function FoodItemDisplay() {
                 currentPage * itemsPerPage
               )
               .map((item) => (
-                <tr key={item.itemid}>
+                <tr
+                  key={item.itemid}
+                  className={
+                    selectedItemId === item.itemid ? "highlighted-row" : ""
+                  }
+                  onClick={() => setSelectedItemId(item.itemid)}
+                >
                   <td>
                     <input
                       type="radio"
