@@ -109,27 +109,31 @@
 .edit-modal-button-save {
   /* Specific style for the Save button */
   background-color: #4CAF50; /* Green color for Save */
-  margin-right: auto;
-  width: 100%; 
-  display: block; 
-  margin: 10px 0; 
   color: white;
   padding: 10px 0; /* More vertical padding for a taller button */
   border-radius: 8px; /* Match the input border-radius */
   font-size: 1rem; /* Match the font size of inputs */
   flex: 1; /* Distribute space evenly */
-  margin: 0 5px; /* Add space between buttons */
+  margin: 10px 5px 0 5px; /* Add space between buttons */
   border: none;
+  width: 100%; /* Match the width of the Save button */
+  display: block; /* Match the display of the Save button */
 }
 
-/* .edit-modal-button.close {
- 
-  background-color: #F44336; 
-  margin-left: auto;
-} */
+.edit-modal-button-close {
+  background-color: #F44336; /* Red color for Close */
+  color: white;
+  padding: 10px 0; /* More vertical padding for a taller button */
+  border-radius: 8px; /* Match the input border-radius */
+  font-size: 1rem; /* Match the font size of inputs */
+  flex: 1; /* Distribute space evenly */
+  margin: 10px 5px 0 5px; /* Add space between buttons */
+  border: none;
+  width: 100%; /* Match the width of the Save button */
+  display: block; /* Match the display of the Save button */
+}
 
-
-  .edit-modal-button-close {
+  .edit-modal-top-close {
     position: absolute; 
     top: 16px;
     right: 16px;
@@ -139,11 +143,12 @@
     z-index: 10;
   }
   
-
+.edit-modal-top-close:hover {
+  color: #f00; 
+}
 
 .edit-modal-button-close:hover {
-  color: #f00; 
-
+  filter: brightness(90%);
 }
 
 .edit-modal-button:hover {
@@ -156,7 +161,7 @@
   filter: brightness(90%);
 }
 
-.modal-title {
+.edit-modal-title {
   width: 100%;
   text-align: center;
 }
@@ -166,4 +171,17 @@
   justify-content: space-between; /* This will place one button at each end */
   /* width: 300px; Match the width of your inputs */
   width: calc(100% - 20px); /* Subtract the total horizontal padding of the modal-content */
+}
+
+.edit-success-message {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1010;
+  background-color: #dff0d8;
+  color: #3c763d;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }

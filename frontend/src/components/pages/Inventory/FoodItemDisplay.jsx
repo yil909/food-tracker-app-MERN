@@ -319,15 +319,15 @@ function FoodItemDisplay() {
               {isEditing ? <EditOutlined /> : <EditOutlined />} Edit
             </button>
             <button className="add-item-button" onClick={handleAddClick}>
-              <PlusOutlined /> Add Item
+              <PlusOutlined /> Add
             </button>
 
             <button className="filters-button" onClick={handleFilterClick}>
-              <FilterOutlined /> Filters
+              <FilterOutlined />
             </button>
 
             <button className="download-button" onClick={handleDownload}>
-              <DownloadOutlined /> Download all
+              <DownloadOutlined />
             </button>
           </div>
         </div>

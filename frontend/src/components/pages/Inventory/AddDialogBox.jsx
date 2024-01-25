@@ -5,11 +5,6 @@ import useFoodItem from "../../../hooks/useFoodItem";
 import "./AddDialogBox.css";
 
 const AddDialogBox = ({ onClose }) => {
-  const handleOverlayClick = (e) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
-  };
   const [foodCategoryid, setFoodCategoryid] = useState("");
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState("");
@@ -19,6 +14,8 @@ const AddDialogBox = ({ onClose }) => {
 
   const { foodCategory, getFoodCategory } = useFoodCategory();
   const { createFoodItem } = useFoodItem();
+
+  const [nameSuggestions, setNameSuggestions] = useState([]);
 
   useEffect(() => {
     getFoodCategory();
@@ -40,9 +37,35 @@ const AddDialogBox = ({ onClose }) => {
     onClose(); // Close modal after submission
   };
 
+  useEffect(() => {
+    const fetchSuggestions = async () => {
+      if (!foodCategoryid || !name.trim()) {
+        // If either categoryID or name is empty, do not fetch suggestions
+        return;
+      }
+
+      try {
+        const suggestions = await getFoodItemSuggestions(foodCategoryid, name);
+        const suggestionNames = suggestions.map(
+          (suggestion) => suggestion.itemname
+        );
+        setNameSuggestions(suggestionNames);
+      } catch (error) {
+        console.error("Error fetching suggestions:", error);
+      }
+    };
+
+    fetchSuggestions();
+  }, [foodCategoryid, name]);
+
+  const handleSuggestionClick = (suggestion) => {
+    setName(suggestion); // Set the name input field with the selected suggestion
+    setNameSuggestions([]); // Clear suggestions after selection
+  };
+
   return (
-    <div className="add-modal-overlay" onClick={handleOverlayClick}>
-      <div className="add-modal-box" onClick={(e) => e.stopPropagation()}>
+    <div className="add-modal-overlay">
+      <div className="add-modal-box">
         <h2>Add New Food Item</h2>
         <form onSubmit={handleSubmit}>
           <label>
@@ -65,7 +88,23 @@ const AddDialogBox = ({ onClose }) => {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              onBlur={() => {
+                // Delay hiding suggestions to allow click event to register
+                setTimeout(() => setNameSuggestions([]), 200);
+              }}
             />
+            {nameSuggestions.length > 0 && (
+              <ul className="suggestions-list">
+                {nameSuggestions.map((suggestion, index) => (
+                  <li
+                    key={index}
+                    onClick={() => handleSuggestionClick(suggestion)}
+                  >
+                    {suggestion}
+                  </li>
+                ))}
+              </ul>
+            )}
           </label>
           <label>
             Quantity:

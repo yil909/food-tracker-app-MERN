@@ -12,6 +12,11 @@ import {
 } from "@ant-design/icons";
 import { useNotification } from "../../hooks/useNotification.jsx";
 
+const handleMarkAsReadClick = (e, index, editItem) => {
+  e.stopPropagation(); // Prevent click from bubbling up to parent div
+  handleMarkAsRead(index, editItem);
+};
+
 const Notice = () => {
   const { incrementNotificationCount, decrementNotificationCount } =
     useNotification();
@@ -95,8 +100,12 @@ const Notice = () => {
                 The batch of food items are set to expire in 2 days. Please use
                 or dispose of it appropriately.
               </p>
-              <a href="#" onClick={toggleDetails}>
-                Read Details
+              <a
+                href="#"
+                onClick={toggleDetails}
+                className={showDetails ? "toggled" : ""}
+              >
+                {showDetails ? "Hide Details" : "Read Details"}
               </a>
               {showDetails && (
                 <div className="additional-details">

@@ -6,6 +6,8 @@ import "./EditDialogBox.css";
 import { CloseCircleOutlined } from "@ant-design/icons";
 
 const EditDialogBox = ({ foodItemDetails, onClose }) => {
+  const [showSuccess, setShowSuccess] = useState(false);
+
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
       onClose();
@@ -34,13 +36,27 @@ const EditDialogBox = ({ foodItemDetails, onClose }) => {
     }));
   };
 
+  // const handleSave = async () => {
+  //   try {
+  //     const updatedData = { ...editedItem, foodstatus: foodStatus };
+  //     // Call the updateFoodItem function
+  //     createTransLog(updatedData);
+  //     console.log("Saving edited item:", updatedData);
+  //     onClose();
+  //   } catch (error) {
+  //     console.error("Error updating food item:", error);
+  //   }
+  // };
   const handleSave = async () => {
     try {
       const updatedData = { ...editedItem, foodstatus: foodStatus };
-      // Call the updateFoodItem function
       createTransLog(updatedData);
       console.log("Saving edited item:", updatedData);
-      onClose();
+      setShowSuccess(true);
+      setTimeout(() => {
+        setShowSuccess(false);
+        onClose(); // 现在将 onClose 放在这里，确保弹窗显示3秒后再关闭。
+      }, 3000);
     } catch (error) {
       console.error("Error updating food item:", error);
     }
@@ -156,13 +172,16 @@ const EditDialogBox = ({ foodItemDetails, onClose }) => {
           <button className="edit-modal-button-save" onClick={handleSave}>
             Save
           </button>
-          {/* <button className="edit-modal-button close" onClick={onClose}>
+          <button className="edit-modal-button-close" onClick={onClose}>
             Close
-          </button> */}
-          <CloseCircleOutlined
-            className="edit-modal-button-close"
+          </button>
+          {/* <CloseCircleOutlined
+            className="edit-modal-top-close"
             onClick={onClose}
-          />
+          /> */}
+          {showSuccess && (
+            <div className="edit-success-message">Save Successful!</div>
+          )}
         </div>
       </div>
     </div>
