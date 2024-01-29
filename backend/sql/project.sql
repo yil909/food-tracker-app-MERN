@@ -1,10 +1,3 @@
-DROP TABLE IF EXISTS user;
-DROP TABLE IF EXISTS foodcategory;
-DROP TABLE IF EXISTS fooditem;
-DROP TABLE IF EXISTS transactionlog;
-DROP TABLE IF EXISTS menu;
-DROP TABLE IF EXISTS processeditem;
-
 
 CREATE TABLE IF NOT EXISTS user (
   userid INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
@@ -54,7 +47,6 @@ CREATE TABLE IF NOT EXISTS menu(
 );
 
 
-
 CREATE TABLE IF NOT EXISTS transactionlog (
   transctionid INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,
   userid INTEGER NOT NULL, 
@@ -78,45 +70,46 @@ CREATE TABLE IF NOT EXISTS categoryassociation (
 
 
 INSERT INTO user (username, hashpw, saltpw, avatar, authToken, is_admin, restaurantname, address, location, contact) VALUES 
-('user1', 'bb725dc48d9e4635c7e5d352f5bb5537bf74f2fc01b4f6eee72c19b2a4ccbec4', 'ab6a10b4c6fb238a56a47a9cc8132e92ae3287cdbf8e310d77a213588cda4921', 'avatar1.png', '', True, 'Restaurant1', 'Address1', 'Invercargill', 'contact1@example.com'), 
+('admin', '$2b$10$FxhEwl1/pedwBZY4P5PskOpK4/Nw43S6pjlBCKj/6pNLMVnC9DOVe', '$2b$10$FxhEwl1/pedwBZY4P5PskO', 'avatar1.png', '', True, 'Restaurant1', 'Address1', 'Invercargill', 'contact1@example.com'),
+('user1', '$2b$10$.2bgZd.qN4Uv5Wv/nLDOnOpxifctUwUZ/N.byZgoO2R1FnNl4Om1O', '$2b$10$.2bgZd.qN4Uv5Wv/nLDOnO', 'avatar1.png', '', False, 'Restaurant1', 'Address1', 'Invercargill', 'contact1@example.com'), 
 ('user2', 'c2e2c69da6d00af8097ce6f62f368a80bc545322f63e9ca428c893feb85b609b', '8cd8d8c914298e8080b7968b9466eabb4c85e2f813f3bff5ed10495874cdc34b', 'avatar2.png', '', False, 'Restaurant2', 'Address2', 'Masterton', 'contact2@example.com'), 
 ('user3', 'b7232d027311fa799ed7f234f4653ed1e14107a9b8a036498362aaaddbac3cce', '7c1b3c4c39410b52f05e67f97c6c57401cdffa0ce96bb278a863c039f9dcc5db', 'avatar3.png', '', False, 'Restaurant3', 'Address3', 'Taupo', 'contact3@example.com'), 
-('user4', '4c0a0beeb7bd588ab8031e3111385deb425406a7f48458b95e629d8188133548', '18e1207b82ad38315f8a354c22fbf170ae57ee0ff4c0851a4f10d46b56e6f4b8', 'avatar4.png', '', True, 'Restaurant4', 'Address4', 'Palmerston North', 'contact4@example.com'), 
-('user5', 'ff525a70d18896e51cfa5e16c4dbe782e4c70418328a497b6ebabfcf5088a61c', '64f4c0fea492c7667312ed9a325cb8be5450c031beb1099b1afab63b36902d5b', 'avatar5.png', '', True, 'Restaurant5', 'Address5', 'Pukekohe', 'contact5@example.com'), 
-('user6', '4717e761425ca0377157f51b5011532c667b3ede4f171abd2a414259d1fd815b', '63d175bc17896fdbc97016d7439781bc1a8f6dec3c487660b7740fed33fcbe1e', 'avatar6.png', '', True, 'Restaurant6', 'Address6', 'Whanganui', 'contact6@example.com'), 
+('user4', '4c0a0beeb7bd588ab8031e3111385deb425406a7f48458b95e629d8188133548', '18e1207b82ad38315f8a354c22fbf170ae57ee0ff4c0851a4f10d46b56e6f4b8', 'avatar4.png', '', False, 'Restaurant4', 'Address4', 'Palmerston North', 'contact4@example.com'), 
+('user5', 'ff525a70d18896e51cfa5e16c4dbe782e4c70418328a497b6ebabfcf5088a61c', '64f4c0fea492c7667312ed9a325cb8be5450c031beb1099b1afab63b36902d5b', 'avatar5.png', '', False, 'Restaurant5', 'Address5', 'Pukekohe', 'contact5@example.com'), 
+('user6', '4717e761425ca0377157f51b5011532c667b3ede4f171abd2a414259d1fd815b', '63d175bc17896fdbc97016d7439781bc1a8f6dec3c487660b7740fed33fcbe1e', 'avatar6.png', '', False, 'Restaurant6', 'Address6', 'Whanganui', 'contact6@example.com'), 
 ('user7', '6476b2a869d945f4e5e80d371076a9be1435d2a9f752d5257d38a56639901a11', 'a397046a9655c8ea4cd02f2400e0a7d7da6a69585e79108abffeb8b41bb4f422', 'avatar7.png', '', False, 'Restaurant7', 'Address7', 'Wellington', 'contact7@example.com'), 
-('user8', '7a9f28bba374d8ef7fa6583517e6156c7abdf3f720613bfac96c3847e68262f1', '21f5fdc2b96b7b630cbb1bb9625a429ec6cfffb5308801a0d27a92fa4e39b97c', 'avatar8.png', '', True, 'Restaurant8', 'Address8', 'Rotorua', 'contact8@example.com'), 
-('user9', 'cfa829bfb8e30b65c42e7c2ac5af34784278d89a6ab6f5286951e39d22aceefa', '2e15f7290d003122f3444051251dea515a5cec73f7af45cdfddb2a41fa58cb55', 'avatar9.png', '', True, 'Restaurant9', 'Address9', 'Tauranga', 'contact9@example.com'), 
+('user8', '7a9f28bba374d8ef7fa6583517e6156c7abdf3f720613bfac96c3847e68262f1', '21f5fdc2b96b7b630cbb1bb9625a429ec6cfffb5308801a0d27a92fa4e39b97c', 'avatar8.png', '', False, 'Restaurant8', 'Address8', 'Rotorua', 'contact8@example.com'), 
+('user9', 'cfa829bfb8e30b65c42e7c2ac5af34784278d89a6ab6f5286951e39d22aceefa', '2e15f7290d003122f3444051251dea515a5cec73f7af45cdfddb2a41fa58cb55', 'avatar9.png', '', False, 'Restaurant9', 'Address9', 'Tauranga', 'contact9@example.com'), 
 ('user10', '8b3b72c3e9ee9ec93438fc4452c3d8186923d3806143fdf1029ec588c4888e4f', 'dec95e8d7a21e4ea7d60d8d9214f591279552c448fb60473a440bade17f9953f', 'avatar10.png', '', False, 'Restaurant10', 'Address10', 'Whanganui', 'contact10@example.com'), 
-('user11', '6562a5c185fbcc706fd06d3fa489bbf0a30952b3d057c49ad5ad7f1bf0b74e26', 'ceac36cdcf30705d87cef772fb37c3502b9a844c00c10ab42be41cc8a2e07af9', 'avatar11.png', '', True, 'Restaurant11', 'Address11', 'New Plymouth', 'contact11@example.com'), 
-('user12', '7e2ac0966d92a7b017a3dec01006ea75cd0b4bd9140cabfa9a5885f73a3a549a', '5ec8289b3e6fb32fc1d73984e371910e1cb8e01b764e9e435af5068eece60819', 'avatar12.png', '', True, 'Restaurant12', 'Address12', 'Dunedin', 'contact12@example.com'), 
-('user13', '3310fd2e691d52f1d6da2364ba2ffb3188f05d0635b77d6de3ff50514b617ce5', '62a5c7aeecaf63c467473ddfd070277a9cb914885c17508ca5fcf0bfeefd2278', 'avatar13.png', '', True, 'Restaurant13', 'Address13', 'Gisborne', 'contact13@example.com'), 
+('user11', '6562a5c185fbcc706fd06d3fa489bbf0a30952b3d057c49ad5ad7f1bf0b74e26', 'ceac36cdcf30705d87cef772fb37c3502b9a844c00c10ab42be41cc8a2e07af9', 'avatar11.png', '', False, 'Restaurant11', 'Address11', 'New Plymouth', 'contact11@example.com'), 
+('user12', '7e2ac0966d92a7b017a3dec01006ea75cd0b4bd9140cabfa9a5885f73a3a549a', '5ec8289b3e6fb32fc1d73984e371910e1cb8e01b764e9e435af5068eece60819', 'avatar12.png', '', False, 'Restaurant12', 'Address12', 'Dunedin', 'contact12@example.com'), 
+('user13', '3310fd2e691d52f1d6da2364ba2ffb3188f05d0635b77d6de3ff50514b617ce5', '62a5c7aeecaf63c467473ddfd070277a9cb914885c17508ca5fcf0bfeefd2278', 'avatar13.png', '', False, 'Restaurant13', 'Address13', 'Gisborne', 'contact13@example.com'), 
 ('user14', '101aadfcb0e642b22f8095cdb43d4f7c4e84125ae8dc9f1341f0488a3d04b29f', 'acba65484b5f4cccbd4d2afafe4fe21331bf4aebedd468d619d0d8b7f8705a01', 'avatar14.png', '', False, 'Restaurant14', 'Address14', 'Auckland', 'contact14@example.com'), 
 ('user15', '458c76cfeec31605727f169a37d5a745e486798bf49705837dfa1e7be565bb39', 'e3c5ab737a86859b324c6f6d91cc65a49c6db95b9eefe298c675d6edcccf9ca0', 'avatar15.png', '', False, 'Restaurant15', 'Address15', 'Napier-Hastings', 'contact15@example.com'), 
-('user16', 'c4541fd5323f8e9f9e923c7c78d398e13449b58de2cdc8f040e712a87cdd5e1d', '20252f3b4dad1bb50720372ae3e385644c8e0f0b5b6de41c585c446e087c6f0d', 'avatar16.png', '', True, 'Restaurant16', 'Address16', 'Palmerston North', 'contact16@example.com'), 
+('user16', 'c4541fd5323f8e9f9e923c7c78d398e13449b58de2cdc8f040e712a87cdd5e1d', '20252f3b4dad1bb50720372ae3e385644c8e0f0b5b6de41c585c446e087c6f0d', 'avatar16.png', '', False, 'Restaurant16', 'Address16', 'Palmerston North', 'contact16@example.com'), 
 ('user17', '1c91af4f4a7c34a6cff3fed6e805d4567fa940c992fd0acfd44ae63fe91a07ae', '398ce10efa31ec16c723f59d977aa756803224031705c128439ffbcf05b42f3b', 'avatar17.png', '', False, 'Restaurant17', 'Address17', 'Invercargill', 'contact17@example.com'), 
 ('user18', 'ad4bdbe1b81c317f4d5c471df11523aec853fac401a4de7d04aee204d2b2875f', '0f22908d96c998496b942f6a3943c8bd6bcf19af21df020738b76883a0d17e38', 'avatar18.png', '', False, 'Restaurant18', 'Address18', 'Napier-Hastings', 'contact18@example.com'), 
-('user19', '81ef2a092d788511cd604b24759f76030aeb009dda4d095c72539f39074c76ba', 'b27f6a9806c074167e3a8cb7d103503d943157258eeec888af20ec7c90ea0b81', 'avatar19.png', '', True, 'Restaurant19', 'Address19', 'Blenheim', 'contact19@example.com'), 
+('user19', '81ef2a092d788511cd604b24759f76030aeb009dda4d095c72539f39074c76ba', 'b27f6a9806c074167e3a8cb7d103503d943157258eeec888af20ec7c90ea0b81', 'avatar19.png', '', False, 'Restaurant19', 'Address19', 'Blenheim', 'contact19@example.com'), 
 ('user20', '80cd4a6695c8487af9c10dfac37e67855657d70e970501dcea8d4c7e3f75da6c', 'bc168b9923a7c1b7110ad888e8738b6d018c2d483c974e41a96069d674c97d7c', 'avatar20.png', '', False, 'Restaurant20', 'Address20', 'Invercargill', 'contact20@example.com'),
-('user21', 'bb725dc48d9e4635c7e5d352f5bb5537bf74f2fc01b4f6eee72c19b2a4ccbec4', 'ab6a10b4c6fb238a56a47a9cc8132e92ae3287cdbf8e310d77a213588cda4921', 'avatar21.png', '', True, 'Restaurant21', 'Address1', 'Invercargill', 'contact1@example.com'), 
-('user22', 'c2e2c69da6d00af8097ce6f62f368a80bc545322f63e9ca428c893feb85b609b', '8cd8d8c914298e8080b7968b9466eabb4c85e2f813f3bff5ed10495874cdc34b', 'avatar22.png', '', True, 'Restaurant22', 'Address2', 'Masterton', 'contact2@example.com'), 
+('user21', 'bb725dc48d9e4635c7e5d352f5bb5537bf74f2fc01b4f6eee72c19b2a4ccbec4', 'ab6a10b4c6fb238a56a47a9cc8132e92ae3287cdbf8e310d77a213588cda4921', 'avatar21.png', '', False, 'Restaurant21', 'Address1', 'Invercargill', 'contact1@example.com'), 
+('user22', 'c2e2c69da6d00af8097ce6f62f368a80bc545322f63e9ca428c893feb85b609b', '8cd8d8c914298e8080b7968b9466eabb4c85e2f813f3bff5ed10495874cdc34b', 'avatar22.png', '', False, 'Restaurant22', 'Address2', 'Masterton', 'contact2@example.com'), 
 ('user23', 'b7232d027311fa799ed7f234f4653ed1e14107a9b8a036498362aaaddbac3cce', '7c1b3c4c39410b52f05e67f97c6c57401cdffa0ce96bb278a863c039f9dcc5db', 'avatar23.png', '', False, 'Restaurant23', 'Address3', 'Taupo', 'contact3@example.com'), 
-('user24', '4c0a0beeb7bd588ab8031e3111385deb425406a7f48458b95e629d8188133548', '18e1207b82ad38315f8a354c22fbf170ae57ee0ff4c0851a4f10d46b56e6f4b8', 'avatar24.png', '', True, 'Restaurant24', 'Address4', 'Palmerston North', 'contact4@example.com'), 
-('user25', 'ff525a70d18896e51cfa5e16c4dbe782e4c70418328a497b6ebabfcf5088a61c', '64f4c0fea492c7667312ed9a325cb8be5450c031beb1099b1afab63b36902d5b', 'avatar25.png', '', True, 'Restaurant25', 'Address5', 'Pukekohe', 'contact5@example.com'), 
-('user26', '4717e761425ca0377157f51b5011532c667b3ede4f171abd2a414259d1fd815b', '63d175bc17896fdbc97016d7439781bc1a8f6dec3c487660b7740fed33fcbe1e', 'avatar26.png', '', True, 'Restaurant26', 'Address6', 'Whanganui', 'contact6@example.com'), 
+('user24', '4c0a0beeb7bd588ab8031e3111385deb425406a7f48458b95e629d8188133548', '18e1207b82ad38315f8a354c22fbf170ae57ee0ff4c0851a4f10d46b56e6f4b8', 'avatar24.png', '', False, 'Restaurant24', 'Address4', 'Palmerston North', 'contact4@example.com'), 
+('user25', 'ff525a70d18896e51cfa5e16c4dbe782e4c70418328a497b6ebabfcf5088a61c', '64f4c0fea492c7667312ed9a325cb8be5450c031beb1099b1afab63b36902d5b', 'avatar25.png', '', False, 'Restaurant25', 'Address5', 'Pukekohe', 'contact5@example.com'), 
+('user26', '4717e761425ca0377157f51b5011532c667b3ede4f171abd2a414259d1fd815b', '63d175bc17896fdbc97016d7439781bc1a8f6dec3c487660b7740fed33fcbe1e', 'avatar26.png', '', False, 'Restaurant26', 'Address6', 'Whanganui', 'contact6@example.com'), 
 ('user27', '6476b2a869d945f4e5e80d371076a9be1435d2a9f752d5257d38a56639901a11', 'a397046a9655c8ea4cd02f2400e0a7d7da6a69585e79108abffeb8b41bb4f422', 'avatar27.png', '', False, 'Restaurant27', 'Address7', 'Wellington', 'contact7@example.com'), 
-('user28', '7a9f28bba374d8ef7fa6583517e6156c7abdf3f720613bfac96c3847e68262f1', '21f5fdc2b96b7b630cbb1bb9625a429ec6cfffb5308801a0d27a92fa4e39b97c', 'avatar28.png', '', True, 'Restaurant28', 'Address8', 'Rotorua', 'contact8@example.com'), 
-('user29', 'cfa829bfb8e30b65c42e7c2ac5af34784278d89a6ab6f5286951e39d22aceefa', '2e15f7290d003122f3444051251dea515a5cec73f7af45cdfddb2a41fa58cb55', 'avatar29.png', '', True, 'Restaurant29', 'Address9', 'Tauranga', 'contact9@example.com'), 
+('user28', '7a9f28bba374d8ef7fa6583517e6156c7abdf3f720613bfac96c3847e68262f1', '21f5fdc2b96b7b630cbb1bb9625a429ec6cfffb5308801a0d27a92fa4e39b97c', 'avatar28.png', '', False, 'Restaurant28', 'Address8', 'Rotorua', 'contact8@example.com'), 
+('user29', 'cfa829bfb8e30b65c42e7c2ac5af34784278d89a6ab6f5286951e39d22aceefa', '2e15f7290d003122f3444051251dea515a5cec73f7af45cdfddb2a41fa58cb55', 'avatar29.png', '', False, 'Restaurant29', 'Address9', 'Tauranga', 'contact9@example.com'), 
 ('user30', '8b3b72c3e9ee9ec93438fc4452c3d8186923d3806143fdf1029ec588c4888e4f', 'dec95e8d7a21e4ea7d60d8d9214f591279552c448fb60473a440bade17f9953f', 'avatar30.png', '', False, 'Restaurant30', 'Address10', 'Whanganui', 'contact10@example.com'), 
-('user31', '6562a5c185fbcc706fd06d3fa489bbf0a30952b3d057c49ad5ad7f1bf0b74e26', 'ceac36cdcf30705d87cef772fb37c3502b9a844c00c10ab42be41cc8a2e07af9', 'avatar31.png', '', True, 'Restaurant31', 'Address11', 'New Plymouth', 'contact11@example.com'), 
-('user32', '7e2ac0966d92a7b017a3dec01006ea75cd0b4bd9140cabfa9a5885f73a3a549a', '5ec8289b3e6fb32fc1d73984e371910e1cb8e01b764e9e435af5068eece60819', 'avatar32.png', '', True, 'Restaurant32', 'Address12', 'Dunedin', 'contact12@example.com'), 
-('user33', '3310fd2e691d52f1d6da2364ba2ffb3188f05d0635b77d6de3ff50514b617ce5', '62a5c7aeecaf63c467473ddfd070277a9cb914885c17508ca5fcf0bfeefd2278', 'avatar33.png', '', True, 'Restaurant33', 'Address13', 'Gisborne', 'contact13@example.com'), 
+('user31', '6562a5c185fbcc706fd06d3fa489bbf0a30952b3d057c49ad5ad7f1bf0b74e26', 'ceac36cdcf30705d87cef772fb37c3502b9a844c00c10ab42be41cc8a2e07af9', 'avatar31.png', '', False, 'Restaurant31', 'Address11', 'New Plymouth', 'contact11@example.com'), 
+('user32', '7e2ac0966d92a7b017a3dec01006ea75cd0b4bd9140cabfa9a5885f73a3a549a', '5ec8289b3e6fb32fc1d73984e371910e1cb8e01b764e9e435af5068eece60819', 'avatar32.png', '', False, 'Restaurant32', 'Address12', 'Dunedin', 'contact12@example.com'), 
+('user33', '3310fd2e691d52f1d6da2364ba2ffb3188f05d0635b77d6de3ff50514b617ce5', '62a5c7aeecaf63c467473ddfd070277a9cb914885c17508ca5fcf0bfeefd2278', 'avatar33.png', '', False, 'Restaurant33', 'Address13', 'Gisborne', 'contact13@example.com'), 
 ('user34', '101aadfcb0e642b22f8095cdb43d4f7c4e84125ae8dc9f1341f0488a3d04b29f', 'acba65484b5f4cccbd4d2afafe4fe21331bf4aebedd468d619d0d8b7f8705a01', 'avatar34.png', '', False, 'Restaurant34', 'Address14', 'Auckland', 'contact14@example.com'), 
 ('user35', '458c76cfeec31605727f169a37d5a745e486798bf49705837dfa1e7be565bb39', 'e3c5ab737a86859b324c6f6d91cc65a49c6db95b9eefe298c675d6edcccf9ca0', 'avatar35.png', '', False, 'Restaurant35', 'Address15', 'Napier-Hastings', 'contact15@example.com'), 
-('user36', 'c4541fd5323f8e9f9e923c7c78d398e13449b58de2cdc8f040e712a87cdd5e1d', '20252f3b4dad1bb50720372ae3e385644c8e0f0b5b6de41c585c446e087c6f0d', 'avatar36.png', '', True, 'Restaurant36', 'Address16', 'Palmerston North', 'contact16@example.com'), 
+('user36', 'c4541fd5323f8e9f9e923c7c78d398e13449b58de2cdc8f040e712a87cdd5e1d', '20252f3b4dad1bb50720372ae3e385644c8e0f0b5b6de41c585c446e087c6f0d', 'avatar36.png', '', False, 'Restaurant36', 'Address16', 'Palmerston North', 'contact16@example.com'), 
 ('user37', '1c91af4f4a7c34a6cff3fed6e805d4567fa940c992fd0acfd44ae63fe91a07ae', '398ce10efa31ec16c723f59d977aa756803224031705c128439ffbcf05b42f3b', 'avatar37.png', '', False, 'Restaurant37', 'Address17', 'Invercargill', 'contact17@example.com'), 
 ('user38', 'ad4bdbe1b81c317f4d5c471df11523aec853fac401a4de7d04aee204d2b2875f', '0f22908d96c998496b942f6a3943c8bd6bcf19af21df020738b76883a0d17e38', 'avatar38.png', '', False, 'Restaurant38', 'Address18', 'Napier-Hastings', 'contact18@example.com'), 
-('user39', '81ef2a092d788511cd604b24759f76030aeb009dda4d095c72539f39074c76ba', 'b27f6a9806c074167e3a8cb7d103503d943157258eeec888af20ec7c90ea0b81', 'avatar39.png', '', True, 'Restaurant39', 'Address19', 'Blenheim', 'contact19@example.com'), 
+('user39', '81ef2a092d788511cd604b24759f76030aeb009dda4d095c72539f39074c76ba', 'b27f6a9806c074167e3a8cb7d103503d943157258eeec888af20ec7c90ea0b81', 'avatar39.png', '', False, 'Restaurant39', 'Address19', 'Blenheim', 'contact19@example.com'), 
 ('user40', '80cd4a6695c8487af9c10dfac37e67855657d70e970501dcea8d4c7e3f75da6c', 'bc168b9923a7c1b7110ad888e8738b6d018c2d483c974e41a96069d674c97d7c', 'avatar40.png', '', False, 'Restaurant40', 'Address20', 'Invercargill', 'contact20@example.com');
 
 INSERT INTO foodcategory (categoryname) VALUES 
@@ -413,7 +406,8 @@ INSERT INTO fooditem (userid, foodCategoryid, name, quantity, unit, timestamp, b
 (1, 2,'Banana',98.25, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 1.20),
 (1, 13,'Hazelnut',94.5, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 6.32),
 (1, 8,'Duck',145.24, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 9.52),
-(1, 2,'Orange',54.21, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 3.21);
+(1, 2,'Orange',54.21, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 3.21),
+(1, 5,'Flour',164.98, 'kg','2023-12-31 23:59:59','BN1998','2025-02-10', 1.21);
 
 INSERT INTO transactionlog (userid, fooditemid, quantity, unit, priceperunit, timestamp, act, newexpirydate) VALUES 
 (17, 65, 18.85, 'kg', 4.35, '2022-04-11 00:00:00', 'USE', '2023-06-20'),
@@ -816,7 +810,7 @@ INSERT INTO menu (dishid,userid, dishname,dishpic, ingredientname, weight, prese
 (7, 1,'Spicy Quinoa Salad', 'dish7.jpg', 'Quinoa', 2.1, '2 days'),
 (7, 1,'Spicy Quinoa Salad','dish7.jpg', 'Pepper', 0.04, '2 days'),
 (8, 1,'Egg Nectarine Pancake', 'dish8.jpg', 'Egg', 2, '2 days'),
-(8, 1,'Egg Nectarine Pancake','dish8.jpg', 'Nectarine', 3.5, '2 days'),
+(8, 1,'Egg Nectarine Pancake','dish8.jpg', 'Flour', 3.5, '2 days'),
 (8, 1,'Egg Nectarine Pancake','dish8.jpg', 'Nectarine', 3.5, '2 days'),
 (9, 1,'Tomato Basil Soup', 'dish9.jpg', 'Tomato', 4.2, '2 days'),
 (9, 1,'Tomato Basil Soup','dish9.jpg', 'Basil', 1.64, '2 days'),
