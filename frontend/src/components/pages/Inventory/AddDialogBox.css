@@ -25,6 +25,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 }
 
 .add-modal-box h2 {
@@ -93,13 +94,83 @@
 }
 
 .add-success-message {
-  color: #4CAF50; /* 成功消息的文字颜色 */
-  background-color: #ebf6eb; /* 背景颜色 */
+  color: #4CAF50; /* Text color for success messages */
+  background-color: #ebf6eb; /* Background color */
   border-radius: 8px;
   padding: 10px;
-  margin-top: 10px; /* 在按钮上方留出空间 */
-  width: 100%; /* 宽度占满整个容器 */
-  text-align: center; /* 文字居中 */
-  box-sizing: border-box; /* 包含padding和border在内的总宽度 */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* 可选：增加阴影以提高层次感 */
+  margin-top: 10px; /* Space above the button */
+  width: 100%; /* Full width of the container */
+  text-align: center; /* Center align text */
+  box-sizing: border-box; /* Include padding and border in the total width and height */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Optional: Add shadow for a sense of depth */
+}
+
+.suggestions-list {
+  list-style-type: none; /* Remove default list styling */
+  margin: 0;
+  padding: 0;
+  background: #fff; /* Same background color as the dropdown */
+  position: absolute; /* Float above the input field */
+  width: calc(100% - 24px); /* Match the width of the input field, adjust for padding */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  border-radius: 0 0 8px 8px; /* Round only the bottom corners of the dropdown */
+  z-index: 1002; /* Ensure the dropdown is above other elements */
+  max-height: 200px; /* Set a maximum height */
+  overflow-y: auto; /* Allow scrolling if content is too long */
+  border: 1px solid #ccc; /* Match the border with the input field */
+  border-top: none; /* Remove the top border next to the input field */
+  box-sizing: border-box;
+}
+
+.suggestions-list li {
+  padding: 8px 12px; /* Add appropriate padding */
+  cursor: pointer; /* Show pointer on hover */
+  border-bottom: 1px solid #eee; /* Add a separator between options */
+  width: auto; /* or '100%' to match the input field width */
+  max-width: 300px; /* or the width of the input field */
+}
+
+.suggestions-list li:last-child {
+  border-bottom: none; /* Remove the bottom border of the last option */
+}
+
+.suggestions-list li:hover {
+  background-color: #f8f8f8; /* Background color on hover */
+}
+
+/* Custom scrollbar styles */
+.suggestions-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.suggestions-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.suggestions-list::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+.suggestions-list::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Add border shadow when input is focused */
+.add-modal-box form input:focus {
+  border-color: #80bdff; /* Bootstrap style focus color */
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.success-message {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1010;
+  background-color: #dff0d8;
+  color: #3c763d;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }

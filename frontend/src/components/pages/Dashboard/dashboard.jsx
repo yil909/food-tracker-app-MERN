@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+// import "./dashboard.css";
 import {
   ResponsiveContainer,
   LineChart,
@@ -117,7 +118,7 @@ const Dashboard = () => {
         <h2 style={{ fontFamily: "Arial, sans-serif" }}>
           Food Waste by Category
         </h2>
-        <ResponsiveContainer width="100%" height={400}>
+        <ResponsiveContainer width="100%" height={500}>
           <PieChart style={{ fontFamily: "Arial, sans-serif" }}>
             <Pie
               data={chartData}

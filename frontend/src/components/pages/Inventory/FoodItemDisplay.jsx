@@ -61,6 +61,7 @@ function downloadCSV(array, filename) {
 }
 
 function FoodItemDisplay() {
+  const [isFilterApplied, setIsFilterApplied] = useState(false);
   const [showCustomModal, setShowCustomModal] = useState(false);
   // State for tracking edit mode
   const [isEditing, setIsEditing] = useState(false);
@@ -110,9 +111,12 @@ function FoodItemDisplay() {
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
+  const [filteredItems, setFilteredItems] = useState([]);
 
   // Calculate total number of pages for pagination
-  const totalPages = Math.ceil(foodItem.length / itemsPerPage);
+  const totalPages = Math.ceil(
+    (isFilterApplied ? filteredItems.length : foodItem.length) / itemsPerPage
+  );
 
   // Handler for radiobutton change in edit mode
   const handleRadioChange = (event) => {
@@ -220,6 +224,21 @@ function FoodItemDisplay() {
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
+    setIsFilterApplied(true); // 如果选择了一个类别，设置为true
+    const newFilteredItems = category
+      ? foodItem.filter((item) => item.categoryname === category)
+      : foodItem;
+    setFilteredItems(newFilteredItems);
+    setCurrentPage(1); // 重置当前页面为第一页
+  };
+
+  // 在handleSeeAllClick中重置isFilterApplied的状态
+  const handleSeeAllClick = () => {
+    onCategorySelect("");
+    setIsFilterApplied(false); // 重置筛选状态
+    setSelectedCategory("");
+    setFilteredItems(foodItem); // 重置筛选后的项目列表
+    setCurrentPage(1); // 重置当前页面为第一页
   };
 
   // useEffect(() => {

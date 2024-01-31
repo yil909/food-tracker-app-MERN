@@ -1,12 +1,17 @@
 .nearing-expiration-wrapper {
-    position: relative; 
-  }
+  position: relative; 
+  width: 100%; 
+}
 
-  .see-all-link {
-    cursor: pointer;
-    position: absolute;
-    top: 190px;
-    right: 60px;
-    padding: 5px 10px;
-    font-size: 13px;
-  }
+.see-all-link {
+  cursor: pointer;
+  position: absolute; 
+  top: -30px; 
+  right: 0; 
+  padding: 5px 10px;
+  font-size: 15px;
+  color: green;
+  text-decoration: none;
+  background: none; 
+  z-index: 10; 
+}

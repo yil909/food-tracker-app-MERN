@@ -120,3 +120,71 @@ Targeting cells within the table to add padding
     border-left: 4px solid #da3e33;
     font-family: Arial, Helvetica, sans-serif;
   }
+
+
+  @media (max-width: 768px) {
+
+    .top-section,
+    .waste-over-time-container,
+    .most-wasted-item-container {
+      flex-direction: column;
+    }
+  
+    .overall-waste-container,
+    .nearing-expiration-container,
+    .waste-over-time-container,
+    .most-wasted-item-container {
+      width: 100%;
+      min-width: auto;
+      margin: 0;
+      margin-bottom: 20px;
+    }
+  
+    /* Adjust table spacing */
+    .nearing-expiration-container table {
+      border-spacing: 5px; /* Reduced spacing between cells */
+    }
+  
+    .nearing-expiration-container table,
+    .waste-over-time-container table,
+    .most-wasted-item-container table {
+      /* Reduce the padding inside each cell for a tighter layout */
+      th, td {
+        padding: 8px; /* Adjust as needed */
+      }
+    }
+  
+    /* Update padding within each card container for a tighter layout */
+    .overall-waste-container,
+    .nearing-expiration-container,
+    .waste-over-time-container,
+    .most-wasted-item-container {
+      padding: 15px; /* Reduced padding */
+    }
+  
+    /* Decrease font size for the report title */
+    .report-title {
+      font-size: 24px; /* Smaller font size for the title */
+    }
+  
+    /* Decrease font size for table headers and content */
+    th,
+    td {
+      font-size: 14px; /* Smaller font size for table text */
+    }
+  
+    /* Decrease font size for other titles and labels */
+    .overall-waste-title,
+    .overall-waste-value,
+    .overall-waste-label,
+    .NearingExpiration-title,
+    .wasteOT-title {
+      font-size: 16px; /* Smaller font size for subtitles and labels */
+    }
+  
+    /* Adjusting the font size for the navigation links */
+    .nav-link {
+      font-size: 16px; /* Smaller font size for nav links */
+    }
+  }
+  
