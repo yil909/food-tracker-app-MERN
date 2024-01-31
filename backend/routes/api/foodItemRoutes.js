@@ -10,7 +10,9 @@ import {
   getFoodItemsByUserIdAndCategoryName,
   getCookMenuByUserId,
   getIngredientList,
-  getMatchedFoodItem, getNameSuggestions,
+  getMatchedFoodItem,
+  getExpiredFoodItem,
+  getNameSuggestions,
 } from "../../modules/inventory-dao.js";
 import { getItemWithCategoryName } from "../../modules/report-dao.js";
 import { getRestaurantInfo } from "../../modules/user-dao.js";
@@ -23,6 +25,17 @@ router.get("/fooditems", async (req, res) => {
     const foodItems = await getFoodItemByUserId(1);
     res.json(foodItems);
     //console.log(JSON.stringify(foodItems, null, 2));
+  } catch (error) {
+    console.error("Error retrieving food items:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+router.get("/expiredfooditems", async (req, res) => {
+  try {
+    const expFoodItems = await getExpiredFoodItem(1);
+    res.json(expFoodItems);
+    console.log(JSON.stringify(expFoodItems, null, 2));
   } catch (error) {
     console.error("Error retrieving food items:", error);
     res.status(500).json({ error: "Internal Server Error" });

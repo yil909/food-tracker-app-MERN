@@ -8,6 +8,7 @@ import { DownCircleOutlined, UpCircleOutlined } from "@ant-design/icons";
 
 const EditDialogBox = ({ foodItemDetails, onClose }) => {
   const [showSuccess, setShowSuccess] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
@@ -35,6 +36,12 @@ const EditDialogBox = ({ foodItemDetails, onClose }) => {
       ...prevItem,
       [name]: value,
     }));
+  };
+
+
+  const toggleEditing = () => {
+    setIsEditing(!isEditing);
+    console.log("toggleEditing called!"); // Add this line
   };
 
   // const handleSave = async () => {

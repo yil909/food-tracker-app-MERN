@@ -21,15 +21,24 @@ const Notice = () => {
   const { incrementNotificationCount, decrementNotificationCount } =
     useNotification();
   const { foodItem, getFoodItem } = useFoodItemWithAllColumn();
+  const { expFoodItem, getExpFoodItem } = useFoodItem();
   const { updateFoodItem } = useFoodItem();
+  const [notificationCount, setNotificationCount] = useState(0);
   const [itemNearExp, setItemNearExp] = useState([]);
-  const [showDetails, setShowDetails] = useState(false);
+  const [itemExpired, setItemExpired] = useState([]);
+  const [showDetailsNearExp, setShowDetailsNearExp] = useState(false);
+  const [showDetailsExpired, setShowDetailsExpired] = useState(false);
+
+  const toggleDetailsNearExp = () => {
+    setShowDetailsNearExp(!showDetailsNearExp);
+  };
+
+  const toggleDetailsExpired = () => {
+    setShowDetailsExpired(!showDetailsExpired);
+  };
   const [readStatus, setReadStatus] = useState(
     Array(itemNearExp.length).fill(false)
   );
-  const toggleDetails = () => {
-    setShowDetails(!showDetails);
-  };
 
   const handleMarkAsRead = async (index, editItem) => {
     // Update FoodItem table with read status
@@ -68,19 +77,36 @@ const Notice = () => {
       );
 
       // Calculate the count of new items
-      const newItemsCount = sortedItems.filter(
+      const newItems = sortedItems.filter(
         (item) =>
           !itemNearExp.some((existingItem) => existingItem.id === item.id)
       );
       //Increment the notification count by the count of new items
-      incrementNotificationCount(newItemsCount.length);
+      //incrementNotificationCount(newItems.length);
+      setNotificationCount(newItems.length);
       setItemNearExp(sortedItems);
     };
 
     fetchData();
   }, [getFoodItem, foodItem, itemNearExp]);
 
-  // Now, itemNearExp contains food items expiring within the next 2 days, sorted by expiry date.
+  useEffect(() => {
+    const fetchData = async () => {
+      await getExpFoodItem();
+      const expiredItems = expFoodItem.filter(
+        (item) => item.readstatus !== "Y"
+      );
+      //console.log("expiredItems count: ", expiredItems.length);
+      //console.log("notificationCount:  ", notificationCount);
+      const oldCount = notificationCount;
+      const updateCount = oldCount + expiredItems.length;
+      setNotificationCount(updateCount);
+      setItemExpired(expiredItems);
+      incrementNotificationCount(updateCount);
+      
+    };
+    fetchData();
+  }, [getExpFoodItem, expFoodItem, itemExpired]);
 
   usePageTitleAndFavicon("Notice - Food Waste Tracker", logo);
   return (
@@ -90,15 +116,15 @@ const Notice = () => {
         <div className="alerts">
           <div
             className={`alert expiration-warning ${
-              showDetails ? "expanded" : ""
+              showDetailsNearExp ? "expanded" : ""
             }`}
           >
             <ExclamationCircleOutlined className="icon" />
             <div className="alert-content">
               <h2>Expiration Warnings</h2>
               <p>
-                The batch of food items are set to expire in 2 days. Please use
-                or dispose of it appropriately.
+                The below batch of food items are set to expire in 2 days.
+                Please use or dispose of it appropriately.
               </p>
               <a
                 href="#"
@@ -107,7 +133,7 @@ const Notice = () => {
               >
                 {showDetails ? "Hide Details" : "Read Details"}
               </a>
-              {showDetails && (
+              {showDetailsNearExp && (
                 <div className="additional-details">
                   {itemNearExp.map((item, index) => (
                     <div className="alert-content" key={index}>
@@ -128,12 +154,30 @@ const Notice = () => {
           <div className="alert inventory-alert">
             <InfoCircleOutlined className="icon" />
             <div className="alert-content">
-              <h2>Inventory Alerts</h2>
+              <h2>Expired Food Alerts</h2>
               <p>
-                Tomato inventory has dropped below the threshold level. Only 5
-                kg remaining. Consider reordering soon.
+                The below batch of food items have been expired. Please update
+                them as food waste and dispose accordingly.
               </p>
-              <a href="#">Read Details</a>
+              <a href="#" onClick={toggleDetailsExpired}>
+                Read Details
+              </a>
+              {showDetailsExpired && (
+                <div className="additional-details">
+                  {itemExpired.map((item, index) => (
+                    <div className="alert-content" key={index}>
+                      <p>
+                        <button onClick={() => handleMarkAsRead(index, item)}>
+                          Mark as Read
+                        </button>
+                        <span> </span>
+                        {item.name} purchased on {item.timestamp} has been
+                        expired on {item.expirydate}.
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>

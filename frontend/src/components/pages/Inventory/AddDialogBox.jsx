@@ -45,8 +45,6 @@ const AddDialogBox = ({ onClose }) => {
       price: parseFloat(price),
     };
 
-    // createFoodItem(newFoodItem);
-    // onClose(); // Close modal after submission
     try {
       createFoodItem(newFoodItem);
       setShowSuccess(true);
