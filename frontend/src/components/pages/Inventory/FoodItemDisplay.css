@@ -179,3 +179,63 @@
 .editing .food-items-table td input[type="checkbox"] {
   display: inline-block; /* Visible only in editing mode */
 }
+
+
+/* Responsive styles for small screens (e.g., iPhone) */
+@media only screen and (max-width: 320px) {
+  .inventory-title {
+    font-size: 20px;
+  }
+
+  .stat-box {
+    padding: 15px;
+  }
+
+  .stat-box h3 {
+    font-size: 16px;
+  }
+
+  .stat-box span {
+    font-size: 20px;
+  }
+
+  .subtext {
+    font-size: 12px;
+  }
+
+  .header-buttons button {
+    font-size: 12px;
+  }
+
+  .food-items-table {
+    font-size: 12px;
+  }
+}
+
+/* Responsive styles for medium screens (e.g., iPad) */
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+  .stat-box {
+    padding: 18px;
+  }
+
+  .stat-box h3 {
+    font-size: 20px;
+  }
+
+  .stat-box span {
+    font-size: 26px;
+  }
+
+  .subtext {
+    font-size: 14px;
+  }
+
+  .header-buttons button {
+    font-size: 14px;
+  }
+
+  .food-items-table {
+    font-size: 14px;
+  }
+}
+

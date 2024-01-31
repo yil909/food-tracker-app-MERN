@@ -5,15 +5,14 @@ import { LOCAL_IP, PORT } from "../../../backend/config";
 
 function useFoodItem() {
   const [foodItem, setFoodItem] = useState([]);
+  const [expFoodItem, setExpFoodItem] = useState([]);
   const [foodMetric, setFoodMetric] = useState([]);
   const [wasteMetric, setWasteMetric] = useState([]);
   const [usageWasteData, setUsageWasteData] = useState([]);
   const [foodItemByCategory, setFoodItemByCategory] = useState([]);
   const [locationRanking, setLocationRanking] = useState([]);
   const [cookMenu, setCookMenu] = useState([]);
-  //const [ingredientList, setIngrdList] = useState([]);
-
-
+  
   const getFoodItem = async () => {
     try {
       const response = await axios.get(
@@ -23,6 +22,18 @@ function useFoodItem() {
 
     } catch (error) {
       console.error("Error fetching FoodItem data:", error);
+    }
+  };
+
+  const getExpFoodItem = async () => {
+    try {
+      const response = await axios.get(
+        "http://" + LOCAL_IP + ":" + PORT + "/expiredfooditems"
+      );
+      setExpFoodItem(response.data);
+
+    } catch (error) {
+      console.error("Error fetching Expired FoodItem data:", error);
     }
   };
 
@@ -177,6 +188,7 @@ function useFoodItem() {
   };
   return {
     foodItem,
+    expFoodItem,
     foodItemByCategory,
     foodMetric,
     wasteMetric,
@@ -184,6 +196,7 @@ function useFoodItem() {
     locationRanking,
     cookMenu,
     getFoodItem,
+    getExpFoodItem,
     updateFoodItem,
     createFoodItem,
     createTransLog,

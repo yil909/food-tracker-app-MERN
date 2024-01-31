@@ -2,8 +2,19 @@ import { useEffect, useState } from "react";
 import "./EditDialogBox.css";
 import useFoodCategory from "../../../hooks/useFoodCategory";
 import useFoodItem from "../../../hooks/useFoodItem";
+import "./EditDialogBox.css";
+import { CloseCircleOutlined } from "@ant-design/icons";
+import DatePicker from "react-datepicker";
 
 const EditDialogBox = ({ foodItemDetails, onClose }) => {
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handleOverlayClick = (e) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
   const [editedItem, setEditedItem] = useState({ ...foodItemDetails });
   const foodStatuses = [
     { value: "USE", label: "USE" },
@@ -11,7 +22,8 @@ const EditDialogBox = ({ foodItemDetails, onClose }) => {
   ];
   // Custom hook for fetching food items
   const { foodCategory, getFoodCategory } = useFoodCategory();
-  const { updateFoodItem, createTransLog, getFoodItemByCategory } = useFoodItem();
+  const { updateFoodItem, createTransLog, getFoodItemByCategory } =
+    useFoodItem();
   const [foodStatus, setFoodStatus] = useState("USE"); // Initial value is "USE"
 
   useEffect(() => {
@@ -26,13 +38,42 @@ const EditDialogBox = ({ foodItemDetails, onClose }) => {
     }));
   };
 
+  const toggleEditing = () => {
+    setIsEditing(!isEditing);
+    console.log("toggleEditing called!"); // Add this line
+  };
+
+  // const handleSave = async () => {
+  //   try {
+  //     const updatedData = { ...editedItem, foodstatus: foodStatus };
+  //     // Call the updateFoodItem function
+  //     createTransLog(updatedData);
+  //     console.log("Saving edited item:", updatedData);
+  //     onClose();
+  //   } catch (error) {
+  //     console.error("Error updating food item:", error);
+  //   }
+  // };
   const handleSave = async () => {
     try {
       const updatedData = { ...editedItem, foodstatus: foodStatus };
-      // Call the updateFoodItem function
+
+      // Check if the input quantity is greater than the remaining quantity
+      if (editedItem.quantity > editedItem.remainingQuantity) {
+        // Show an error message or handle the error condition
+        alert("Error: Input quantity exceeds remaining quantity.");
+        return; // Exit the function without saving
+      }
+
       createTransLog(updatedData);
       console.log("Saving edited item:", updatedData);
-      onClose();
+
+      // Show success message for 3 seconds and then close
+      setShowSuccess(true);
+      setTimeout(() => {
+        setShowSuccess(false);
+        onClose(); // 现在将 onClose 放在这里，确保弹窗显示3秒后再关闭。
+      }, 3000);
     } catch (error) {
       console.error("Error updating food item:", error);
     }
@@ -41,9 +82,9 @@ const EditDialogBox = ({ foodItemDetails, onClose }) => {
   // Update API request to send the updated "foodStatus" property
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
-        <div className="modal-title">
+    <div className="edit-modal-overlay" onClick={handleOverlayClick}>
+      <div className="edit-modal-content" onClick={(e) => e.stopPropagation()}>
+        <div className="edit-modal-title">
           <h2>Edit Food Item</h2>
         </div>
 
@@ -115,12 +156,27 @@ const EditDialogBox = ({ foodItemDetails, onClose }) => {
           <div>
             <label>
               Expiry Date:
-              <input
-                type="date" // Change this from "text" to "date"
-                name="expirydate"
-                value={editedItem.expirydate}
-                onChange={handleInputChange}
-              />
+              {isEditing ? (
+                <div onClick={toggleEditing}>
+                  <input
+                    type="date"
+                    name="expirydate"
+                    value={editedItem.expiryDate}
+                    onChange={handleInputChange}
+                    onBlur={toggleEditing}
+                  />
+                </div>
+              ) : (
+                <div onClick={toggleEditing}>
+                  <input
+                    type="text"
+                    name="expirydate"
+                    value={editedItem.expiryDate}
+                    readOnly
+                    style={{ pointerEvents: "none" }}
+                  />
+                </div>
+              )}
             </label>
           </div>
         </div>
@@ -145,12 +201,19 @@ const EditDialogBox = ({ foodItemDetails, onClose }) => {
         <div className="edit-modal-actions">
           {" "}
           {/* Updated class name */}
-          <button className="edit-modal-button save" onClick={handleSave}>
+          <button className="edit-modal-button-save" onClick={handleSave}>
             Save
           </button>
-          <button className="edit-modal-button close" onClick={onClose}>
+          <button className="edit-modal-button-close" onClick={onClose}>
             Close
           </button>
+          {/* <CloseCircleOutlined
+            className="edit-modal-top-close"
+            onClick={onClose}
+          /> */}
+          {showSuccess && (
+            <div className="edit-success-message">Save Successful!</div>
+          )}
         </div>
       </div>
     </div>

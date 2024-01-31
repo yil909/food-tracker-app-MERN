@@ -11,6 +11,7 @@ const AddDialogBox = ({ onClose }) => {
   const [unit, setUnit] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [price, setPrice] = useState("");
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const { foodCategory, getFoodCategory } = useFoodCategory();
   const { createFoodItem } = useFoodItem();
@@ -31,8 +32,18 @@ const AddDialogBox = ({ onClose }) => {
       price: parseFloat(price),
     };
 
-    createFoodItem(newFoodItem);
-    onClose(); // Close modal after submission
+    try {
+      createFoodItem(newFoodItem);
+      setShowSuccess(true);
+
+      // Display success message for 3 seconds and then close
+      setTimeout(() => {
+        setShowSuccess(false);
+        onClose(); // Close modal after submission
+      }, 3000);
+    } catch (error) {
+      console.error("Error creating food item:", error);
+    }
   };
 
   return (
@@ -107,6 +118,9 @@ const AddDialogBox = ({ onClose }) => {
             </button>
           </div>
         </form>
+        {showSuccess && (
+          <div className="success-message">Item added successfully!</div>
+        )}
       </div>
     </div>
   );

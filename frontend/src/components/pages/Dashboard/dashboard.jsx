@@ -18,6 +18,7 @@ import useFoodItem from "../../../hooks/useFoodItem";
 import Layout from "../../common/Layout";
 import usePageTitleAndFavicon from "../../../hooks/usePageTitleAndFavicon";
 import logo from "../../../assets/icons/logo.png";
+import "./dashboard.css";
 
 const Dashboard = () => {
   const { wasteMetric, getWasteMetric, usageWasteData, getUsageWasteData,
@@ -202,7 +203,7 @@ const Dashboard = () => {
                           }
                         })(),
                         height: "20px",
-                        width: `${(entry.totalWasted / 100) * 100}px`, // Adjust the scaling
+                        width: `${(entry.totalWasted / 1000) * 100}px`, // Adjust the scaling
                       }}
                     />
                   </td>

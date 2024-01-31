@@ -1,18 +1,44 @@
 import SQL from "sql-template-strings";
 import { openDatabase } from "./database.js";
 
-// async function getAuthorByArticleId(id){
-//
-//     const db = await dbPromise;
-//     const author = await db.get(SQL`
-//         select u.id, u.username, u.fname, u.lname, u.description, u.profilePhoto
-//         from users u, articles a
-//         where a.userID = u.id and a.id = ${id}
-//     `);
-//
-//     return author;
-//
-// }
+async function getExpiredFoodItem(id) {
+  const db = await openDatabase();
+  const expfooditems = await db.all(SQL`
+  SELECT
+  fi.itemid,
+  fi.userid,
+  fi.name,
+  fi.quantity,
+  fi.unit,
+  fi.timestamp,
+  fi.batchnumber,
+  COALESCE(latestTransaction.newexpirydate, fi.expirydate) AS expirydate,
+  ROUND(fi.pricePerUnit, 2) AS pricePerUnit,
+  fi.foodcategoryid,
+  fc.categoryname,
+  fc.description,
+  fi.readstatus,
+  ROUND(julianday(COALESCE(latestTransaction.newexpirydate, fi.expirydate)) - julianday('now')) AS daysUntilExpiry,
+  ROUND(SUM(CASE WHEN t.act = 'USE' THEN t.quantity ELSE 0 END), 2) AS usedQuantity,
+  ROUND(SUM(CASE WHEN t.act = 'WASTE' THEN t.quantity ELSE 0 END), 2) AS wastedQuantity,
+  ROUND((fi.quantity - SUM(CASE WHEN t.act IN ('WASTE', 'USE') THEN t.quantity ELSE 0 END)), 2) AS remainingQuantity
+FROM fooditem fi
+LEFT JOIN foodcategory fc ON fi.foodCategoryid = fc.categoryid
+LEFT JOIN (
+  SELECT fooditemid, newexpirydate
+  FROM transactionlog
+  ORDER BY timestamp DESC
+  LIMIT 1
+) AS latestTransaction ON fi.itemid = latestTransaction.fooditemid
+LEFT JOIN transactionlog t ON fi.itemid = t.fooditemid
+WHERE fi.userid = ${id}
+AND daysUntilExpiry < 0
+GROUP BY fi.itemid, fc.categoryname
+ORDER BY daysUntilExpiry;
+ `);
+  return expfooditems;
+}
+
 async function getFoodItemByUserId(id) {
   const db = await openDatabase();
   const fooditems = await db.all(SQL`
@@ -26,7 +52,7 @@ async function getFoodItemByUserId(id) {
   fi.batchnumber,
   COALESCE(latestTransaction.newexpirydate, fi.expirydate) AS expiryDate,
   ROUND(fi.pricePerUnit, 2) AS pricePerUnit,
-  fi.foodcategoryid,
+  fi.foodCategoryid,
   fc.categoryname,
   fc.description,
   ROUND(julianday(COALESCE(latestTransaction.newexpirydate, fi.expirydate)) - julianday('now')) AS daysUntilExpiry,
@@ -43,6 +69,7 @@ LEFT JOIN (
 ) AS latestTransaction ON fi.itemid = latestTransaction.fooditemid
 LEFT JOIN transactionlog t ON fi.itemid = t.fooditemid
 WHERE fi.userid = ${id}
+AND daysUntilExpiry > 0
 GROUP BY fi.itemid, fc.categoryname
 ORDER BY daysUntilExpiry;
 
@@ -63,7 +90,7 @@ async function getFoodItemsByUserIdAndCategoryName(id, categoryName) {
   fi.batchnumber,
   COALESCE(latestTransaction.newexpirydate, fi.expirydate) AS expiryDate,
   round(fi.pricePerUnit,2) AS pricePerUnit,
-  fi.foodcategoryid,
+  fi.foodCategoryid,
   fc.categoryname,
   fc.description,
   round(julianday(COALESCE(t.newexpirydate, fi.expirydate)) - julianday('now')) AS daysUntilExpiry,
@@ -80,6 +107,7 @@ LEFT JOIN (
 ) AS latestTransaction ON fi.itemid = latestTransaction.fooditemid
 LEFT JOIN foodcategory fc on fi.foodCategoryid = fc.categoryid
 WHERE fi.userid = ${id} AND fc.categoryname = ${categoryName}
+AND daysUntilExpiry > 0
 GROUP BY fi.itemid, fc.categoryname
 ORDER BY daysUntilExpiry;
  `);
@@ -87,7 +115,7 @@ ORDER BY daysUntilExpiry;
 }
 
 //--and fi.userid = ${id};
-export { getFoodItemByUserId, getFoodItemsByUserIdAndCategoryName };
+export { getFoodItemByUserId, getFoodItemsByUserIdAndCategoryName, getExpiredFoodItem};
 
 async function getFoodMetricByUserId(id) {
   const db = await openDatabase();
@@ -98,7 +126,7 @@ async function getFoodMetricByUserId(id) {
   (SELECT round(SUM(CASE WHEN act = 'USE' THEN quantity ELSE 0 END),2) FROM transactionlog WHERE timestamp >= date('now', '-7 days') AND userid = ${id}) AS used,
   (SELECT round(SUM(CASE WHEN act = 'WASTE' THEN quantity ELSE 0 END),2) FROM transactionlog WHERE timestamp >= date('now', '-7 days') AND userid = ${id}) AS wasted,
   (SELECT round(SUM(CASE WHEN expirydate < date('now') THEN quantity ELSE 0 END),2) FROM fooditem WHERE userid = ${id}) AS expired,
-  (SELECT round(SUM(CASE WHEN expirydate <= date('now', '+28 days') AND quantity > 0 THEN quantity ELSE 0 END),2) FROM fooditem WHERE userid = ${id}) AS highRisk;
+  (SELECT round(SUM(CASE WHEN expirydate <= date('now', '+14 days') AND quantity > 0 THEN quantity ELSE 0 END),2) FROM fooditem WHERE userid = ${id}) AS highRisk;
  `);
   return foodmetrics;
 }
@@ -110,9 +138,9 @@ async function updateFoodItem(id, updatedFoodItem) {
   const result = await db.run(SQL`
     UPDATE fooditem
     SET name = ${updatedFoodItem.name},
-        quantity = ${updatedFoodItem.quantity},
+        quantity = round(${updatedFoodItem.quantity},2),
         unit = ${updatedFoodItem.unit},
-        pricePerUnit = ${updatedFoodItem.pricePerUnit},
+        pricePerUnit = round(${updatedFoodItem.pricePerUnit},2),
         expirydate = ${updatedFoodItem.expirydate},
         foodCategoryid = ${updatedFoodItem.foodCategoryid},
         timestamp = DATETIME('now'),
@@ -139,9 +167,9 @@ async function createTransLog(foodstatus, updatedFoodItem) {
     VALUES (
       ${updatedFoodItem.userid},
       ${updatedFoodItem.itemid},
-      ${updatedFoodItem.quantity},
+      round(${updatedFoodItem.quantity},2),
       ${updatedFoodItem.unit},
-      ${updatedFoodItem.pricePerUnit},
+      round(${updatedFoodItem.pricePerUnit},2),
       DATETIME('now'),
       ${updatedFoodItem.foodstatus},
       ${updatedFoodItem.expirydate})`);
@@ -197,7 +225,7 @@ async function createFoodItem(newFoodItem) {
       ${newFoodItem.userid},
       ${newFoodItem.foodCategoryid},
       ${newFoodItem.name},
-      ${newFoodItem.quantity},
+      round(${newFoodItem.quantity},2),
       ${newFoodItem.unit},
       round(${newFoodItem.price / newFoodItem.quantity}),
       DATETIME('now'),
@@ -217,7 +245,7 @@ async function createFoodItem(newFoodItem) {
     unit: newFoodItem.unit,
     foodstatus: "ADD",
     expirydate: newFoodItem.expiryDate,
-    pricePerUnit: round(newFoodItem.price / newFoodItem.quantity),
+    pricePerUnit: newFoodItem.price / newFoodItem.quantity,
   };
   createTransLog("ADD", addLogData);
 }

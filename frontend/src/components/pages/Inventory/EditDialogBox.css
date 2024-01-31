@@ -1,4 +1,4 @@
-.modal-overlay {
+.edit-modal-overlay {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -10,9 +10,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
 }
 
-.modal-content {
+.edit-modal-content {
   background: #fff;
   padding: 20px;
   border-radius: 8px;
@@ -24,10 +25,11 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  
+  font-family:Arial, Helvetica, sans-serif;
+  position: relative;
 }
 
-.modal-form {
+.edit-modal-form {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -36,7 +38,7 @@
 
 
 /* Heading style */
-.modal-content h2 {
+.edit-modal-content h2 {
   font-size: 1.5rem;
   color: #333;
   margin-bottom: 20px;
@@ -44,9 +46,9 @@
 }
 
 /* Form element styles */
-.modal-content label,
-.modal-content input,
-.modal-content select {
+.edit-modal-content label,
+.edit-modal-content input,
+.edit-modal-content select {
   width: 100%;
   max-width: 300px; /* Input width matches modal width */
   margin: 4px 0; /* Vertical spacing */
@@ -55,8 +57,8 @@
   font-family:Arial, Helvetica, sans-serif;
 }
 
-.modal-content input,
-.modal-content select {
+.edit-modal-content input,
+.edit-modal-content select {
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -66,14 +68,14 @@
 }
 
 /* Button styles */
-.modal-actions {
+.edit-modal-actions {
   width: 100%;
   max-width: 350px;
   display: flex;
   justify-content: space-between;
 }
 
-.modal-button {
+.edit-modal-button {
   padding: 10px 0;
   border-radius: 8px;
   font-size: 1rem;
@@ -83,17 +85,12 @@
   cursor: pointer; /* Added cursor pointer */
 }
 
-.modal-button.save {
-  background-color: #4CAF50; /* Green background */
-  color: white;
-}
-
-.modal-button.cancel {
+.edit-modal-button.cancel {
   background-color: #F44336; /* Red background */
   color: white;
 }
 
-.modal-button:hover {
+.edit-modal-button:hover {
   filter: brightness(90%);
 }
 
@@ -109,16 +106,49 @@
   width: auto; /* Allow the buttons to size according to their content */
 }
 
-.edit-modal-button.save {
+.edit-modal-button-save {
   /* Specific style for the Save button */
   background-color: #4CAF50; /* Green color for Save */
-  margin-right: auto;
+  color: white;
+  padding: 10px 0; /* More vertical padding for a taller button */
+  border-radius: 8px; /* Match the input border-radius */
+  font-size: 1rem; /* Match the font size of inputs */
+  flex: 1; /* Distribute space evenly */
+  margin: 10px 5px 0 5px; /* Add space between buttons */
+  border: none;
+  width: 100%; /* Match the width of the Save button */
+  display: block; /* Match the display of the Save button */
 }
 
-.edit-modal-button.close {
-  /* Specific style for the Close button */
+.edit-modal-button-close {
   background-color: #F44336; /* Red color for Close */
-  margin-left: auto;
+  color: white;
+  padding: 10px 0; /* More vertical padding for a taller button */
+  border-radius: 8px; /* Match the input border-radius */
+  font-size: 1rem; /* Match the font size of inputs */
+  flex: 1; /* Distribute space evenly */
+  margin: 10px 5px 0 5px; /* Add space between buttons */
+  border: none;
+  width: 100%; /* Match the width of the Save button */
+  display: block; /* Match the display of the Save button */
+}
+
+  .edit-modal-top-close {
+    position: absolute; 
+    top: 16px;
+    right: 16px;
+    font-size: 24px;
+    color: #333;
+    cursor: pointer;
+    z-index: 10;
+  }
+  
+.edit-modal-top-close:hover {
+  color: #f00; 
+}
+
+.edit-modal-button-close:hover {
+  filter: brightness(90%);
 }
 
 .edit-modal-button:hover {
@@ -126,7 +156,12 @@
   filter: brightness(90%);
 }
 
-.modal-title {
+.edit-modal-button-save:hover {
+  /* Hover effect for buttons */
+  filter: brightness(90%);
+}
+
+.edit-modal-title {
   width: 100%;
   text-align: center;
 }
@@ -136,4 +171,17 @@
   justify-content: space-between; /* This will place one button at each end */
   /* width: 300px; Match the width of your inputs */
   width: calc(100% - 20px); /* Subtract the total horizontal padding of the modal-content */
+}
+
+.edit-success-message {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1010;
+  background-color: #dff0d8;
+  color: #3c763d;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
