@@ -1,63 +1,89 @@
-// CookMenu.jsx
 import React, { useEffect, useState } from "react";
 import useFoodItem from "../../../hooks/useFoodItem";
+import { CloseCircleOutlined, SyncOutlined } from "@ant-design/icons";
 import "./CookMenu.css";
-
-// ... (imports and other code)
 
 const CookMenu = ({ onClose }) => {
   const { cookMenu, getCookMenu, cookDish } = useFoodItem();
-  const [selectedDishId, setSelectedDishId] = useState(null);
-  const [flippedCards, setFlippedCards] = useState([]);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [flippedCards, setFlippedCards] = useState({});
 
   useEffect(() => {
     getCookMenu();
   }, []);
 
-  const handleDishSelect = (dishId) => {
-    // Implement logic for handling the selected dish
-    console.log("Selected Dish ID:", dishId);
-
-    // Update the selected dish id
-    setSelectedDishId(dishId);
-
-    // Update the flipped cards state
-    setFlippedCards((prevFlippedCards) => [...prevFlippedCards, dishId]);
+  const handleDishFlip = (e, dishId) => {
+    e.stopPropagation(); // Prevents click event from reaching the overlay
+    setFlippedCards((prevFlippedCards) => ({
+      ...prevFlippedCards,
+      [dishId]: !prevFlippedCards[dishId], // Toggle the flipped state
+    }));
   };
 
-  const handleCookClick = () => {
-    if (selectedDishId !== null) {
-      // Cook the selected dish
-      cookDish(selectedDishId, 1); // Assuming userid is 1
+  const handleFlipAll = (e) => {
+    e.stopPropagation();
+    const isAllFlipped = Object.values(flippedCards).every((state) => state);
+
+    if (isAllFlipped) {
+      // If all cards are flipped, set all to unflipped
+      const resetFlipped = cookMenu.reduce((acc, dish) => {
+        acc[dish.dishid] = false;
+        return acc;
+      }, {});
+      setFlippedCards(resetFlipped);
+    } else {
+      // If not all cards are flipped, set all to flipped
+      const allDishesFlipped = cookMenu.reduce((acc, dish) => {
+        acc[dish.dishid] = true;
+        return acc;
+      }, {});
+      setFlippedCards(allDishesFlipped);
     }
   };
 
+  const handleCookClick = async (e, dishId) => {
+    e.stopPropagation(); // Prevent click from triggering flip
+    await cookDish(dishId, 1); // Assuming userid is 1
+    setShowSuccess(true);
+    setTimeout(() => setShowSuccess(false), 3000);
+  };
+
   return (
-    <div className="modal-overlay">
-      <div className="modal-box">
-        <h1> Menu</h1>
+    <div className="cook-modal-overlay" onClick={onClose}>
+      <div className="cook-modal-box" onClick={(e) => e.stopPropagation()}>
+        {/* Flip All button as an icon */}
+        <SyncOutlined className="flip-all-icon" onClick={handleFlipAll} />
+        <CloseCircleOutlined
+          className="cook-modal-close-icon"
+          onClick={onClose}
+        />
+        <h1>Menu</h1>
+        {/* <button className="cook-modal-button flip-all" onClick={handleFlipAll}>
+          Flip All
+        </button> */}
         <div className="dish-card-container">
           {cookMenu.map((dish) => (
             <div
-            key={dish.dishid}
-            className={`dish-card ${
-              flippedCards.includes(dish.dishid) ? "flipped" : ""
-            }`}
+              key={dish.dishid}
+              className={`dish-card ${
+                flippedCards[dish.dishid] ? "flipped" : ""
+              }`}
+              onClick={(e) => handleDishFlip(e, dish.dishid)}
             >
-              <div
-                className="dish-front"
-                onClick={() => handleDishSelect(dish.dishid)}
-              >
-                <label className="dish-label">
-                  <img
-                    src={`./images/dishes/${dish.dishpic}`}
-                    alt={dish.dishname}
-                  />
-                  
-                  <h5>{dish.dishname}</h5>
-                </label>
+              <div className="dish-front">
+                <img
+                  src={`./images/dishes/${dish.dishpic}`}
+                  alt={dish.dishname}
+                />
+                <h5>{dish.dishname}</h5>
               </div>
               <div className="dish-back">
+                {/* Render the dish name here if the card is flipped */}
+                {flippedCards[dish.dishid] && (
+                  <div className="dish-name-back">
+                    <h5>{dish.dishname}</h5>
+                  </div>
+                )}
                 <div className="ingredient-list">
                   <table>
                     <thead>
@@ -75,19 +101,20 @@ const CookMenu = ({ onClose }) => {
                       ))}
                     </tbody>
                   </table>
+                  <button
+                    className="cook-modal-button cook"
+                    onClick={(e) => handleCookClick(e, dish.dishid)}
+                  >
+                    Cook This
+                  </button>
                 </div>
-                <button className="modal-button cook" onClick={handleCookClick}>
-                  Cook This
-                </button>
               </div>
             </div>
           ))}
         </div>
-        <div className="modal-actions">
-          <button className="modal-button close" onClick={onClose}>
-            Close
-          </button>
-        </div>
+        {showSuccess && (
+          <div className="success-message">Cooking successful!</div>
+        )}
       </div>
     </div>
   );

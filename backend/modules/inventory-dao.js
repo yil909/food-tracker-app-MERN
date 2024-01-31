@@ -255,12 +255,32 @@ async function getAllFoodCategory() {
   const db = await openDatabase();
   const foodcategories = await db.all(SQL`
   SELECT fc.categoryid, fc.categoryname, fc.description
-  FROM foodcategory fc; 
+  FROM foodcategory fc;
  `);
   return foodcategories;
 }
 export { getAllFoodCategory };
 
+
+async function getNameSuggestions(categoryID, relevantString) {
+    const db = await openDatabase();
+    try {
+        const relevantItemNames = await db.all(`
+            SELECT fc.categoryid, fc.categoryname, fc.description, ca.itemname
+            FROM foodcategory fc
+            JOIN categoryassociation ca ON fc.categoryid = ca.categoryid
+            WHERE fc.categoryid = ? AND ca.itemname LIKE ?
+        `, [categoryID, `${relevantString}%`]); // Adjusted LIKE clause
+        return relevantItemNames;
+    } catch (error) {
+        console.error("Error in SQL query", error);
+        throw error; // Rethrow the error to be handled in the route
+    }
+}
+
+
+
+export {getNameSuggestions}
 async function getWasteByCategory() {
   const db = await openDatabase();
   const wastecategories = await db.all(SQL`

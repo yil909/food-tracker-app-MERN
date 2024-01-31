@@ -14,10 +14,10 @@ import {
   PlusOutlined,
   FilterOutlined,
   DownloadOutlined,
+  FireOutlined,
 } from "@ant-design/icons";
 import FilterDialogBox from "./FilterDialogBox.jsx";
 import useFoodCategory from "../../../hooks/useFoodCategory.js";
-import { all } from "axios";
 
 function convertArrayOfObjectsToCSV(array) {
   let result;
@@ -61,6 +61,7 @@ function downloadCSV(array, filename) {
 }
 
 function FoodItemDisplay() {
+  const [isFilterApplied, setIsFilterApplied] = useState(false);
   const [showCustomModal, setShowCustomModal] = useState(false);
   // State for tracking edit mode
   const [isEditing, setIsEditing] = useState(false);
@@ -110,26 +111,29 @@ function FoodItemDisplay() {
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
+  const [filteredItems, setFilteredItems] = useState([]);
 
   // Calculate total number of pages for pagination
-  const totalPages = Math.ceil(foodItem.length / itemsPerPage);
+  const totalPages = Math.ceil(
+    (isFilterApplied ? filteredItems.length : foodItem.length) / itemsPerPage
+  );
 
   // Handler for radiobutton change in edit mode
   const handleRadioChange = (event) => {
     setSelectedItemId(parseInt(event.target.value));
   };
 
-  // const handleEditClick = () => {
-  //   if (selectedItemId === null) {
-  //     alert("Please select an item to edit.");
-  //     return;
-  //   }
-
   const handleEditClick = () => {
     if (selectedItemId === null) {
-      setShowCustomModal(true); // 显示自定义模态框而不是使用 alert
+      alert("Please select an item to edit.");
       return;
     }
+
+    // const handleEditClick = () => {
+    //   if (selectedItemId === null) {
+    //     setShowCustomModal(true);
+    //     return;
+    //   }
 
     // Open the dialog box
     setIsDialogOpen(true);
@@ -220,6 +224,21 @@ function FoodItemDisplay() {
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
+    setIsFilterApplied(true); // 如果选择了一个类别，设置为true
+    const newFilteredItems = category
+      ? foodItem.filter((item) => item.categoryname === category)
+      : foodItem;
+    setFilteredItems(newFilteredItems);
+    setCurrentPage(1); // 重置当前页面为第一页
+  };
+
+  // 在handleSeeAllClick中重置isFilterApplied的状态
+  const handleSeeAllClick = () => {
+    onCategorySelect("");
+    setIsFilterApplied(false); // 重置筛选状态
+    setSelectedCategory("");
+    setFilteredItems(foodItem); // 重置筛选后的项目列表
+    setCurrentPage(1); // 重置当前页面为第一页
   };
 
   // useEffect(() => {
@@ -248,16 +267,13 @@ function FoodItemDisplay() {
     setFilterClicked(isFilterClicked);
   }
 
-  //sorting logic
-  const [sortColumn, setSortColumn] = useState("");
-  const [sortDirection, setSortDirection] = useState("asc"); // 'asc' 或 'desc'
-
   return (
     <Layout>
       {showCustomModal && (
         <CustomModal
           message="Please select an item to edit."
           onClose={() => setShowCustomModal(false)}
+          className="custom-modal-message"
         />
       )}
       {/* Section for inventory statistics */}
@@ -267,7 +283,9 @@ function FoodItemDisplay() {
         {/* Stat boxes for different inventory metrics */}
         <div className="stat-box categories">
           <h3 style={{ fontFamily: "Arial, sans-serif" }}>Categories</h3>
-          <span>{foodMetric[0]?.categories}</span>
+          <span style={{ fontFamily: "Arial, sans-serif" }}>
+            {foodMetric[0]?.categories}
+          </span>
           <div className="subtext">Last 7 days</div>
         </div>
         <div className="stat-box total-items">
@@ -295,11 +313,7 @@ function FoodItemDisplay() {
           </span>
           <div className="subtext">Last 7 days</div>
         </div>
-        {/* <p></p >
-          <h3>Expired</h3>
-          <span>{foodMetric[0]?.expired}</span>
-          <div className="subtext">Last 7 days</div>
-        </div> */}
+
         <div className="stat-box high-risk">
           <h3>High Risk of Waste</h3>
           <span style={{ fontFamily: "Arial, sans-serif" }}>
@@ -315,6 +329,7 @@ function FoodItemDisplay() {
           <h2>Food Items</h2>
           <div className="header-buttons">
             <button className="cook-button" onClick={handleCookClick}>
+              <FireOutlined />
               Cook
             </button>
             {/* CookMenu modal */}
@@ -323,15 +338,15 @@ function FoodItemDisplay() {
               {isEditing ? <EditOutlined /> : <EditOutlined />} Edit
             </button>
             <button className="add-item-button" onClick={handleAddClick}>
-              <PlusOutlined /> Add Item
+              <PlusOutlined /> Add
             </button>
 
             <button className="filters-button" onClick={handleFilterClick}>
-              <FilterOutlined /> Filters
+              <FilterOutlined />
             </button>
 
             <button className="download-button" onClick={handleDownload}>
-              <DownloadOutlined /> Download all
+              <DownloadOutlined />
             </button>
           </div>
         </div>
@@ -364,7 +379,13 @@ function FoodItemDisplay() {
                 currentPage * itemsPerPage
               )
               .map((item) => (
-                <tr key={item.itemid}>
+                <tr
+                  key={item.itemid}
+                  className={
+                    selectedItemId === item.itemid ? "highlighted-row" : ""
+                  }
+                  onClick={() => setSelectedItemId(item.itemid)}
+                >
                   <td>
                     <input
                       type="radio"

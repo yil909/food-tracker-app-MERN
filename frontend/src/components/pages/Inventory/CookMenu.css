@@ -1,25 +1,48 @@
-/* CookMenu.css */
+.dish-card input[type='radio'] {
+  display: none;
+}
 
 /* Style for the modal overlay */
-.modal-overlay {
+.cook-modal-overlay {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* Darker overlay */
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+}
+
+.cook-modal-close-icon {
+  position: absolute; /* Absolute position to place the icon at the top-right corner */
+  top: 16px; /* Adjust top position to align the icon as needed */
+  right: 16px; /* Adjust right position to align the icon as needed */
+  font-size: 24px; /* Adjust icon size as needed */
+  color: #333; /* Set the color of the close icon */
+  cursor: pointer; /* Change cursor to pointer to indicate a clickable element */
+}
+
+
+.cook-modal-close-icon:hover {
+  color: #f00; 
 }
 
 /* Style for the modal box */
-.modal-box {
+.cook-modal-box {
+  overflow-y: auto; /* Enable vertical scrolling if content is taller than the box */
+  max-height: 90vh; /* Limit the height of the modal to 90% of the viewport height */
+  position: relative; 
   background-color: #fff; /* White background for the modal */
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Drop shadow effect */
-  max-width: 80%; /* Adjust the maximum width as needed */
+  max-width: 100%; /* Adjust the maximum width as needed */
+  z-index: 10; 
+  text-align: center; 
 }
 
 /* Style for the dish card container (grid) */
@@ -29,18 +52,10 @@
   grid-gap: 20px; /* Adjust the gap between cards */
 }
 
-
-.dish-card aa {
-  text-align: center;
-  width: 100%; /* Adjust this value as needed */
-  max-width: 150px; /* Set a maximum width if necessary */
-  height: auto; /* Maintain aspect ratio */
-}
-
 .dish-card {
   position: relative;
   width: 200px;
-  height: 300px;
+  height: 250px;
   transform-style: preserve-3d;
   transition: transform 0.5s;
 }
@@ -55,10 +70,14 @@
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
+  
 }
 
 .dish-back {
   transform: rotateY(180deg);
+  border: 2px solid #e0e0e0; /* 替换为你选择的颜色和大小 */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 可选：添加轻微的阴影以提高深度感 */
+  border-radius: 8px; /* 如果你的卡片是圆角的，确保这里的值和 .dish-card img 的 border-radius 一致 */
 }
 
 /* Style for the dish image */
@@ -70,17 +89,19 @@
 
 /* Style for the dish name */
 .dish-card h5 {
-  margin-top: 10px;
-}
-
-/* Style for the modal actions (e.g., close button) */
-.modal-actions {
-  margin-top: 20px;
+  margin-top: 5px;
   text-align: center;
 }
 
+/* Style for the modal actions (e.g., close button) */
+.cook-modal-actions {
+  margin-top: 2px;
+  text-align: center;
+}
+
+
 /* Style for the modal button */
-.modal-button {
+.cook-modal-button {
   padding: 10px 10px;
   margin: 0 10px;
   cursor: pointer;
@@ -89,9 +110,78 @@
   font-size: 14px;
 }
 
-/* Style for the close button */
-.modal-button.close {
-  background-color: #ddd; /* Light gray background */
+.success-message  {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1010;
+  background-color: #dff0d8;
+  color: #3c763d;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* Additional styles can be added as needed */
+.dish-name-back h5 {
+  font-size: 15px; 
+  margin-top: 10px; 
+  margin-bottom: 10px; 
+}
+
+/* Style for the ingredient list and button container */
+.ingredient-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* This will arrange the items with space between */
+  height: 100%; /* Make sure the container takes the full height */
+}
+
+.ingredient-list th,
+.ingredient-list td {
+  font-size: 15px; 
+}
+
+.cook-modal-button.cook {
+  display: block; /* Change to block level element */
+  width: fit-content; 
+  margin: 0px auto; 
+  padding: 8px 10px; 
+  font-size: 14px; 
+  background-color: #4CAF50; 
+  color: white; 
+  border: none; /* No border for a flat design */
+  border-radius: 4px; /* Rounded corners for the button */
+  cursor: pointer; /* Cursor to pointer to indicate a clickable button */
+  margin-bottom: 25px; 
+}
+
+/* Add hover effect for the "Cook This" button */
+.cook-modal-button.cook:hover {
+  background-color: #367c39; /* Darker shade when hovered */
+}
+
+/* Style for the flip all icon */
+.flip-all-icon {
+  position: absolute; /* Absolute position to place the icon */
+  top: 16px; /* Align with the close icon */
+  right: 48px; /* Place to the left of the close icon, adjust as necessary */
+  font-size: 24px; 
+  color: #333; /* Set the color of the icon */
+  cursor: pointer; /* Change cursor to pointer to indicate a clickable element */
+}
+
+.flip-all-icon:hover {
+  color: #3c763d; /* Color on hover */
+}
+
+/* Override style for the tables within the modal box to align text to the left */
+.cook-modal-box table {
+  text-align: left; /* Aligns table text to the left */
+  margin: 0 auto; /* Centers the table within the modal box */
+}
+
+.cook-modal-box th,
+.cook-modal-box td {
+  text-align: left; /* Ensures table headers and cells are aligned to the left */
+}

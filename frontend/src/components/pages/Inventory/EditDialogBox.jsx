@@ -4,7 +4,7 @@ import useFoodCategory from "../../../hooks/useFoodCategory";
 import useFoodItem from "../../../hooks/useFoodItem";
 import "./EditDialogBox.css";
 import { CloseCircleOutlined } from "@ant-design/icons";
-import DatePicker from "react-datepicker";
+import { DownCircleOutlined, UpCircleOutlined } from "@ant-design/icons";
 
 const EditDialogBox = ({ foodItemDetails, onClose }) => {
   const [showSuccess, setShowSuccess] = useState(false);
@@ -37,6 +37,7 @@ const EditDialogBox = ({ foodItemDetails, onClose }) => {
       [name]: value,
     }));
   };
+
 
   const toggleEditing = () => {
     setIsEditing(!isEditing);
@@ -81,6 +82,14 @@ const EditDialogBox = ({ foodItemDetails, onClose }) => {
 
   // Update API request to send the updated "foodStatus" property
 
+  // 新的状态来控制 Price 和 Expiry Date 字段的显示
+  const [showDetails, setShowDetails] = useState(false);
+
+  // 切换 showDetails 状态的函数
+  const toggleDetails = () => {
+    setShowDetails((prev) => !prev);
+  };
+
   return (
     <div className="edit-modal-overlay" onClick={handleOverlayClick}>
       <div className="edit-modal-content" onClick={(e) => e.stopPropagation()}>
@@ -121,7 +130,7 @@ const EditDialogBox = ({ foodItemDetails, onClose }) => {
         </div>
         <div>
           <label>
-            Quantity:
+            Quantity(kg):
             <input
               type="number"
               name="quantity"
@@ -129,56 +138,6 @@ const EditDialogBox = ({ foodItemDetails, onClose }) => {
               onChange={handleInputChange}
             />
           </label>
-        </div>
-        <div>
-          <label>
-            Unit:
-            <input
-              type="text"
-              name="unit"
-              value={editedItem.unit}
-              onChange={handleInputChange}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Price:
-            <input
-              type="number"
-              name="pricePerUnit"
-              value={editedItem.pricePerUnit}
-              onChange={handleInputChange}
-            />
-          </label>
-        </div>
-        <div>
-          <div>
-            <label>
-              Expiry Date:
-              {isEditing ? (
-                <div onClick={toggleEditing}>
-                  <input
-                    type="date"
-                    name="expirydate"
-                    value={editedItem.expiryDate}
-                    onChange={handleInputChange}
-                    onBlur={toggleEditing}
-                  />
-                </div>
-              ) : (
-                <div onClick={toggleEditing}>
-                  <input
-                    type="text"
-                    name="expirydate"
-                    value={editedItem.expiryDate}
-                    readOnly
-                    style={{ pointerEvents: "none" }}
-                  />
-                </div>
-              )}
-            </label>
-          </div>
         </div>
         <div>
           <label>
@@ -196,6 +155,56 @@ const EditDialogBox = ({ foodItemDetails, onClose }) => {
             </select>
           </label>
         </div>
+        {/* <div>
+          <label>
+            Unit:
+            <input
+              type="text"
+              name="unit"
+              value={editedItem.unit}
+              onChange={handleInputChange}
+            />
+          </label>
+        </div> */}
+        {/* 切换按钮 */}
+        <button
+          className={`toggle-details-button ${
+            showDetails ? "show-details" : ""
+          }`}
+          onClick={toggleDetails}
+        >
+          {showDetails ? <UpCircleOutlined /> : <DownCircleOutlined />}
+        </button>
+
+        {/* 条件渲染 Price 和 Expiry Date 字段 */}
+        {showDetails && (
+          <>
+            <div>
+              <label>
+                Expiry Date:
+                <input
+                  type="date" // Change this from "text" to "date"
+                  name="expirydate"
+                  value={editedItem.expirydate}
+                  onChange={handleInputChange}
+                />
+              </label>
+            </div>
+
+            <div>
+              <label>
+                Price:
+                <input
+                  type="number"
+                  name="pricePerUnit"
+                  value={editedItem.pricePerUnit}
+                  onChange={handleInputChange}
+                />
+              </label>
+            </div>
+          </>
+        )}
+
         {/* Add more input fields for other details */}
         {/* Save and Close buttons */}
         <div className="edit-modal-actions">

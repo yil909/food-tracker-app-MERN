@@ -186,6 +186,38 @@ function useFoodItem() {
       throw error; // Re-throw the error to handle it at the component
     }
   };
+
+  const getFoodItemSuggestions = async (categoryID, relevantString) => {
+    try {
+      const response = await axios.get(`http://${LOCAL_IP}:${PORT}/getnamesuggestions`, {
+        params: {
+          categoryID: categoryID,
+          namePart: relevantString
+        }
+      });
+
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        console.error('Error fetching data:', response.status);
+        return null;
+      }
+    } catch (error) {
+      console.error('Error in getFoodItemSuggestions:', error);
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.error(error.response.data);
+        console.error(error.response.status);
+        console.error(error.response.headers);
+      }
+      return null;
+    }
+  };
+
+
+
+
   return {
     foodItem,
     expFoodItem,
@@ -207,6 +239,7 @@ function useFoodItem() {
     getLocationRanking,
     getCookMenu,
     cookDish,
+    getFoodItemSuggestions,
   };
 }
 

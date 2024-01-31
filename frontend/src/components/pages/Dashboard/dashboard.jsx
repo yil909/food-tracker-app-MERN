@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+// import "./dashboard.css";
 import {
   ResponsiveContainer,
   LineChart,
@@ -21,15 +22,22 @@ import logo from "../../../assets/icons/logo.png";
 import "./dashboard.css";
 
 const Dashboard = () => {
-  const { wasteMetric, getWasteMetric, usageWasteData, getUsageWasteData,
-  locationRanking, getLocationRanking } =
-    useFoodItem();
+  const {
+    wasteMetric,
+    getWasteMetric,
+    usageWasteData,
+    getUsageWasteData,
+    locationRanking,
+    getLocationRanking,
+  } = useFoodItem();
 
   useEffect(() => {
     getWasteMetric();
     getUsageWasteData();
     getLocationRanking();
   }, []);
+
+  usePageTitleAndFavicon("Dashboard - Food Waste Tracker", logo);
 
   const COLORS = [
     "#FF5733",
@@ -109,9 +117,9 @@ const Dashboard = () => {
         {/* Render your other dashboard components here */}
         {/* Render the Pie Chart */}
         <h2 style={{ fontFamily: "Arial, sans-serif" }}>
-        Food Waste by Category
+          Food Waste by Category
         </h2>
-        <ResponsiveContainer width="100%" height={400}>
+        <ResponsiveContainer width="100%" height={500}>
           <PieChart style={{ fontFamily: "Arial, sans-serif" }}>
             <Pie
               data={chartData}
@@ -169,7 +177,7 @@ const Dashboard = () => {
 
       <div>
         <h2 style={{ fontFamily: "Arial, sans-serif" }}>
-        Ranking of Regional Food Waste
+          Ranking of Regional Food Waste
         </h2>
         <ResponsiveContainer width="100%" height={400}>
           <table>

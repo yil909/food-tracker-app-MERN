@@ -1,10 +1,6 @@
 import { Link } from "react-router-dom";
 import "./LeftNavBar.css";
 import logo from "../../assets/icons/logo.png";
-//https://ant.design/components/icon
-//npm install antd
-//npm install @ant-design/icons
-
 import {
   HomeOutlined,
   UserOutlined,
@@ -17,18 +13,21 @@ import {
   LogoutOutlined,
 } from "@ant-design/icons";
 
-const LeftNavBar = () => {
+const LeftNavBar = ({ children, isVisible }) => {
+  const navBarClass = isVisible ? "left-nav-bar" : "left-nav-bar hidden";
+
   return (
-    <nav className="left-nav-bar">
+    <nav className={navBarClass}>
+      {children}
       <div className="logo-section">
         <img src={logo} alt="Logo" className="logo-image" />
         <h1 className="logo-text">FOOD WASTE TRACKER</h1>
       </div>
       <ul className="nav-list">
+        {/* Nav items here */}
         <li className="nav-item">
           <Link to="/" className="nav-link">
-            <HomeOutlined />
-            Dashboard
+            <HomeOutlined /> Dashboard
           </Link>
         </li>
         <li className="nav-item">

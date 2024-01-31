@@ -12,6 +12,7 @@ import {
   getIngredientList,
   getMatchedFoodItem,
   getExpiredFoodItem,
+  getNameSuggestions,
 } from "../../modules/inventory-dao.js";
 import { getItemWithCategoryName } from "../../modules/report-dao.js";
 import { getRestaurantInfo } from "../../modules/user-dao.js";
@@ -207,5 +208,23 @@ router.put("/cookdish", async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
+
+router.get("/getnamesuggestions", async (req, res) => {
+  try {
+    const { categoryID, namePart } = req.query;
+
+    if (!categoryID || !namePart) {
+      return res.status(400).send({ message: "Missing required parameters" });
+    }
+
+    const foodCategoryWithItemNames = await getNameSuggestions(categoryID, namePart);
+    res.json(foodCategoryWithItemNames);
+  } catch (error) {
+    console.error("Error getting item names", error);
+    res.status(500).send({ message: "Internal Server Error" });
+  }
+});
+
+
 
 export default router;
