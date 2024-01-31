@@ -40,9 +40,18 @@ const Guide = () => {
                 Detailed content for New to App...
               </div>
             )}
-            <button className="see-all-btn">See All</button>
+            <button
+              className="guide-see-all-btn"
+              onClick={(e) => {
+                e.stopPropagation(); // 防止 guide-card 的 onClick 也被触发
+                toggleDetails("newToApp");
+              }}
+            >
+              {showDetails.newToApp ? "Hide Details" : "See All"}
+            </button>
           </div>
         </div>
+
         {/* Guide card for inventory alerts */}
         <div
           className="guide-card"
@@ -78,7 +87,7 @@ const Guide = () => {
                 </p>
               </div>
             )}
-            <button className="see-all-btn">See All</button>
+            <button className="guide-see-all-btn">See All</button>
           </div>
         </div>
         {/* Guide card for additional help */}
@@ -92,7 +101,7 @@ const Guide = () => {
                 Detailed content for Need Help...
               </div>
             )}
-            <button className="see-all-btn">See All</button>
+            <button className="guide-see-all-btn">See All</button>
           </div>
         </div>
         {/* FAQ section

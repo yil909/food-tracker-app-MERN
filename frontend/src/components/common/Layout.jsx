@@ -1,5 +1,7 @@
-// Layout.jsx
-import React from "react";
+// // Layout.jsx
+// import React from "react";
+import React, { useState } from "react";
+
 import { Link } from "react-router-dom";
 import { Input } from "antd";
 import { BellOutlined, SearchOutlined } from "@ant-design/icons";
@@ -10,10 +12,26 @@ import { useNotification } from "../../hooks/useNotification.jsx";
 import profilelogo from "../../assets/icons/profile.png";
 
 const Layout = ({ children }) => {
+  const [isNavVisible, setIsNavVisible] = useState(true);
+
+  const toggleNavBar = () => {
+    setIsNavVisible(!isNavVisible);
+    //   const navToggleButton = document.querySelector(".nav-toggle-button");
+    //   navToggleButton.classList.toggle("moved"); // 仅使用一个类来控制按钮位置
+  };
+
   const { notificationCount } = useNotification();
+
   return (
     <div className="layout">
-      <LeftNavBar />
+      <LeftNavBar isVisible={isNavVisible} />
+      <button
+        onClick={toggleNavBar}
+        className={`nav-toggle-button ${isNavVisible ? "moved" : ""}`}
+      >
+        ☰
+      </button>
+
       <div className="main-content">
         <div className="header">
           <Input

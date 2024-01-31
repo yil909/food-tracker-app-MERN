@@ -25,7 +25,7 @@ const NearingExpiration = () => {
   const displayedItems = showAll ? itemNearExp : itemNearExp.slice(0, 5);
 
   return (
-    <div>
+    <div className="nearing-expiration-wrapper">
       <table>
         <thead>
           <tr>
@@ -57,7 +57,7 @@ const NearingExpiration = () => {
           href="#!"
           className="see-all-link"
           onClick={() => setShowAll(!showAll)}
-          style={{ float: "right", color: "#2c94fc", textDecoration: "none" }}
+          style={{ float: "right", color: "green", textDecoration: "none" }}
         >
           {showAll ? "See Less" : "See All"}
         </a>

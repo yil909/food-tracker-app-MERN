@@ -1,3 +1,4 @@
+
 /* Title style for the inventory section */
 .inventory-title {
   /* font-size: 24px; */
@@ -107,6 +108,7 @@
 /* Add a thin grey line under each row */
 .food-items-table tr {
   border-bottom: 1px solid #ccc; /* Grey line */
+  cursor: pointer;
 }
 
 /* Mouse hover effect */
@@ -178,4 +180,105 @@
 /* Style for checkbox in editing mode */
 .editing .food-items-table td input[type="checkbox"] {
   display: inline-block; /* Visible only in editing mode */
+}
+
+.custom-modal-content .message {
+  font-family: "Arial, sans-serif" !important;
+}
+
+
+.highlighted-row {
+  background-color: lightgrey; /* 您想要的高亮颜色 */
+}
+
+
+/* Style for action buttons in the section header */
+.header-buttons button {
+  margin-right: 8px; /* Slight reduction for tighter grouping */
+  padding: 10px 12px; /* Reduced horizontal padding for narrower buttons */
+  font-size: 14px;
+  background-color: #e7e7e7;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+/* Use a more prominent style for important buttons */
+.header-buttons .cook-button, 
+.header-buttons .add-item-button { 
+  background-color: #4caf50; /* Green for primary actions */
+  color: white;
+  /* font-weight: bold; */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Slight shadow for depth */
+}
+
+/* Hover effects for buttons to indicate interactiveness */
+.header-buttons button:hover {
+  background-color: #d6d6d6; /* Lighter background on hover */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Larger shadow on hover for depth */
+}
+
+/* Active state for buttons to indicate they are being pressed */
+.header-buttons button:active {
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2); /* Inner shadow to simulate pressing */
+}
+
+
+/* Responsive styles for small screens (e.g., iPhone) */
+@media only screen and (max-width: 600px) {
+  .inventory-title {
+    font-size: 20px;
+  }
+
+  .stat-box {
+    padding: 15px;
+  }
+
+  .stat-box h3 {
+    font-size: 16px;
+  }
+
+  .stat-box span {
+    font-size: 20px;
+  }
+
+  .subtext {
+    font-size: 12px;
+  }
+
+  .header-buttons button {
+    font-size: 12px;
+  }
+
+  .food-items-table {
+    font-size: 12px;
+  }
+}
+
+/* Responsive styles for medium screens (e.g., iPad) */
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+  .stat-box {
+    padding: 18px;
+  }
+
+  .stat-box h3 {
+    font-size: 20px;
+  }
+
+  .stat-box span {
+    font-size: 26px;
+  }
+
+  .subtext {
+    font-size: 14px;
+  }
+
+  .header-buttons button {
+    font-size: 14px;
+  }
+
+  .food-items-table {
+    font-size: 14px;
+  }
 }

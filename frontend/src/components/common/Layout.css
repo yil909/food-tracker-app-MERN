@@ -65,5 +65,82 @@
     object-fit: cover;
     cursor: pointer;
 }
+/* 当导航栏打开时，按钮在导航栏内部 */
+.nav-toggle-button.inside-nav {
+    position: absolute;
+    top: 10px;
+    right: 10px; /* 放置在右上角 */
+  }
 
+  
+  /* .nav-toggle-button.outside-nav {
+    color: #4CAF50; 
+    border: none; 
+    background-color: transparent; 
+    cursor: pointer;
+    padding: 10px;
+    font-size: 20px;
+    position: fixed;
+    top: 10px;
+    left: 180px; 
+    z-index: 100;
+  } */
 
+  /* 汉堡按钮样式 */
+.nav-toggle-button {
+    /* background: #4CAF50; */
+    color: green;
+    border: none;
+    cursor: pointer;
+    padding: 0px;
+    font-size: 30px;
+    position: absolute; /* 确保按钮固定在页面上 */
+    top: 10px;
+    left: 10px;
+    z-index: 100;
+    background-color: transparent;
+    /* transition: left 0.3s ease-in-out;  */
+  }
+
+/* 隐藏叉叉的样式 */
+.hide {
+  display: none;
+}
+
+/* LeftNavBar 的隐藏样式保持不变 */
+.left-nav-bar.hidden {
+  transform: translateX(-100%);
+}
+
+/* 当导航栏隐藏时，不占用空间 */
+.left-nav-bar.hidden {
+  width: 0; /* 设置宽度为 0 */
+  overflow: hidden; /* 确保内容不会溢出 */
+  padding: 0; /* 移除内边距 */
+}
+
+/* 主内容区域样式 */
+.main-content {
+  transition: margin-left 0.3s ease-in-out; /* 添加过渡效果 */
+}
+
+/* 动态设置左边距，当导航栏可见时 */
+.main-content.with-nav {
+  margin-left: 220px; /* 与导航栏的宽度相同 */
+}
+
+@media (min-width: 768px) {
+    .nav-toggle-button.inside-nav {
+      top: 100px; /* 仅在屏幕宽度大于768px时生效 */
+    }
+  }
+
+  /* 当导航栏打开时，按钮移到右上角 */
+.nav-toggle-button.inside-nav-right {
+    /* right: 100px; 调整为合适的值以便与 logo 对齐 */
+    left: 180px; /* 重置左边的定位 */
+ }
+ 
+ .nav-toggle-button.moved {
+    left: 180px; /* 根据需要调整这个值 */
+  }

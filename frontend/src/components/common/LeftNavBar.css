@@ -1,76 +1,96 @@
 .left-nav-bar {
-  width: 240px; 
-  height: 100%; /* Full height of the viewport */
-  background-color: #FAFAFA; /* Light grey background */
+  width: 220px;
+  height: 100%;
+  background-color: #FAFAFA;
   padding: 20px;
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
+  transition: transform 0.3s ease-in-out;
+}
+
+.left-nav-bar.hidden {
+  transform: translateX(-100%);
 }
 
 .logo-section {
   display: flex;
-  flex-direction: row; /* Ensure the items are in a row */
-  align-items: center; /* Vertically center items in the flex container */
-  justify-content: flex-start; /* Align items to the start of the container */
-  overflow: hidden; /* Hide overflow */
-  margin-bottom: 30px; 
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+  margin-bottom: 30px;
 }
 
 .logo-image {
-  width: 50px; /* Example size, adjust as needed */
-  margin-right: 10px; /* Space between the logo and the text */
+  width: 50px;
+  margin-right: 10px;
 }
 
 .logo-text {
-  font-size: 20px; /* Adjust if necessary to fit */
+  font-size: 20px;
   color: #0A653A;
   margin: 0;
 }
 
 .nav-list {
-  list-style-type: none; /* Remove default list styling */
-  padding: 0; /* Remove default padding */
-  margin: 0; /* Remove default margin */
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
 
 .nav-item {
-  margin-bottom: 20px; /* Space between nav items */
+  margin-bottom: 20px;
 }
 
- /* Remove underlines from links and set default color */
 .nav-link {
   text-decoration: none;
-  color: #555; /* Default text color */
+  color: #555;
   display: flex;
-  align-items: bottom;
-  gap: 10px; /* Space between icon and text */
+  align-items: center;
+  gap: 10px;
   font-weight: 500;
   font-size: 18px;
-  transition: color 0.2s, background-color 0.3s; /* Transition for color and background */
-  padding: 10px; /* Padding inside the link for larger clickable area */
-  width: 100%; /* Ensure the background color fills to the full width of the nav bar */
-  box-sizing: border-box; /* Ensures padding is included in width */
-  
+  transition: color 0.2s, background-color 0.3s;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* Hover effect for the list item */
 .nav-item:hover {
-  background-color: #E8E8E8; /* Light grey background color when hovered */
+  background-color: #E8E8E8;
 }
 
-/* Hover effect to change text and icon color */
 .nav-item:hover .nav-link,
 .nav-item:hover .anticon {
-  color: #0A653A; /* Text/icon color when hovered (green) */
+  color: #0A653A;
 }
 
 .nav-item:nth-last-child(3) {
-  margin-bottom: 200px; 
+  margin-bottom: 200px;
 }
 
-/* Active link styles */
 .active-nav-link {
-  color: #0A653A; /* Color for active nav item */
-  background-color: #E8E8E8; /* Background color for active nav item */
+  color: #0A653A;
+  background-color: #E8E8E8;
+}
+
+.nav-toggle-button {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 20px;
+  position: absolute;
+  z-index: 100;
+}
+
+.nav-toggle-button.inside-nav {
+  top: 10px;
+  right: 10px;
+}
+
+.nav-toggle-button.outside-nav {
+  top: 10px;
+  left: 10px;
 }
 
