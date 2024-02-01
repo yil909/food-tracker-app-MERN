@@ -125,15 +125,9 @@ function FoodItemDisplay() {
 
   const handleEditClick = () => {
     if (selectedItemId === null) {
-      alert("Please select an item to edit.");
+      setShowCustomModal(true);
       return;
     }
-
-    // const handleEditClick = () => {
-    //   if (selectedItemId === null) {
-    //     setShowCustomModal(true);
-    //     return;
-    //   }
 
     // Open the dialog box
     setIsDialogOpen(true);
