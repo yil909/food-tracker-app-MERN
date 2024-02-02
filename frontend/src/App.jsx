@@ -13,12 +13,12 @@ import Notice from "./components/pages/Notice.jsx";
 import Dashboard from "./components/pages/Dashboard/dashboard.jsx";
 import ProfilePage from "./components/pages/profile/ProfilePage.jsx";
 import Login from './components/pages/Login/Login.jsx';
-// import Register from './components/pages/Login/Register.jsx'
+import Register from './components/pages/Login/Register.jsx'
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Dashboard />}></Route>
+      <Route path="/" element={<Login />}></Route>
       <Route path="/guide" element={<Guide />}></Route>
       <Route path="/contact" element={<Contact />}></Route>
       <Route path="/inventory" element={<FoodItemDisplay />}></Route>
@@ -26,7 +26,7 @@ function App() {
       <Route path="/profile" element={<ProfilePage />}></Route>
       <Route path="/notices" element={<Notice />}></Route>
       <Route path='/login' element={<Login />}></Route>
-      {/*<Route path='/register' element={<Register/>}></Route>*/}
+      <Route path='/register' element={<Register/>}></Route>
     </Routes>
   );
 }

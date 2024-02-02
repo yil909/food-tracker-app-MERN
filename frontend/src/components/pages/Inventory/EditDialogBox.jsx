@@ -5,10 +5,11 @@ import useFoodItem from "../../../hooks/useFoodItem";
 import "./EditDialogBox.css";
 import { CloseCircleOutlined } from "@ant-design/icons";
 import { DownCircleOutlined, UpCircleOutlined } from "@ant-design/icons";
+import CustomModal from "../../common/CustomModal.jsx";
 
 const EditDialogBox = ({ foodItemDetails, onClose }) => {
   const [showSuccess, setShowSuccess] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
+  const [showCustomModal, setShowCustomModal] = useState(false);
 
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
@@ -37,24 +38,6 @@ const EditDialogBox = ({ foodItemDetails, onClose }) => {
       [name]: value,
     }));
   };
-
-
-  const toggleEditing = () => {
-    setIsEditing(!isEditing);
-    console.log("toggleEditing called!"); // Add this line
-  };
-
-  // const handleSave = async () => {
-  //   try {
-  //     const updatedData = { ...editedItem, foodstatus: foodStatus };
-  //     // Call the updateFoodItem function
-  //     createTransLog(updatedData);
-  //     console.log("Saving edited item:", updatedData);
-  //     onClose();
-  //   } catch (error) {
-  //     console.error("Error updating food item:", error);
-  //   }
-  // };
   const handleSave = async () => {
     try {
       const updatedData = { ...editedItem, foodstatus: foodStatus };
@@ -62,7 +45,8 @@ const EditDialogBox = ({ foodItemDetails, onClose }) => {
       // Check if the input quantity is greater than the remaining quantity
       if (editedItem.quantity > editedItem.remainingQuantity) {
         // Show an error message or handle the error condition
-        alert("Error: Input quantity exceeds remaining quantity.");
+        //alert("Error: Input quantity exceeds remaining quantity.");
+        setShowCustomModal(true);
         return; // Exit the function without saving
       }
 
@@ -93,6 +77,14 @@ const EditDialogBox = ({ foodItemDetails, onClose }) => {
   return (
     <div className="edit-modal-overlay" onClick={handleOverlayClick}>
       <div className="edit-modal-content" onClick={(e) => e.stopPropagation()}>
+        {/* Add this conditional rendering for the CustomModal */}
+        {showCustomModal && (
+          <CustomModal
+            message="Input quantity exceeds remaining quantity."
+            onClose={() => setShowCustomModal(false)}
+            className="custom-modal-message"
+          />
+        )}
         <div className="edit-modal-title">
           <h2>Edit Food Item</h2>
         </div>
@@ -185,7 +177,7 @@ const EditDialogBox = ({ foodItemDetails, onClose }) => {
                 <input
                   type="date" // Change this from "text" to "date"
                   name="expirydate"
-                  value={editedItem.expirydate}
+                  value={editedItem.expiryDate}
                   onChange={handleInputChange}
                 />
               </label>

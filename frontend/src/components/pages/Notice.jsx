@@ -103,7 +103,6 @@ const Notice = () => {
       setNotificationCount(updateCount);
       setItemExpired(expiredItems);
       incrementNotificationCount(updateCount);
-      
     };
     fetchData();
   }, [getExpFoodItem, expFoodItem, itemExpired]);
@@ -128,10 +127,10 @@ const Notice = () => {
               </p>
               <a
                 href="#"
-                onClick={toggleDetails}
-                className={showDetails ? "toggled" : ""}
+                onClick={toggleDetailsNearExp}
+                className={showDetailsNearExp ? "toggled" : ""}
               >
-                {showDetails ? "Hide Details" : "Read Details"}
+                {showDetailsNearExp ? "Hide Details" : "Read Details"}
               </a>
               {showDetailsNearExp && (
                 <div className="additional-details">
@@ -159,8 +158,12 @@ const Notice = () => {
                 The below batch of food items have been expired. Please update
                 them as food waste and dispose accordingly.
               </p>
-              <a href="#" onClick={toggleDetailsExpired}>
-                Read Details
+              <a
+                href="#"
+                onClick={toggleDetailsExpired}
+                className={showDetailsExpired ? "toggled" : ""}
+              >
+                {showDetailsExpired ? "Hide Details" : "Read Details"}
               </a>
               {showDetailsExpired && (
                 <div className="additional-details">
