@@ -10,7 +10,7 @@ import CustomModal from "../../common/CustomModal.jsx";
 const EditDialogBox = ({ foodItemDetails, onClose }) => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [showCustomModal, setShowCustomModal] = useState(false);
-
+  
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
       onClose();
@@ -77,6 +77,7 @@ const EditDialogBox = ({ foodItemDetails, onClose }) => {
   return (
     <div className="edit-modal-overlay" onClick={handleOverlayClick}>
       <div className="edit-modal-content" onClick={(e) => e.stopPropagation()}>
+
         {/* Add this conditional rendering for the CustomModal */}
         {showCustomModal && (
           <CustomModal
@@ -168,7 +169,6 @@ const EditDialogBox = ({ foodItemDetails, onClose }) => {
           {showDetails ? <UpCircleOutlined /> : <DownCircleOutlined />}
         </button>
 
-        {/* 条件渲染 Price 和 Expiry Date 字段 */}
         {showDetails && (
           <>
             <div>

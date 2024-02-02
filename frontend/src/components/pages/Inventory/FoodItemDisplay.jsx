@@ -123,6 +123,12 @@ function FoodItemDisplay() {
     setSelectedItemId(parseInt(event.target.value));
   };
 
+  // const handleEditClick = () => {
+  //   if (selectedItemId === null) {
+  //     alert("Please select an item to edit.");
+  //     return;
+  //   }
+
   const handleEditClick = () => {
     if (selectedItemId === null) {
       setShowCustomModal(true);
@@ -313,7 +319,7 @@ function FoodItemDisplay() {
           <span style={{ fontFamily: "Arial, sans-serif" }}>
             {foodMetric[0]?.highRisk} <small> kg</small>{" "}
           </span>
-          <div className="subtext">Expire in 4 weeks</div>
+          <div className="subtext">Expire in 14 days</div>
         </div>
       </div>
 
