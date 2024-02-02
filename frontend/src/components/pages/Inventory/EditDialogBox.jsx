@@ -10,6 +10,7 @@ import CustomModal from "../../common/CustomModal.jsx";
 const EditDialogBox = ({ foodItemDetails, onClose }) => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [showCustomModal, setShowCustomModal] = useState(false);
+  
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
       onClose();
@@ -37,18 +38,6 @@ const EditDialogBox = ({ foodItemDetails, onClose }) => {
       [name]: value,
     }));
   };
-
-  // const handleSave = async () => {
-  //   try {
-  //     const updatedData = { ...editedItem, foodstatus: foodStatus };
-  //     // Call the updateFoodItem function
-  //     createTransLog(updatedData);
-  //     console.log("Saving edited item:", updatedData);
-  //     onClose();
-  //   } catch (error) {
-  //     console.error("Error updating food item:", error);
-  //   }
-  // };
   const handleSave = async () => {
     try {
       const updatedData = { ...editedItem, foodstatus: foodStatus };
@@ -56,10 +45,9 @@ const EditDialogBox = ({ foodItemDetails, onClose }) => {
       // Check if the input quantity is greater than the remaining quantity
       if (editedItem.quantity > editedItem.remainingQuantity) {
         // Show an error message or handle the error condition
-        // alert("Error: Input quantity exceeds remaining quantity.");
-        // return; // Exit the function without saving
+        //alert("Error: Input quantity exceeds remaining quantity.");
         setShowCustomModal(true);
-        return;
+        return; // Exit the function without saving
       }
 
       createTransLog(updatedData);
@@ -89,6 +77,8 @@ const EditDialogBox = ({ foodItemDetails, onClose }) => {
   return (
     <div className="edit-modal-overlay" onClick={handleOverlayClick}>
       <div className="edit-modal-content" onClick={(e) => e.stopPropagation()}>
+
+        {/* Add this conditional rendering for the CustomModal */}
         {showCustomModal && (
           <CustomModal
             message="Input quantity exceeds remaining quantity."

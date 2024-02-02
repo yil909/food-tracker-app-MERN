@@ -31,3 +31,4 @@ export async function updateUser(user) {
     const db = await openDatabase();
     return await db.run(SQL`UPDATE "user" SET "hashpw" = ${hashedPassword}, "saltpw" = ${salt} WHERE "userid" = ${user.userid};`);
 }
+
