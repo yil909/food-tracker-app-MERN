@@ -5,10 +5,11 @@ import useFoodItem from "../../../hooks/useFoodItem";
 import "./EditDialogBox.css";
 import { CloseCircleOutlined } from "@ant-design/icons";
 import { DownCircleOutlined, UpCircleOutlined } from "@ant-design/icons";
+import CustomModal from "../../common/CustomModal.jsx";
 
 const EditDialogBox = ({ foodItemDetails, onClose }) => {
   const [showSuccess, setShowSuccess] = useState(false);
-
+  const [showCustomModal, setShowCustomModal] = useState(false);
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
       onClose();
@@ -55,8 +56,10 @@ const EditDialogBox = ({ foodItemDetails, onClose }) => {
       // Check if the input quantity is greater than the remaining quantity
       if (editedItem.quantity > editedItem.remainingQuantity) {
         // Show an error message or handle the error condition
-        alert("Error: Input quantity exceeds remaining quantity.");
-        return; // Exit the function without saving
+        // alert("Error: Input quantity exceeds remaining quantity.");
+        // return; // Exit the function without saving
+        setShowCustomModal(true);
+        return;
       }
 
       createTransLog(updatedData);
@@ -86,6 +89,13 @@ const EditDialogBox = ({ foodItemDetails, onClose }) => {
   return (
     <div className="edit-modal-overlay" onClick={handleOverlayClick}>
       <div className="edit-modal-content" onClick={(e) => e.stopPropagation()}>
+        {showCustomModal && (
+          <CustomModal
+            message="Input quantity exceeds remaining quantity."
+            onClose={() => setShowCustomModal(false)}
+            className="custom-modal-message"
+          />
+        )}
         <div className="edit-modal-title">
           <h2>Edit Food Item</h2>
         </div>
@@ -169,7 +179,6 @@ const EditDialogBox = ({ foodItemDetails, onClose }) => {
           {showDetails ? <UpCircleOutlined /> : <DownCircleOutlined />}
         </button>
 
-        {/* 条件渲染 Price 和 Expiry Date 字段 */}
         {showDetails && (
           <>
             <div>
@@ -178,7 +187,7 @@ const EditDialogBox = ({ foodItemDetails, onClose }) => {
                 <input
                   type="date" // Change this from "text" to "date"
                   name="expirydate"
-                  value={editedItem.expirydate}
+                  value={editedItem.expiryDate}
                   onChange={handleInputChange}
                 />
               </label>
