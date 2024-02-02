@@ -12,7 +12,7 @@ import FoodItemDisplay from "./components/pages/Inventory/FoodItemDisplay.jsx";
 import Notice from "./components/pages/Notice.jsx";
 import Dashboard from "./components/pages/Dashboard/dashboard.jsx";
 import ProfilePage from "./components/pages/profile/ProfilePage.jsx";
-// import Login from './components/pages/Login/Login.jsx';
+import Login from './components/pages/Login/Login.jsx';
 // import Register from './components/pages/Login/Register.jsx'
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
       <Route path="/reports" element={<ReportPage />}></Route>
       <Route path="/profile" element={<ProfilePage />}></Route>
       <Route path="/notices" element={<Notice />}></Route>
-      {/*<Route path='/login' element={<Login />}></Route>*/}
+      <Route path='/login' element={<Login />}></Route>
       {/*<Route path='/register' element={<Register/>}></Route>*/}
     </Routes>
   );
