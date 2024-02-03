@@ -112,7 +112,7 @@ const Dashboard = () => {
 
   return (
     <Layout>
-      <div>
+      <div className="dashboard-title">
         <h1>Dashboard</h1>
         {/* Render your other dashboard components here */}
         {/* Render the Pie Chart */}

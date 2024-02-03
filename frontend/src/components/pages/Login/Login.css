@@ -92,13 +92,6 @@
     max-width: 450px; /* Increased maximum width for the welcome message */
 }
 
-/* h2 {
-    text-align: center;
-    width: 100%; /* Ensure h2 takes up 100% of the .small-icon-and-welcome width */
-    padding: 0 20px; /* Add padding to ensure text does not touch the edges */
-    margin-right: 80px;
-} */
-
 .small-icon-and-welcome img {
     width: 40px;
     height: 40px;
