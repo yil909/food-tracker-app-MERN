@@ -1,16 +1,24 @@
+h2 {
+    font-family: Arial;
+}
+
 .login-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
     height: 100vh;
+    width: 100%; /* Use 100% of the viewport width */
 }
+
 
 .login-content {
     display: flex;
     flex-direction: column;
     justify-content: center;
     max-width: 400px;
-    margin-left: 200px; 
+    margin-left: 400px; 
+    font-family: Arial;
+    
 }
 
 .login-form {
@@ -24,6 +32,10 @@
 
 .form-group {
     margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the start of the flex container */
+
 }
 
 .form-group label {
@@ -46,7 +58,7 @@
 .forgot-password button {
     background: none;
     border: none;
-    color: #007bff;
+    color: green;
     cursor: pointer;
 }
 
@@ -57,23 +69,29 @@
 .login-button {
     width: 100%;
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: green;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 16px;
 }
 
 .login-button:hover {
-    background-color: #0056b3;
+    background-color: #0A653A;
 }
 
 .register-link {
     display: block;
     text-align: center;
     margin-top: 20px;
+    color: green;
 }
 
+.forgot-password-link
+{
+    color: green;
+}
 .logo-pic {
     width: 200px; 
     height: 200px; 
@@ -81,6 +99,9 @@
     top: 50%;
     left: 20px; 
     transform: translate(-20%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* This will center the text below the image */
 }
 
 
@@ -88,12 +109,36 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 50px;
-    max-width: 450px; /* Increased maximum width for the welcome message */
+    margin-bottom: 10px;
+    max-width: 300px; /* Increased maximum width for the welcome message */
 }
 
 .small-icon-and-welcome img {
     width: 40px;
     height: 40px;
     margin-bottom: 10px; /* Add space between the icon and the welcome message */
+}
+
+
+.logo-text-food {
+    color: #0A653A; /* Set the color to green */
+    font-size: 33px; /* Choose an appropriate font size */
+    text-align: center; /* Center the text below the logo */
+    margin-top: 15px; /* Add some space above the text */
+    font-family: Arial; /* Use Arial font */
+    font-weight: bold;
+}
+
+.small-icon-and-welcome h2 {
+    white-space: nowrap;
+}
+
+
+@media (min-width: 768px) { /* Adjust '768px' as needed for your layout */
+    .login-container {
+        flex-direction: row; /* Elements side by side */
+    }
+    .logo-pic {
+        margin-right: 50px; /* Adjust as needed */
+    }
 }
