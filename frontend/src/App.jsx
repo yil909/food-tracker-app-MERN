@@ -26,6 +26,7 @@ function App() {
       <Route path="/profile" element={<ProfilePage />}></Route>
       <Route path="/notices" element={<Notice />}></Route>
       <Route path='/' element={<Login />}></Route>
+      <Route path='/login' element={<Login />}></Route>
       <Route path='/register' element={<Register/>}></Route>
     </Routes>
   );
