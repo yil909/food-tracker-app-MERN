@@ -18,14 +18,14 @@ import Register from './components/pages/Login/Register.jsx'
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Login />}></Route>
+      <Route path="/dashboard" element={<Dashboard/>}></Route>
       <Route path="/guide" element={<Guide />}></Route>
       <Route path="/contact" element={<Contact />}></Route>
       <Route path="/inventory" element={<FoodItemDisplay />}></Route>
       <Route path="/reports" element={<ReportPage />}></Route>
       <Route path="/profile" element={<ProfilePage />}></Route>
       <Route path="/notices" element={<Notice />}></Route>
-      <Route path='/login' element={<Login />}></Route>
+      <Route path='/' element={<Login />}></Route>
       <Route path='/register' element={<Register/>}></Route>
     </Routes>
   );

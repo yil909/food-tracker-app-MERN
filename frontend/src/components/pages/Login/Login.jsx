@@ -29,7 +29,7 @@ function Login() {
 
       // 根据用户角色决定重定向的页面
       if (response.data.isAdmin === 1) {
-        navigate("/inventory");
+        navigate("/dashboard");
       } else {
         navigate("/inventory");
       }

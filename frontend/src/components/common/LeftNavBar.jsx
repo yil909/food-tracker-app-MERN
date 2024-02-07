@@ -56,7 +56,7 @@ const LeftNavBar = ({ children, isVisible }) => {
           {isAdmin && (
               <>
                 <li className="nav-item">
-                  <Link to="/" className="nav-link">
+                  <Link to="/dashboard" className="nav-link">
                     <HomeOutlined />
                     Dashboard
                   </Link>
@@ -122,7 +122,7 @@ const LeftNavBar = ({ children, isVisible }) => {
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/login" className="nav-link">
+            <Link to="/" className="nav-link">
               <LogoutOutlined />
               Log Out
             </Link>
