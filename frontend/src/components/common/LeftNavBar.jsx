@@ -15,6 +15,7 @@ import {
   SettingOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
+// import * as console from "console";
 
 const LeftNavBar = ({ children, isVisible }) => {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -39,6 +40,10 @@ const LeftNavBar = ({ children, isVisible }) => {
           console.log('Error fetching user data:', err);
         });
   }, []);
+
+  useEffect(() => {
+    console.log(isAdmin);
+  }, [isAdmin]);
 
   return (
       <nav className={navBarClass}>
